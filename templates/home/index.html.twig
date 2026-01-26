@@ -17,7 +17,7 @@
 				<div class="relative rounded-2xl border border-white/10 glass-card shadow-xl overflow-hidden">
 					<div class="overflow-hidden rounded-2xl">
 						<div
-							id="carousel" class="flex transition-transform duration-700 ease-in-out h-auto" style="transform: translateX(0%);">
+							id="carousel" class="flex h-auto" style="transform: translateX(0%);">
 							<!-- Slide 1 -->
 							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
 								<div>
@@ -62,16 +62,48 @@
 				<script>
 					document.addEventListener('DOMContentLoaded', () => {
 const carousel = document.getElementById('carousel');
+const container = document.getElementById('carousel-container');
 const dots = document.querySelectorAll('.carousel-events-dot');
-let currentIndex = 0;
-const totalSlides = dots.length;
+const originalSlides = Array.from(carousel.children);
+const totalOriginalSlides = originalSlides.length;
 
-function updateCarousel(index) {
+// Clone slides for infinite loop
+const firstClone = originalSlides[0].cloneNode(true);
+const lastClone = originalSlides[totalOriginalSlides - 1].cloneNode(true);
+
+carousel.appendChild(firstClone);
+carousel.insertBefore(lastClone, originalSlides[0]);
+
+let currentIndex = 1; // Start at the real first slide (index 1 because of prepended clone)
+let isTransitioning = false;
+
+// Initial position
 carousel.style.transform = `translateX(-${
+currentIndex * 100
+}%)`;
+
+function updateCarousel(index, useTransition = true) {
+if (useTransition) {
+carousel.style.transition = 'transform 1000ms cubic-bezier(0.4, 0, 0.2, 1)';
+isTransitioning = true;
+} else {
+carousel.style.transition = 'none';
+isTransitioning = false;
+} carousel.style.transform = `translateX(-${
 index * 100
 }%)`;
+
+// Map index back to correct dot index
+let dotIndex = index - 1;
+if (index === 0) 
+dotIndex = totalOriginalSlides - 1;
+
+if (index === totalOriginalSlides + 1) 
+dotIndex = 0;
+
+
 dots.forEach((dot, i) => {
-if (i === index) {
+if (i === dotIndex) {
 dot.classList.add('bg-custom-orange', 'w-10');
 dot.classList.remove('bg-white/50', 'w-3');
 } else {
@@ -81,21 +113,51 @@ dot.classList.add('bg-white/50', 'w-3');
 });
 }
 
+carousel.addEventListener('transitionend', () => {
+isTransitioning = false;
+// Seamless warp if at clones
+if (currentIndex === 0) {
+currentIndex = totalOriginalSlides;
+updateCarousel(currentIndex, false);
+} else if (currentIndex === totalOriginalSlides + 1) {
+currentIndex = 1;
+updateCarousel(currentIndex, false);
+}
+});
+
 dots.forEach((dot, index) => {
 dot.addEventListener('click', () => {
-currentIndex = index;
+if (isTransitioning) 
+return;
+
+currentIndex = index + 1;
 updateCarousel(currentIndex);
+startAutoPlay();
 });
 });
 
-// Auto-play
-setInterval(() => {
-currentIndex = (currentIndex + 1) % totalSlides;
-updateCarousel(currentIndex);
-}, 7000);
+let autoPlayInterval;
+function startAutoPlay() {
+clearInterval(autoPlayInterval);
+autoPlayInterval = setInterval(() => {
+if (isTransitioning) 
+return;
 
-// Initialize
-updateCarousel(0);
+currentIndex++;
+updateCarousel(currentIndex);
+}, 10000);
+}
+
+function stopAutoPlay() {
+clearInterval(autoPlayInterval);
+}
+
+container.addEventListener('mouseenter', stopAutoPlay);
+container.addEventListener('mouseleave', startAutoPlay);
+
+startAutoPlay();
+// Sync dots initial state
+updateCarousel(currentIndex, false);
 });
 
 // Mobile Menu Logic
