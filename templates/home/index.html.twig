@@ -17,7 +17,7 @@
 				<div class="relative rounded-2xl border border-white/10 glass-card shadow-xl overflow-hidden">
 					<div class="overflow-hidden rounded-2xl">
 						<div
-							id="carousel" class="flex transition-transform duration-500 ease-in-out h-auto" style="transform: translateX(0%);">
+							id="carousel" class="flex transition-transform duration-700 ease-in-out h-auto" style="transform: translateX(0%);">
 							<!-- Slide 1 -->
 							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
 								<div>
@@ -92,7 +92,7 @@ updateCarousel(currentIndex);
 setInterval(() => {
 currentIndex = (currentIndex + 1) % totalSlides;
 updateCarousel(currentIndex);
-}, 5000);
+}, 7000);
 
 // Initialize
 updateCarousel(0);
