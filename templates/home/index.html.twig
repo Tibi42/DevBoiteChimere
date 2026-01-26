@@ -3,528 +3,331 @@
 {% block title %}La Boîte à Chimère - Communauté de Jeux de Rôle et de Société{% endblock %}
 
 {% block body %}
-    <!-- Carousel -->
-    <div class="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden bg-custom-secondary mb-4" id="carousel-container">
-        <div id="carousel" class="flex transition-transform duration-500 ease-in-out h-full" style="transform: translateX(0%);">
-            <!-- Slide 1 -->
-            <div class="min-w-full h-full relative flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-cyan-900">
-                <div class="text-center z-10 px-6">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">Découvrez nos Jeux de Rôle</h2>
-                    <p class="text-lg md:text-xl text-gray-300">Plongez dans des univers fantastiques épiques</p>
-                </div>
-                <div class="absolute inset-0 opacity-20">
-                    <div class="text-9xl">🎲</div>
-                </div>
-            </div>
-            
-            <!-- Slide 2 -->
-            <div class="min-w-full h-full relative flex items-center justify-center bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900">
-                <div class="text-center z-10 px-6">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">Jeux de Société Modernes</h2>
-                    <p class="text-lg md:text-xl text-gray-300">Une collection impressionnante vous attend</p>
-                </div>
-                <div class="absolute inset-0 opacity-20">
-                    <div class="text-9xl">🎮</div>
-                </div>
-            </div>
-            
-            <!-- Slide 3 -->
-            <div class="min-w-full h-full relative flex items-center justify-center bg-gradient-to-br from-amber-900 via-orange-900 to-red-900">
-                <div class="text-center z-10 px-6">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">Grandeur Nature</h2>
-                    <p class="text-lg md:text-xl text-gray-300">Vivez des aventures inoubliables</p>
-                </div>
-                <div class="absolute inset-0 opacity-20">
-                    <div class="text-9xl">⚔️</div>
+    <!-- Carousel Prochain(s) événement(s) -->
+    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 pt-8 lg:pt-10 mb-16 lg:mb-20" id="carousel-container">
+        <div class="relative rounded-2xl border border-white/10 glass-card shadow-xl overflow-hidden">
+            <div class="overflow-hidden rounded-2xl">
+                <div id="carousel" class="flex transition-transform duration-400 ease-out h-auto" style="transform: translateX(0%);">
+                    <!-- Slide 1 -->
+                    <div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-custom-orange">Prochain événement</span>
+                            <h3 class="text-lg font-bold text-white mt-0.5">Senses Etch - Champs de Valoris</h3>
+                            <p class="text-sm text-gray-400 mt-1">25 JAN</p>
+                        </div>
+                        <a href="#" class="shrink-0 rounded-lg bg-custom-orange px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+                            S'INSCRIRE
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Navigation buttons -->
-        <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-custom-primary/80 hover:bg-custom-primary text-white p-3 rounded-full shadow-custom transition-all z-20">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-        </button>
-        <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-custom-primary/80 hover:bg-custom-primary text-white p-3 rounded-full shadow-custom transition-all z-20">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </button>
-        
-        <!-- Indicators -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-            <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all" data-slide="0"></button>
-            <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all" data-slide="1"></button>
-            <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all" data-slide="2"></button>
+        <div id="carousel-events-dots" class="flex justify-center items-center gap-3 py-4 mt-2">
+            <button type="button" class="carousel-events-dot h-4 w-4 rounded-full transition-all bg-custom-orange w-10" data-index="0" data-slide="0"></button>
         </div>
     </div>
 
     <!-- Header -->
-    <div class="container mx-auto px-4 md:px-6 lg:px-8 my-4">
-        <header class="bg-custom-primary/95 backdrop-blur-md border border-gray-700 text-white px-6 py-4 flex items-center justify-between z-50 shadow-custom-lg rounded-xl max-w-[1600px] mx-auto">
-        <div class="flex items-center gap-4">
-            <div class="flex items-center gap-3">
-                <!-- Logo avec chimère -->
-                <div class="relative w-16 h-16 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500 via-cyan-400 to-orange-500 rounded-lg transform rotate-45"></div>
-                    <div class="relative w-12 h-12 bg-gradient-to-br from-cyan-400 to-orange-500 rounded-lg flex items-center justify-center transform -rotate-45">
-                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 2.18l6 3v8.82l-6 3V4.18z"/>
-                        </svg>
-                    </div>
+    <header class="relative z-10 mt-16 lg:mt-24 mb-12 lg:mb-20">
+        <div class="header-container mx-auto max-w-[1240px] px-7 py-3 bg-[#1a1a1e] rounded-xl shadow-2xl border border-white/5 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
+                <div class="h-10 w-10 shrink-0">
+                    <svg class="h-full w-full" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M20 2L36 12v16L20 38L4 28V12L20 2z" stroke="url(#logo)" stroke-width="1.5" fill="none"/>
+                        <path d="M20 8l10 6v8l-10 6-10-6v-8l10-6z" stroke="url(#logo2)" stroke-width="1" fill="none"/>
+                        <defs>
+                            <linearGradient id="logo" x1="4" y1="2" x2="36" y2="38" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
+                            </linearGradient>
+                            <linearGradient id="logo2" x1="10" y1="8" x2="30" y2="32" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
                 </div>
-                <div>
-                    <div class="text-white text-xs font-semibold tracking-wide">LA BOÎTE À</div>
-                    <div class="text-custom-orange text-xl font-bold tracking-tight">CHIMÈRE</div>
+                <div class="flex flex-col leading-[0.9]">
+                    <span class="text-base font-extrabold uppercase tracking-tight text-white leading-none">LA BOÎTE</span>
+                    <span class="text-base font-extrabold uppercase tracking-tight text-white leading-none">À CHIMÈRE</span>
                 </div>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-10">
+                <a href="#jds" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">JDS</a>
+                <a href="#jdr" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">JDR</a>
+                <a href="#gn" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">GN</a>
+                <a href="#societe" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">SOCIÉTÉ</a>
+                <a href="#forum" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">FORUM</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="hidden sm:inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20 z-[75]">
+                    REJOIGNEZ L'AVENTURE
+                </a>
             </div>
         </div>
-        <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-            <a href="#" class="hover:text-custom-orange transition-colors">JDS</a>
-            <a href="#" class="hover:text-custom-orange transition-colors">JDR</a>
-            <a href="#" class="hover:text-custom-orange transition-colors">JDS</a>
-            <a href="#" class="hover:text-custom-orange transition-colors">Société</a>
-            <a href="#" class="hover:text-custom-orange transition-colors">FORUM</a>
-        </nav>
-        <button class="bg-custom-orange hover:opacity-90 text-white px-6 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-custom">
-            REJOIGNEZ L'AVENTURE
-        </button>
-        </header>
+    </header>
+
+    <!-- Hero Section avec image de fond -->
+    <section class="relative w-full h-[500px] lg:h-[600px] overflow-hidden mb-12">
+        <img src="{{ asset('images/hero/hero.jpg') }}" alt="Hero" class="absolute inset-0 h-full w-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
+    </section>
+
+    <!-- Div séparateur -->
+    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 py-12 lg:py-20">
+        <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative bg-custom-primary text-white">
-        <div class="relative h-[650px] overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
-                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 20% 50%, rgba(229, 115, 75, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);"></div>
-            </div>
-            <div class="relative z-10 container mx-auto px-6 h-full flex items-center">
-                <div class="max-w-2xl">
-                    <h1 class="text-6xl font-bold mb-6 leading-tight tracking-tight">
-                        Bienvenue dans l'univers des <span class="text-custom-orange">Chimères</span>
-                    </h1>
-                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
-                        Rejoignez une communauté passionnée de jeux de rôle, jeux de société et grandeur nature. 
-                        Partagez vos aventures, découvrez de nouveaux mondes et créez des souvenirs inoubliables.
-                    </p>
-                    <button class="bg-custom-orange hover:opacity-90 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-custom-lg">
-                        Découvrir nos mondes
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Contenu principal -->
+    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 pt-20 lg:pt-32">
+        <div class="grid gap-12 lg:gap-16 lg:grid-cols-12 items-start">
+            <!-- Section NOS MONDES (Full width) -->
+            <section class="lg:col-span-12 order-2 lg:order-1 mb-12">
+                <h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-10">NOS MONDES</h2>
+                <div class="grid gap-6 sm:grid-cols-3">
+                    <!-- Carte JDR -->
+                    <a href="#jdr" id="jdr" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <img src="{{ asset('images/cards/jdr.jpg') }}" alt="Jeux de Rôle" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 image-overlay"></div>
+                        <div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
+                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45-2.6 5.2-4.3-2.15V4.18zM5.1 7.63L12 4.18v8.55l-4.3 2.15-2.6-5.2zm0 8.74l2.6-5.2 4.3 2.15v4.32L5.1 16.37zm12.8 0l-6.9 3.45v-4.32l4.3-2.15 2.6 5.2z"/></svg>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-sm font-bold text-white group-hover:text-custom-orange transition-colors">JDR (Jeux de Rôle)</h3>
+                        </div>
+                    </a>
 
-    <!-- Section NOS MONDES -->
-    <section class="bg-custom-secondary py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-5xl font-bold text-center text-white mb-16 tracking-tight">NOS MONDES</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Carte JDR -->
-                <div class="bg-custom-tertiary rounded-xl overflow-hidden shadow-custom-lg hover:shadow-custom-lg hover:scale-[1.02] transition-all duration-300">
-                    <div class="relative h-72 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900">
-                        <div class="absolute top-4 left-4 w-14 h-14 bg-custom-orange rounded-lg flex items-center justify-center shadow-custom">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                            </svg>
+                    <!-- Carte JDS -->
+                    <a href="#jds" id="jds" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <img src="{{ asset('images/cards/jds.jpg') }}" alt="Jeux de Société" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 image-overlay"></div>
+                        <div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
+                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1V9a2 2 0 0 1 2-2h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
                         </div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="text-white text-center">
-                                <div class="text-7xl mb-3">🎲</div>
-                                <div class="text-sm opacity-80 font-medium">Jeux de Rôle</div>
-                            </div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-sm font-bold text-white group-hover:text-custom-orange transition-colors">JDS (Jeux de Société)</h3>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2">JDR (Jeux de Rôle)</h3>
-                        <p class="text-gray-400 leading-relaxed">Plongez dans des univers fantastiques et incarnez des héros légendaires.</p>
-                    </div>
-                </div>
+                    </a>
 
-                <!-- Carte JDS -->
-                <div class="bg-custom-tertiary rounded-xl overflow-hidden shadow-custom-lg hover:shadow-custom-lg hover:scale-[1.02] transition-all duration-300">
-                    <div class="relative h-72 bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900">
-                        <div class="absolute top-4 left-4 w-14 h-14 bg-custom-orange rounded-lg flex items-center justify-center shadow-custom">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-                            </svg>
+                    <!-- Carte GN -->
+                    <a href="#gn" id="gn" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <img src="{{ asset('images/cards/gn.jpg') }}" alt="Grandeur Nature" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 image-overlay"></div>
+                        <div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
+                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
                         </div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="text-white text-center">
-                                <div class="text-7xl mb-3">🎮</div>
-                                <div class="text-sm opacity-80 font-medium">Jeux de Société</div>
-                            </div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-sm font-bold text-white group-hover:text-custom-orange transition-colors">GN (Grandeur Nature)</h3>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2">JDS (Jeux de Société)</h3>
-                        <p class="text-gray-400 leading-relaxed">Découvrez une collection impressionnante de jeux de société modernes.</p>
-                    </div>
+                    </a>
                 </div>
+            </section>
 
-                <!-- Carte GN -->
-                <div class="bg-custom-tertiary rounded-xl overflow-hidden shadow-custom-lg hover:shadow-custom-lg hover:scale-[1.02] transition-all duration-300">
-                    <div class="relative h-72 bg-gradient-to-br from-amber-900 via-orange-800 to-red-900">
-                        <div class="absolute top-4 left-4 w-14 h-14 bg-custom-orange rounded-lg flex items-center justify-center shadow-custom">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                        </div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="text-white text-center">
-                                <div class="text-7xl mb-3">⚔️</div>
-                                <div class="text-sm opacity-80 font-medium">Grandeur Nature</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2">GN (Grandeur Nature)</h3>
-                        <p class="text-gray-400 leading-relaxed">Vivez des aventures épiques en grandeur nature avec costumes et décors.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section ÉVÉNEMENTS et DERNIÈRES CHIMÈRES -->
-    <section class="bg-custom-primary py-20">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Colonne gauche - ÉVÉNEMENTS À VENIR -->
+            <!-- Section ÉVÉNEMENTS À VENIR (Sidebar) -->
+            <section class="lg:col-span-12 xl:col-span-4 order-1 lg:order-2 space-y-10">
                 <div>
-                    <h2 class="text-4xl font-bold text-white mb-8 tracking-tight">ÉVÉNEMENTS À VENIR</h2>
-                    <div class="bg-custom-tertiary rounded-xl p-6 mb-6 shadow-custom-lg">
-                        <div class="flex items-start gap-4">
-                            <div class="bg-custom-secondary rounded-xl p-5 min-w-[130px] text-center border border-gray-700">
-                                <div class="text-3xl font-bold text-custom-orange mb-1">25</div>
-                                <div class="text-sm text-gray-400 font-semibold">JAN</div>
-                            </div>
+                    <h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-8">ÉVÉNEMENTS À VENIR</h2>
+                    <div class="bg-[#0f0f12] p-5 lg:p-6 rounded-xl border border-white/10 relative shadow-2xl glass-card">
+                        <div class="flex gap-4 mb-6">
                             <div class="flex-1">
-                                <h3 class="text-white font-bold text-lg mb-2">Senses Eth - Champiges de Veloris</h3>
-                                <p class="text-gray-400 text-sm mb-4 leading-relaxed">Un événement épique vous attend ! Rejoignez-nous pour une aventure inoubliable.</p>
-                                <button class="bg-custom-orange hover:opacity-90 text-white px-6 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-custom">
-                                    S'INSCRIRE
-                                </button>
+                                <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold uppercase tracking-tighter text-gray-400 mb-4">
+                                    <span>Lu</span>
+                                    <span>Ma</span>
+                                    <span>Me</span>
+                                    <span>Je</span>
+                                    <span>Ve</span>
+                                    <span>Sa</span>
+                                    <span class="text-cyan-400">Di</span>
+                                    {% set days = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31] %}
+                                    {% for day in days %}
+                                        {% if day %}
+                                            {% if day == 25 %}
+                                                <span class="py-2 rounded bg-custom-orange text-white shadow-lg shadow-custom-orange/40">25</span>
+                                            {% else %}
+                                                <span class="py-2">{{ day }}</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="py-2"></span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-custom-tertiary rounded-xl p-5 shadow-custom">
-                        <div class="grid grid-cols-7 gap-1.5 text-center text-xs mb-2">
-                            <div class="text-gray-500 font-bold py-2">L</div>
-                            <div class="text-gray-500 font-bold py-2">M</div>
-                            <div class="text-gray-500 font-bold py-2">M</div>
-                            <div class="text-gray-500 font-bold py-2">J</div>
-                            <div class="text-gray-500 font-bold py-2">V</div>
-                            <div class="text-gray-500 font-bold py-2">S</div>
-                            <div class="text-gray-500 font-bold py-2">D</div>
-                        </div>
-                        <div class="grid grid-cols-7 gap-1.5 text-center text-xs">
-                            {% set days = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31] %}
-                            {% for day in days %}
-                                {% if day %}
-                                    {% if day == 25 %}
-                                        <div class="py-2 bg-custom-orange text-white rounded font-bold">{{ day }}</div>
-                                    {% elseif day == 20 or day == 21 %}
-                                        <div class="py-2 text-custom-orange font-semibold">{{ day }}</div>
-                                    {% else %}
-                                        <div class="py-2 text-gray-400">{{ day }}</div>
-                                    {% endif %}
-                                {% else %}
-                                    <div class="py-2"></div>
-                                {% endif %}
-                            {% endfor %}
+                        <div class="rounded-xl bg-black/40 p-4 border border-white/5">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">BOITE</span>
+                                <span class="font-bold text-white text-base">25 JAN</span>
+                            </div>
+                            <h4 class="font-bold text-white text-xs mb-3 leading-snug">Senses Etch - Champs de Valoris</h4>
+                            <a href="#" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-white transition-all hover:bg-orange-600">S'INSCRIRE</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Colonne droite - DERNIÈRES CHIMÈRES -->
-                <div>
-                    <h2 class="text-4xl font-bold text-white mb-8 tracking-tight">DERNIÈRES CHIMÈRES</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <!-- Carte Article 1 -->
-                        <div class="bg-custom-tertiary rounded-xl overflow-hidden hover:shadow-custom-lg transition-all duration-300 hover:scale-[1.02]">
-                            <div class="relative h-40 bg-gradient-to-br from-red-900 via-orange-900 to-amber-900">
-                                <div class="absolute top-3 right-3 bg-custom-orange text-white text-xs px-2.5 py-1.5 rounded-md font-bold shadow-custom">
-                                    0/3
-                                </div>
+                <!-- FILTRER LES ARTICLES -->
+                <div class="rounded-xl border border-white/10 glass-card p-5">
+                    <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-white/60 mb-4">FILTRER LES ARTICLES</h3>
+                    <div class="space-y-3">
+                        <label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
+                            <span class="text-xs font-medium text-white/70">Fantasy</span>
+                            <div class="relative">
+                                <input type="checkbox" class="sr-only toggle-input" checked>
+                                <span class="toggle-track toggle-violet">
+                                    <span class="toggle-knob"></span>
+                                </span>
                             </div>
-                            <div class="p-4">
-                                <h3 class="text-white font-bold text-sm leading-tight">COMPTE-RENDU : L'ASSAUT DES DRAGONS</h3>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
+                            <span class="text-xs font-medium text-white/70">Science-Fiction</span>
+                            <div class="relative">
+                                <input type="checkbox" class="sr-only toggle-input" checked>
+                                <span class="toggle-track toggle-cyan">
+                                    <span class="toggle-knob"></span>
+                                </span>
                             </div>
-                        </div>
-
-                        <!-- Carte Article 2 -->
-                        <div class="bg-custom-tertiary rounded-xl overflow-hidden hover:shadow-custom-lg transition-all duration-300 hover:scale-[1.02]">
-                            <div class="relative h-40 bg-gradient-to-br from-blue-900 via-cyan-900 to-teal-900">
-                                <div class="absolute top-3 right-3 bg-custom-orange text-white text-xs px-2.5 py-1.5 rounded-md font-bold shadow-custom">
-                                    0/0
-                                </div>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
+                            <span class="text-xs font-medium text-white/70">Horreur</span>
+                            <div class="relative">
+                                <input type="checkbox" class="sr-only toggle-input" checked>
+                                <span class="toggle-track toggle-cyan">
+                                    <span class="toggle-knob"></span>
+                                </span>
                             </div>
-                            <div class="p-4">
-                                <h3 class="text-white font-bold text-sm leading-tight">REPORTAGE PHOTO : GN DU CRÉPUSCULE</h3>
-                            </div>
-                        </div>
-
-                        <!-- Carte Article 3 -->
-                        <div class="bg-custom-tertiary rounded-xl overflow-hidden hover:shadow-custom-lg transition-all duration-300 hover:scale-[1.02]">
-                            <div class="relative h-40 bg-gradient-to-br from-purple-900 via-pink-900 to-rose-900">
-                                <div class="absolute top-3 right-3 bg-custom-orange text-white text-xs px-2.5 py-1.5 rounded-md font-bold shadow-custom">
-                                    0/3
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-white font-bold text-sm leading-tight">GUIDE : STRATÉGIES AVANCÉES</h3>
-                            </div>
-                        </div>
-
-                        <!-- Carte Article 4 -->
-                        <div class="bg-custom-tertiary rounded-xl overflow-hidden hover:shadow-custom-lg transition-all duration-300 hover:scale-[1.02]">
-                            <div class="relative h-40 bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900">
-                                <div class="absolute top-3 right-3 bg-custom-orange text-white text-xs px-2.5 py-1.5 rounded-md font-bold shadow-custom">
-                                    0/0
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-white font-bold text-sm leading-tight">INTERVIEW : CRÉATEUR DE MONDES</h3>
-                            </div>
-                        </div>
+                        </label>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Section DERNIÈRES CHIMÈRES (Main Content) -->
+            <section class="lg:col-span-12 xl:col-span-8 order-3 lg:order-3 space-y-8">
+                <h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-8">DERNIÈRES CHIMÈRES</h2>
+                <div class="grid gap-6 md:grid-cols-2">
+                    <!-- Carte Article 1 -->
+                    <a href="#" class="group relative overflow-hidden rounded-xl bg-custom-tertiary shadow-lg" style="min-height: 220px;">
+                        <img src="{{ asset('images/articles/article-1.jpg') }}" alt="Compte-rendu" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 image-overlay"></div>
+                        <span class="absolute right-3 top-3 bg-custom-orange px-2 py-1 rounded text-[9px] font-bold text-white uppercase tracking-widest shadow-lg">0/3</span>
+                        <div class="absolute bottom-4 left-4 right-4 z-10">
+                            <h3 class="text-sm font-bold leading-tight text-white group-hover:text-cyan-400 group-hover:underline decoration-cyan-400/40 underline-offset-4 transition-all">COMPTE-RENDU : L'ASSAUT DES DRAGONS</h3>
+                        </div>
+                    </a>
+
+                    <!-- Carte Article 2 -->
+                    <a href="#" class="group relative overflow-hidden rounded-xl bg-custom-tertiary shadow-lg" style="min-height: 220px;">
+                        <img src="{{ asset('images/articles/article-2.jpg') }}" alt="Reportage" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 image-overlay"></div>
+                        <span class="absolute right-3 top-3 bg-custom-orange px-2 py-1 rounded text-[9px] font-bold text-white uppercase tracking-widest shadow-lg">0/0</span>
+                        <div class="absolute bottom-4 left-4 right-4 z-10">
+                            <h3 class="text-sm font-bold leading-tight text-white group-hover:text-cyan-400 group-hover:underline decoration-cyan-400/40 underline-offset-4 transition-all">REPORTAGE PHOTO : GN DU CRÉPUSCULE</h3>
+                        </div>
+                    </a>
+
+                    <!-- Carte Article 3 -->
+                    <a href="#" class="group relative overflow-hidden rounded-xl bg-custom-tertiary shadow-lg" style="min-height: 220px;">
+                        <img src="{{ asset('images/articles/article-3.png') }}" alt="Guide" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 image-overlay"></div>
+                        <span class="absolute right-3 top-3 bg-custom-orange px-2 py-1 rounded text-[9px] font-bold text-white uppercase tracking-widest shadow-lg">0/3</span>
+                        <div class="absolute bottom-4 left-4 right-4 z-10">
+                            <h3 class="text-sm font-bold leading-tight text-white group-hover:text-cyan-400 group-hover:underline decoration-cyan-400/40 underline-offset-4 transition-all">GUIDE : PEINDRE SES FIGURINES</h3>
+                        </div>
+                    </a>
+
+                    <!-- Carte Article 4 -->
+                    <a href="#" class="group relative overflow-hidden rounded-xl bg-custom-tertiary shadow-lg" style="min-height: 220px;">
+                        <img src="{{ asset('images/articles/article-4.png') }}" alt="Nouveauté" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 image-overlay"></div>
+                        <span class="absolute right-3 top-3 bg-custom-orange px-2 py-1 rounded text-[9px] font-bold text-white uppercase tracking-widest shadow-lg">NEW</span>
+                        <div class="absolute bottom-4 left-4 right-4 z-10">
+                            <h3 class="text-sm font-bold leading-tight text-white group-hover:text-cyan-400 group-hover:underline decoration-cyan-400/40 underline-offset-4 transition-all">NOUVEAUTÉ : LES SORTIES DE FÉVRIER</h3>
+                        </div>
+                    </a>
+                </div>
+            </section>
         </div>
-    </section>
-
-    <!-- Section FILTRER LES ARTICLES -->
-    <section class="bg-custom-secondary py-16">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-white mb-8 tracking-tight">FILTRER LES ARTICLES</h2>
-            <div class="flex flex-wrap gap-8">
-                <div class="flex items-center gap-4">
-                    <span class="text-white font-semibold text-lg">Fantasy</span>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" class="sr-only peer" checked>
-                        <div class="w-12 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600 shadow-inner"></div>
-                    </label>
-                </div>
-                <div class="flex items-center gap-4">
-                    <span class="text-white font-semibold text-lg">Science-Fiction</span>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" class="sr-only peer">
-                        <div class="w-12 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 shadow-inner"></div>
-                    </label>
-                </div>
-                <div class="flex items-center gap-4">
-                    <span class="text-white font-semibold text-lg">Horreur</span>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" class="sr-only peer" checked>
-                        <div class="w-12 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600 shadow-inner"></div>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Section VIE DU FORUM -->
-    <section class="bg-custom-primary py-20 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(229, 115, 75, 0.03) 10px, rgba(229, 115, 75, 0.03) 20px);"></div>
-        </div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-4xl font-bold text-white tracking-tight">VIE DU FORUM</h2>
-                <button class="bg-custom-orange hover:opacity-90 text-white px-6 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-custom">
-                    REJOINDRE LE FORUM
-                </button>
+    <section class="px-6 lg:px-10 py-24 bg-custom-primary border-t border-white/5 relative z-10">
+        <div class="mx-auto max-w-[1240px]">
+            <div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                <h2 class="text-base font-bold uppercase tracking-[0.2em] text-white">VIE DU FORUM</h2>
+                <a href="#" class="shrink-0 rounded bg-custom-orange px-6 py-2 text-[10px] font-extrabold uppercase tracking-widest text-white transition-all hover:bg-orange-600">VOIR LE FORUM</a>
             </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Discussion 1 -->
-                <div class="bg-custom-tertiary rounded-xl p-6 hover:shadow-custom-lg transition-all duration-300 hover:scale-[1.02]">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-custom"></div>
-                        <div class="flex-1">
-                            <h3 class="text-white font-bold mb-1">Stratégies pour Gloomhaven :</h3>
-                            <p class="text-gray-400 text-xs">Il y a 33 min.</p>
-                        </div>
+            <div class="grid gap-4 md:grid-cols-3">
+                <a href="#" class="group flex items-center gap-4 rounded-xl bg-custom-tertiary p-4 border border-white/5 transition-all hover:bg-custom-secondary">
+                    <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg">
+                        <img src="{{ asset('images/forum/avatar-1.jpg') }}" alt="Avatar" class="h-full w-full object-cover">
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">Découvrez les meilleures stratégies pour maîtriser ce jeu complexe...</p>
-                </div>
-
-                <!-- Discussion 2 -->
-                <div class="bg-custom-tertiary rounded-xl p-6 hover:shadow-custom-lg transition-all duration-300 hover:scale-[1.02]">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full shadow-custom"></div>
-                        <div class="flex-1">
-                            <h3 class="text-white font-bold mb-1">Nouvelle campagne D&D :</h3>
-                            <p class="text-gray-400 text-xs">Il y a 30 min.</p>
-                        </div>
+                    <div class="min-w-0 flex-1">
+                        <h3 class="truncate font-bold text-xs text-white group-hover:text-cyan-400 transition-colors">Stratégies pour Gloomhaven :</h3>
+                        <p class="text-[10px] text-gray-400 mt-1">Il y a 33 min.</p>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">Rejoignez notre nouvelle campagne épique dans les Royaumes Oubliés...</p>
-                </div>
-
-                <!-- Discussion 3 -->
-                <div class="bg-custom-tertiary rounded-xl p-6 hover:shadow-custom-lg transition-all duration-300 hover:scale-[1.02]">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-500 rounded-full shadow-custom"></div>
-                        <div class="flex-1">
-                            <h3 class="text-white font-bold mb-1">Organisation GN été 2026 :</h3>
-                            <p class="text-gray-400 text-xs">Il y a 1h.</p>
-                        </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 rounded-xl bg-custom-tertiary p-4 border border-white/5 transition-all hover:bg-custom-secondary">
+                    <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg">
+                        <img src="{{ asset('images/forum/avatar-2.jpg') }}" alt="Avatar" class="h-full w-full object-cover">
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">Préparez-vous pour notre grand événement grandeur nature de l'été...</p>
-                </div>
+                    <div class="min-w-0 flex-1">
+                        <h3 class="truncate font-bold text-xs text-white group-hover:text-cyan-400 transition-colors">Nouvelle campagne D&D :</h3>
+                        <p class="text-[10px] text-gray-400 mt-1">Il y a 30 min.</p>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 rounded-xl bg-custom-tertiary p-4 border border-white/5 transition-all hover:bg-custom-secondary">
+                    <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg">
+                        <img src="{{ asset('images/forum/avatar-3.jpg') }}" alt="Avatar" class="h-full w-full object-cover">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <h3 class="truncate font-bold text-xs text-white group-hover:text-cyan-400 transition-colors">Organisation GN été 2026 :</h3>
+                        <p class="text-[10px] text-gray-400 mt-1">Il y a 1h.</p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-custom-primary border-t border-gray-800 py-16">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-12">
-                <!-- Colonne 1 - COMMUNAUTÉ & RESSOURCES -->
-                <div>
-                    <h3 class="text-white font-bold text-xl mb-6 tracking-tight">COMMUNAUTÉ & RESSOURCES</h3>
-                    <div class="mb-4">
-                        <input type="email" placeholder="Pour s'inscrire" class="w-full bg-custom-tertiary text-white px-4 py-3 rounded-lg border border-gray-700 focus:outline-none focus:border-custom-orange transition-colors placeholder-gray-500">
-                    </div>
-                    <button class="bg-custom-orange hover:opacity-90 text-white px-6 py-2.5 rounded-lg font-semibold transition-all shadow-custom">
-                        S'inscrire
-                    </button>
+    <footer class="mt-20 border-t border-white/5 bg-custom-tertiary py-16 relative z-10">
+        <div class="mx-auto grid max-w-[1240px] gap-12 px-6 md:grid-cols-4">
+            <div class="md:col-span-1">
+                <h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-white">COMMUNAUTÉ & RESSOURCES</h3>
+                <p class="mb-4 text-sm text-gray-400">Newsletter</p>
+                <form class="flex gap-2" action="#" method="post">
+                    <input type="email" name="email" placeholder="Pour s'inscrire..." class="w-full rounded-lg border border-white/10 bg-custom-secondary px-4 py-3 text-sm text-white focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange transition-all">
+                </form>
+            </div>
+            <div>
+                <h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-white">SOCIALS</h3>
+                <div class="flex gap-4">
+                    <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-white/60 transition-all hover:bg-cyan-500 hover:text-white hover:scale-110" aria-label="Twitter">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-white/60 transition-all hover:bg-purple-600 hover:text-white hover:scale-110" aria-label="Instagram">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-white/60 transition-all hover:bg-red-600 hover:text-white hover:scale-110" aria-label="YouTube">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
                 </div>
-
-                <!-- Colonne 2 - SOCIALS -->
-                <div>
-                    <h3 class="text-white font-bold text-xl mb-6 tracking-tight">SOCIALS</h3>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-14 h-14 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center transition-all shadow-custom hover:scale-110">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-14 h-14 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all shadow-custom hover:scale-110">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-14 h-14 bg-pink-600 hover:bg-pink-700 rounded-full flex items-center justify-center transition-all shadow-custom hover:scale-110">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Colonne 3 - PAGES IMPORTANTES -->
-                <div>
-                    <h3 class="text-white font-bold text-xl mb-6 tracking-tight">PAGES IMPORTANTES</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-custom-orange transition-colors">Nouvelles</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-custom-orange transition-colors">Jeu</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-custom-orange transition-colors">Sociétés</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-custom-orange transition-colors">Pages importantes</a></li>
+            </div>
+            <div class="md:col-span-2">
+                <h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-white">PAGES IMPORTANTES</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Nouvelles</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Qui sommes-nous</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Sociétés</a></li>
+                    </ul>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Événements</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+        <div class="mx-auto mt-16 max-w-[1240px] border-t border-white/5 px-6 pt-8 text-center text-xs text-gray-400">
+            <p>&copy; {{ "now"|date("Y") }} LA BOÎTE À CHIMÈRE. Tous droits réservés.</p>
+        </div>
     </footer>
-
-    <script>
-        // Carousel functionality - Wait for DOM to be ready
-        document.addEventListener('DOMContentLoaded', function() {
-            let currentSlide = 0;
-            const carousel = document.getElementById('carousel');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const indicators = document.querySelectorAll('.carousel-indicator');
-            const slides = document.querySelectorAll('#carousel > div');
-            const totalSlides = slides.length;
-            let autoPlayInterval = null;
-
-            if (!carousel || !prevBtn || !nextBtn || totalSlides === 0) {
-                console.error('Carousel elements not found');
-                return;
-            }
-
-            function updateCarousel() {
-                if (carousel) {
-                    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-                }
-                
-                indicators.forEach((indicator, index) => {
-                    if (indicator) {
-                        if (index === currentSlide) {
-                            indicator.classList.remove('bg-white/50', 'w-3');
-                            indicator.classList.add('bg-white', 'w-8');
-                        } else {
-                            indicator.classList.remove('bg-white', 'w-8');
-                            indicator.classList.add('bg-white/50', 'w-3');
-                        }
-                    }
-                });
-            }
-
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateCarousel();
-            }
-
-            function prevSlide() {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateCarousel();
-            }
-
-            function goToSlide(index) {
-                if (index >= 0 && index < totalSlides) {
-                    currentSlide = index;
-                    updateCarousel();
-                }
-            }
-
-            function startAutoPlay() {
-                if (autoPlayInterval) {
-                    clearInterval(autoPlayInterval);
-                }
-                autoPlayInterval = setInterval(nextSlide, 5000);
-            }
-
-            function stopAutoPlay() {
-                if (autoPlayInterval) {
-                    clearInterval(autoPlayInterval);
-                    autoPlayInterval = null;
-                }
-            }
-
-            // Event listeners
-            nextBtn.addEventListener('click', () => {
-                nextSlide();
-                stopAutoPlay();
-                startAutoPlay();
-            });
-            
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                stopAutoPlay();
-                startAutoPlay();
-            });
-            
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    goToSlide(index);
-                    stopAutoPlay();
-                    startAutoPlay();
-                });
-            });
-
-            // Pause on hover
-            const carouselContainer = carousel.closest('.relative');
-            if (carouselContainer) {
-                carouselContainer.addEventListener('mouseenter', stopAutoPlay);
-                carouselContainer.addEventListener('mouseleave', startAutoPlay);
-            }
-
-            // Initialize
-            updateCarousel();
-            startAutoPlay();
-        });
-    </script>
 {% endblock %}

@@ -2,10 +2,10 @@
 
 /* Configuration Tailwind v4 avec @theme */
 @theme {
-    --color-custom-primary: #141416;
-    --color-custom-secondary: #1E1E20;
-    --color-custom-tertiary: #2A2C30;
-    --color-custom-orange: #E5734B;
+    --color-custom-primary: #121214;
+    --color-custom-secondary: #1c1c1f;
+    --color-custom-tertiary: #26262b;
+    --color-custom-orange: #f8742c;
     
     --shadow-custom: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --shadow-custom-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
@@ -13,14 +13,14 @@
 
 /* Couleurs personnalisées selon le design */
 :root {
-    --bg-primary: #141416;
-    --bg-secondary: #1E1E20;
-    --bg-tertiary: #2A2C30;
-    --orange-accent: #E5734B;
-    --text-primary: #FFFFFF;
-    --text-secondary: #B0B0B0;
-    --purple-accent: #8B5CF6;
-    --cyan-accent: #06B6D4;
+    --bg-primary: #121214;
+    --bg-secondary: #1c1c1f;
+    --bg-tertiary: #26262b;
+    --orange-accent: #f8742c;
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --purple-accent: #8b5cf6;
+    --cyan-accent: #14b8a6;
 }
 
 body {
@@ -77,4 +77,118 @@ html {
 
 .shadow-custom-lg {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Header container style */
+.header-container {
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+    .header-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+    }
+}
+
+/* Toggles "Filtrer les articles" */
+.toggle-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.toggle-track {
+    position: relative;
+    display: inline-flex;
+    height: 1.5rem;
+    width: 2.75rem;
+    cursor: pointer;
+    border-radius: 9999px;
+    background-color: #374151;
+    transition-property: background-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+.toggle-input:checked + .toggle-track {
+    background-color: var(--cyan-accent);
+}
+
+.toggle-input:checked + .toggle-track.toggle-violet {
+    background-color: var(--purple-accent);
+}
+
+/* Toggle pour Science-Fiction - cyan */
+.toggle-input:checked + .toggle-track.toggle-cyan {
+    background-color: var(--cyan-accent);
+}
+
+.toggle-knob {
+    pointer-events: none;
+    display: inline-block;
+    height: 1.25rem;
+    width: 1.25rem;
+    transform: translateY(0.125rem);
+    border-radius: 9999px;
+    background-color: white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+    transform: translateX(0.125rem) translateY(0.125rem);
+}
+
+.toggle-input:checked + .toggle-track .toggle-knob {
+    transform: translateX(1.25rem) translateY(0.125rem);
+}
+
+/* Glassmorphism */
+.glass {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glassmorphism pour les cartes et sections */
+.glass-card {
+    background-color: rgba(26, 26, 30, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Amélioration des cartes avec images */
+.card-with-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-with-image img {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-with-image:hover img {
+    transform: scale(1.1);
+}
+
+/* Amélioration des overlays d'images */
+.image-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+}
+
+/* Amélioration des badges orange */
+.badge-orange {
+    background-color: var(--orange-accent);
+    box-shadow: 0 4px 6px -1px rgba(248, 116, 44, 0.3);
 }
