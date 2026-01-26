@@ -192,3 +192,38 @@ html {
     background-color: var(--orange-accent);
     box-shadow: 0 4px 6px -1px rgba(248, 116, 44, 0.3);
 }
+
+/* Animations de révélation (Reveal) */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delay classes */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* Amélioration des cartes au survol - Effet Premium */
+.card-premium {
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    border-color: rgba(248, 116, 44, 0.3);
+}
+
+.card-premium:hover img {
+    transform: scale(1.08);
+    filter: brightness(1.1);
+}
