@@ -213,7 +213,7 @@
 				</div>
 			</section>
 			<!-- Section ÉVÉNEMENTS À VENIR (Sidebar - Desktop) -->
-			<aside class="lg:col-span-4 order-4 lg:order-2 space-y-10">
+			<aside class="lg:col-span-4 order-4 lg:order-1 space-y-10">
 				<div class="hidden lg:block">
 					<h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-8">ÉVÉNEMENTS À VENIR</h2>
 					<article class="bg-[#0f0f12] p-5 lg:p-6 rounded-xl border border-white/10 relative shadow-2xl glass-card">
@@ -253,43 +253,71 @@
 					</article>
 				</div>
 
-				<!-- FILTRER LES ARTICLES -->
-				<section class="rounded-xl border border-white/10 glass-card p-5" aria-labelledby="filter-title">
-					<h3 id="filter-title" class="text-xs font-bold uppercase tracking-[0.2em] text-white/60 mb-4">FILTRER LES ARTICLES</h3>
-					<div class="space-y-3">
-						<label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
-							<span class="text-xs font-medium text-white/70">Fantasy</span>
-							<div class="relative">
-								<input type="checkbox" class="sr-only toggle-input" checked>
-								<span class="toggle-track toggle-violet">
-									<span class="toggle-knob"></span>
-								</span>
-							</div>
-						</label>
-						<label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
-							<span class="text-xs font-medium text-white/70">Science-Fiction</span>
-							<div class="relative">
-								<input type="checkbox" class="sr-only toggle-input" checked>
-								<span class="toggle-track toggle-cyan">
-									<span class="toggle-knob"></span>
-								</span>
-							</div>
-						</label>
-						<label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
-							<span class="text-xs font-medium text-white/70">Horreur</span>
-							<div class="relative">
-								<input type="checkbox" class="sr-only toggle-input" checked>
-								<span class="toggle-track toggle-cyan">
-									<span class="toggle-knob"></span>
-								</span>
-							</div>
-						</label>
-					</div>
-				</section>
+				<div
+					class="grid grid-cols-1 gap-6 lg:gap-4">
+					<!-- FILTRER LES ARTICLES -->
+					<section class="rounded-xl border border-white/10 glass-card p-5" aria-labelledby="filter-title">
+						<h3 id="filter-title" class="text-xs font-bold uppercase tracking-[0.2em] text-white/60 mb-4">FILTRER LES ARTICLES</h3>
+						<div class="space-y-3">
+							<label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
+								<span class="text-xs font-medium text-white/70">Fantasy</span>
+								<div class="relative">
+									<input type="checkbox" class="sr-only toggle-input" checked>
+									<span class="toggle-track toggle-violet">
+										<span class="toggle-knob"></span>
+									</span>
+								</div>
+							</label>
+							<label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
+								<span class="text-xs font-medium text-white/70">Science-Fiction</span>
+								<div class="relative">
+									<input type="checkbox" class="sr-only toggle-input" checked>
+									<span class="toggle-track toggle-cyan">
+										<span class="toggle-knob"></span>
+									</span>
+								</div>
+							</label>
+							<label class="flex cursor-pointer items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-white/10 transition-all">
+								<span class="text-xs font-medium text-white/70">Horreur</span>
+								<div class="relative">
+									<input type="checkbox" class="sr-only toggle-input" checked>
+									<span class="toggle-track toggle-cyan">
+										<span class="toggle-knob"></span>
+									</span>
+								</div>
+							</label>
+						</div>
+					</section>
+
+					<!-- VOIR LES ARCHIVES (Mobile only here) -->
+					<section class="lg:hidden rounded-xl border border-white/10 glass-card p-5" aria-labelledby="archives-title-mobile">
+						<h3 id="archives-title-mobile" class="text-xs font-bold uppercase tracking-[0.2em] text-white/60 mb-4">VOIR LES ARCHIVES</h3>
+						<div class="space-y-2">
+							<a href="#" class="flex items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-custom-orange transition-all group">
+								<span class="text-xs font-medium text-white/70 group-hover:text-white">Année 2025</span>
+								<svg class="h-3 w-3 text-white/30 group-hover:text-custom-orange transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+							<a href="#" class="flex items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-custom-orange transition-all group">
+								<span class="text-xs font-medium text-white/70 group-hover:text-white">Année 2024</span>
+								<svg class="h-3 w-3 text-white/30 group-hover:text-custom-orange transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+							<a href="#" class="flex items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-custom-orange transition-all group">
+								<span class="text-xs font-medium text-white/70 group-hover:text-white">Archives antérieures</span>
+								<svg class="h-3 w-3 text-white/30 group-hover:text-custom-orange transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+						</div>
+					</section>
+				</div>
 			</aside>
 
 			<!-- Section DERNIÈRES CHIMÈRES (Main Content) -->
-			<section class="lg:col-span-8 order-3 lg:order-1 space-y-8">
+			<section class="lg:col-span-8 order-3 lg:order-2 space-y-8">
 				<h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-8">DERNIÈRES CHIMÈRES</h2>
 				<div
 					class="grid gap-6 md:grid-cols-2">
@@ -340,6 +368,33 @@
 							</div>
 						</a>
 					</article>
+				</div>
+
+				<!-- VOIR LES ARCHIVES (Desktop only here) -->
+				<div class="hidden lg:block">
+					<section class="rounded-xl border border-white/10 glass-card p-5" aria-labelledby="archives-title-desktop">
+						<h3 id="archives-title-desktop" class="text-xs font-bold uppercase tracking-[0.2em] text-white/60 mb-4">VOIR LES ARCHIVES</h3>
+						<div class="space-y-2">
+							<a href="#" class="flex items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-custom-orange transition-all group">
+								<span class="text-xs font-medium text-white/70 group-hover:text-white">Année 2025</span>
+								<svg class="h-3 w-3 text-white/30 group-hover:text-custom-orange transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+							<a href="#" class="flex items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-custom-orange transition-all group">
+								<span class="text-xs font-medium text-white/70 group-hover:text-white">Année 2024</span>
+								<svg class="h-3 w-3 text-white/30 group-hover:text-custom-orange transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+							<a href="#" class="flex items-center justify-between p-3 rounded-lg bg-custom-tertiary border border-white/5 hover:border-custom-orange transition-all group">
+								<span class="text-xs font-medium text-white/70 group-hover:text-white">Archives antérieures</span>
+								<svg class="h-3 w-3 text-white/30 group-hover:text-custom-orange transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+						</div>
+					</section>
 				</div>
 			</section>
 		</div>
