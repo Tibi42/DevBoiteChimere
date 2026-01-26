@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Configuration Tailwind v4 avec @theme */
+@theme {
+    --color-custom-primary: #141416;
+    --color-custom-secondary: #1E1E20;
+    --color-custom-tertiary: #2A2C30;
+    --color-custom-orange: #E5734B;
+    
+    --shadow-custom: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-custom-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Couleurs personnalisées selon le design */
+:root {
+    --bg-primary: #141416;
+    --bg-secondary: #1E1E20;
+    --bg-tertiary: #2A2C30;
+    --orange-accent: #E5734B;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0B0B0;
+    --purple-accent: #8B5CF6;
+    --cyan-accent: #06B6D4;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Styles personnalisés pour le thème sombre */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Amélioration des transitions */
+* {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+/* Classes utilitaires pour les couleurs personnalisées */
+.bg-custom-primary {
+    background-color: var(--bg-primary);
+}
+
+.bg-custom-secondary {
+    background-color: var(--bg-secondary);
+}
+
+.bg-custom-tertiary {
+    background-color: var(--bg-tertiary);
+}
+
+.text-custom-orange {
+    color: var(--orange-accent);
+}
+
+.bg-custom-orange {
+    background-color: var(--orange-accent);
+}
+
+.hover\:bg-custom-orange:hover {
+    background-color: var(--orange-accent);
+}
+
+.border-custom-orange {
+    border-color: var(--orange-accent);
+}
+
+/* Ombres personnalisées */
+.shadow-custom {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-custom-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
