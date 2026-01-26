@@ -17,7 +17,7 @@
 				<div class="relative rounded-2xl border border-white/10 glass-card shadow-xl overflow-hidden">
 					<div class="overflow-hidden rounded-2xl">
 						<div
-							id="carousel" class="flex transition-transform duration-400 ease-out h-auto" style="transform: translateX(0%);">
+							id="carousel" class="flex transition-transform duration-500 ease-in-out h-auto" style="transform: translateX(0%);">
 							<!-- Slide 1 -->
 							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
 								<div>
@@ -29,12 +29,75 @@
 									S'INSCRIRE
 								</a>
 							</div>
+							<!-- Slide 2 -->
+							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
+								<div>
+									<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400">Nouvel article</span>
+									<h3 class="text-lg font-bold text-white mt-0.5">Guide : Peindre ses figurines</h3>
+									<p class="text-sm text-gray-400 mt-1">PUBLLIÉ LUNDI</p>
+								</div>
+								<a href="#" class="shrink-0 rounded-lg bg-cyan-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-cyan-700 hover:scale-105 shadow-lg shadow-cyan-500/20">
+									LIRE LA SUITE
+								</a>
+							</div>
+							<!-- Slide 3 -->
+							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
+								<div>
+									<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400">Vie du forum</span>
+									<h3 class="text-lg font-bold text-white mt-0.5">Organisation GN été 2026</h3>
+									<p class="text-sm text-gray-400 mt-1">EN DISCUSSION</p>
+								</div>
+								<a href="#" class="shrink-0 rounded-lg bg-purple-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-purple-700 hover:scale-105 shadow-lg shadow-purple-500/20">
+									PARTICIPER
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div id="carousel-events-dots" class="flex justify-center items-center gap-3 py-4 mt-2">
-					<button type="button" class="carousel-events-dot h-4 w-4 rounded-full transition-all bg-custom-orange w-10" data-index="0" data-slide="0"></button>
+					<button type="button" class="carousel-events-dot h-3 w-3 rounded-full transition-all bg-white/50 hover:bg-white/80" data-index="0" data-slide="0"></button>
+					<button type="button" class="carousel-events-dot h-3 w-3 rounded-full transition-all bg-white/50 hover:bg-white/80" data-index="1" data-slide="1"></button>
+					<button type="button" class="carousel-events-dot h-3 w-3 rounded-full transition-all bg-white/50 hover:bg-white/80" data-index="2" data-slide="2"></button>
 				</div>
+				<script>
+					document.addEventListener('DOMContentLoaded', () => {
+const carousel = document.getElementById('carousel');
+const dots = document.querySelectorAll('.carousel-events-dot');
+let currentIndex = 0;
+const totalSlides = dots.length;
+
+function updateCarousel(index) {
+carousel.style.transform = `translateX(-${
+index * 100
+}%)`;
+dots.forEach((dot, i) => {
+if (i === index) {
+dot.classList.add('bg-custom-orange', 'w-10');
+dot.classList.remove('bg-white/50', 'w-3');
+} else {
+dot.classList.remove('bg-custom-orange', 'w-10');
+dot.classList.add('bg-white/50', 'w-3');
+}
+});
+}
+
+dots.forEach((dot, index) => {
+dot.addEventListener('click', () => {
+currentIndex = index;
+updateCarousel(currentIndex);
+});
+});
+
+// Auto-play
+setInterval(() => {
+currentIndex = (currentIndex + 1) % totalSlides;
+updateCarousel(currentIndex);
+}, 5000);
+
+// Initialize
+updateCarousel(0);
+});
+				</script>
 			</section>
 
 			<!-- Header -->
