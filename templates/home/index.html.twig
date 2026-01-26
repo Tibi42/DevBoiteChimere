@@ -97,6 +97,45 @@ updateCarousel(currentIndex);
 // Initialize
 updateCarousel(0);
 });
+
+// Mobile Menu Logic
+document.addEventListener('DOMContentLoaded', () => {
+const btn = document.getElementById('mobile-menu-btn');
+const drawer = document.getElementById('mobile-menu-drawer');
+const overlay = document.getElementById('mobile-menu-overlay');
+const content = document.getElementById('mobile-menu-content');
+const spans = btn.querySelectorAll('span');
+let isOpen = false;
+
+function toggleMenu() {
+isOpen = ! isOpen;
+if (isOpen) {
+drawer.classList.remove('opacity-0', 'pointer-events-none');
+overlay.classList.add('opacity-100');
+content.classList.remove('translate-x-full');
+// Hamburger to X
+spans[0].classList.add('rotate-45', 'translate-y-2');
+spans[1].classList.add('opacity-0');
+spans[2].classList.add('-rotate-45', '-translate-y-1.5');
+document.body.style.overflow = 'hidden';
+} else {
+drawer.classList.add('opacity-0', 'pointer-events-none');
+overlay.classList.remove('opacity-100');
+content.classList.add('translate-x-full');
+// X back to Hamburger
+spans[0].classList.remove('rotate-45', 'translate-y-2');
+spans[1].classList.remove('opacity-0');
+spans[2].classList.remove('-rotate-45', '-translate-y-1.5');
+document.body.style.overflow = '';
+}
+}
+
+btn.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu);
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+link.addEventListener('click', toggleMenu);
+});
+});
 				</script>
 			</section>
 
@@ -136,9 +175,36 @@ updateCarousel(0);
 						<a href="#" class="hidden sm:inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20 z-[75]">
 							REJOIGNEZ L'AVENTURE
 						</a>
+						<!-- Hamburger Menu Button -->
+						<button id="mobile-menu-btn" type="button" class="lg:hidden flex flex-col gap-1.5 p-2 z-[100]" aria-label="Menu principal">
+							<span class="w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
+							<span class="w-6 h-0.5 bg-white transition-all duration-300"></span>
+							<span class="w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
+						</button>
 					</div>
 				</div>
 			</header>
+
+			<!-- Mobile Menu Drawer -->
+			<div id="mobile-menu-drawer" class="fixed inset-0 z-[95] lg:hidden transition-all duration-500 opacity-0 pointer-events-none">
+				<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-500 opacity-0"></div>
+				<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-white/10 shadow-2xl transition-transform duration-500 translate-x-full pt-20 px-8">
+					<nav class="flex flex-col gap-6">
+						<a href="#jds" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-white/70 hover:text-custom-orange transition-colors">JDS</a>
+						<a href="#jdr" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-white/70 hover:text-custom-orange transition-colors">JDR</a>
+						<a href="#gn" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-white/70 hover:text-custom-orange transition-colors">GN</a>
+						<a href="#societe" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-white/70 hover:text-custom-orange transition-colors">SOCIÉTÉ</a>
+						<a href="#forum" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-white/70 hover:text-custom-orange transition-colors">FORUM</a>
+						<hr class="border-white/5 my-4">
+						<a href="#" class="rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-white shadow-lg shadow-custom-orange/20">
+							REJOINDRE
+						</a>
+					</nav>
+					<div class="absolute bottom-10 left-8 right-8 text-center">
+						<p class="text-[10px] uppercase tracking-widest text-white/30 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
+					</div>
+				</div>
+			</div>
 
 			<!-- ÉVÉNEMENTS À VENIR (Mobile only - inside hero for layout flow) -->
 			<div class="lg:hidden mx-auto max-w-[1240px] px-8 mb-8">
