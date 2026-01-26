@@ -3,87 +3,80 @@
 {% block title %}La Boîte à Chimère - Communauté de Jeux de Rôle et de Société{% endblock %}
 
 {% block body %}
-    <!-- Carousel Prochain(s) événement(s) -->
-    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 pt-8 lg:pt-10 mb-16 lg:mb-20" id="carousel-container">
-        <div class="relative rounded-2xl border border-white/10 glass-card shadow-xl overflow-hidden">
-            <div class="overflow-hidden rounded-2xl">
-                <div id="carousel" class="flex transition-transform duration-400 ease-out h-auto" style="transform: translateX(0%);">
-                    <!-- Slide 1 -->
-                    <div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
-                        <div>
-                            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-custom-orange">Prochain événement</span>
-                            <h3 class="text-lg font-bold text-white mt-0.5">Senses Etch - Champs de Valoris</h3>
-                            <p class="text-sm text-gray-400 mt-1">25 JAN</p>
+    <!-- Hero Section avec Carousel, Header et NOS MONDES -->
+    <section class="relative w-full min-h-[600px] lg:min-h-[700px] overflow-hidden mb-12">
+        <img src="{{ asset('images/hero/hero.jpg') }}" alt="Hero" class="absolute inset-0 h-full w-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
+        
+        <!-- Contenu par-dessus l'image hero -->
+        <div class="relative z-10">
+            <!-- Carousel Prochain(s) événement(s) -->
+            <div class="mx-auto max-w-[1240px] px-8 lg:px-10 pt-8 lg:pt-10 mb-8 lg:mb-12" id="carousel-container">
+                <div class="relative rounded-2xl border border-white/10 glass-card shadow-xl overflow-hidden">
+                    <div class="overflow-hidden rounded-2xl">
+                        <div id="carousel" class="flex transition-transform duration-400 ease-out h-auto" style="transform: translateX(0%);">
+                            <!-- Slide 1 -->
+                            <div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-custom-orange">Prochain événement</span>
+                                    <h3 class="text-lg font-bold text-white mt-0.5">Senses Etch - Champs de Valoris</h3>
+                                    <p class="text-sm text-gray-400 mt-1">25 JAN</p>
+                                </div>
+                                <a href="#" class="shrink-0 rounded-lg bg-custom-orange px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+                                    S'INSCRIRE
+                                </a>
+                            </div>
                         </div>
-                        <a href="#" class="shrink-0 rounded-lg bg-custom-orange px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
-                            S'INSCRIRE
+                    </div>
+                </div>
+                <div id="carousel-events-dots" class="flex justify-center items-center gap-3 py-4 mt-2">
+                    <button type="button" class="carousel-events-dot h-4 w-4 rounded-full transition-all bg-custom-orange w-10" data-index="0" data-slide="0"></button>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <header class="mx-auto max-w-[1240px] px-8 lg:px-10 mb-12 lg:mb-16">
+                <div class="header-container mx-auto max-w-[1240px] px-7 py-3 bg-[#1a1a1e] rounded-xl shadow-2xl border border-white/5 flex items-center justify-between">
+                    <a href="/" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
+                        <div class="h-10 w-10 shrink-0">
+                            <svg class="h-full w-full" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M20 2L36 12v16L20 38L4 28V12L20 2z" stroke="url(#logo)" stroke-width="1.5" fill="none"/>
+                                <path d="M20 8l10 6v8l-10 6-10-6v-8l10-6z" stroke="url(#logo2)" stroke-width="1" fill="none"/>
+                                <defs>
+                                    <linearGradient id="logo" x1="4" y1="2" x2="36" y2="38" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
+                                    </linearGradient>
+                                    <linearGradient id="logo2" x1="10" y1="8" x2="30" y2="32" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col leading-[0.9]">
+                            <span class="text-base font-extrabold uppercase tracking-tight text-white leading-none">LA BOÎTE</span>
+                            <span class="text-base font-extrabold uppercase tracking-tight text-white leading-none">À CHIMÈRE</span>
+                        </div>
+                    </a>
+
+                    <nav class="hidden lg:flex items-center gap-10">
+                        <a href="#jds" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">JDS</a>
+                        <a href="#jdr" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">JDR</a>
+                        <a href="#gn" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">GN</a>
+                        <a href="#societe" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">SOCIÉTÉ</a>
+                        <a href="#forum" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">FORUM</a>
+                    </nav>
+
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="hidden sm:inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20 z-[75]">
+                            REJOIGNEZ L'AVENTURE
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div id="carousel-events-dots" class="flex justify-center items-center gap-3 py-4 mt-2">
-            <button type="button" class="carousel-events-dot h-4 w-4 rounded-full transition-all bg-custom-orange w-10" data-index="0" data-slide="0"></button>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="relative z-10 mt-16 lg:mt-24 mb-12 lg:mb-20">
-        <div class="header-container mx-auto max-w-[1240px] px-7 py-3 bg-[#1a1a1e] rounded-xl shadow-2xl border border-white/5 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
-                <div class="h-10 w-10 shrink-0">
-                    <svg class="h-full w-full" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M20 2L36 12v16L20 38L4 28V12L20 2z" stroke="url(#logo)" stroke-width="1.5" fill="none"/>
-                        <path d="M20 8l10 6v8l-10 6-10-6v-8l10-6z" stroke="url(#logo2)" stroke-width="1" fill="none"/>
-                        <defs>
-                            <linearGradient id="logo" x1="4" y1="2" x2="36" y2="38" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
-                            </linearGradient>
-                            <linearGradient id="logo2" x1="10" y1="8" x2="30" y2="32" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <div class="flex flex-col leading-[0.9]">
-                    <span class="text-base font-extrabold uppercase tracking-tight text-white leading-none">LA BOÎTE</span>
-                    <span class="text-base font-extrabold uppercase tracking-tight text-white leading-none">À CHIMÈRE</span>
-                </div>
-            </a>
-
-            <nav class="hidden lg:flex items-center gap-10">
-                <a href="#jds" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">JDS</a>
-                <a href="#jdr" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">JDR</a>
-                <a href="#gn" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">GN</a>
-                <a href="#societe" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">SOCIÉTÉ</a>
-                <a href="#forum" class="text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors">FORUM</a>
-            </nav>
-
-            <div class="flex items-center gap-4">
-                <a href="#" class="hidden sm:inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20 z-[75]">
-                    REJOIGNEZ L'AVENTURE
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section avec image de fond -->
-    <section class="relative w-full h-[500px] lg:h-[600px] overflow-hidden mb-12">
-        <img src="{{ asset('images/hero/hero.jpg') }}" alt="Hero" class="absolute inset-0 h-full w-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
-    </section>
-
-    <!-- Div séparateur -->
-    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 py-12 lg:py-20">
-        <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-    </div>
-
-    <!-- Contenu principal -->
-    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 pt-20 lg:pt-32">
-        <div class="grid gap-12 lg:gap-16 lg:grid-cols-12 items-start">
-            <!-- Section NOS MONDES (Full width) -->
-            <section class="lg:col-span-12 order-2 lg:order-1 mb-12">
-                <h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-10">NOS MONDES</h2>
+            </header>
+            
+            <!-- Contenu NOS MONDES par-dessus l'image hero -->
+            <div class="mx-auto max-w-[1240px] px-8 lg:px-10 pb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold uppercase tracking-[0.2em] text-white mb-8 lg:mb-12 text-center">NOS MONDES</h2>
                 <div class="grid gap-6 sm:grid-cols-3">
                     <!-- Carte JDR -->
                     <a href="#jdr" id="jdr" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg hover:-translate-y-1 transition-all duration-300">
@@ -121,8 +114,18 @@
                         </div>
                     </a>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
+    <!-- Div séparateur -->
+    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 py-12 lg:py-20">
+        <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 pt-20 lg:pt-32">
+        <div class="grid gap-12 lg:gap-16 lg:grid-cols-12 items-start">
             <!-- Section ÉVÉNEMENTS À VENIR (Sidebar) -->
             <section class="lg:col-span-12 xl:col-span-4 order-1 lg:order-2 space-y-10">
                 <div>
