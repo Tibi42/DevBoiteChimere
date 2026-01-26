@@ -116,6 +116,48 @@
 					</div>
 				</article>
 			</div>
+			<!-- NOS MONDES (Mobile only variant - follows absolute div) -->
+			<section class="lg:hidden mx-auto max-w-[1240px] px-8 pb-12">
+				<h2 class="text-3xl font-bold uppercase tracking-[0.2em] text-white mb-8 text-center">NOS MONDES</h2>
+				<div
+					class="grid gap-6">
+					<!-- Carte JDR -->
+					<a href="#jdr" id="jdr-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
+						<img src="{{ asset('images/cards/jdr.jpg') }}" alt="Jeux de Rôle" class="absolute inset-0 h-full w-full object-cover">
+						<div class="absolute inset-0 image-overlay"></div>
+						<div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
+							<svg class="h-4 w-4" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45-2.6 5.2-4.3-2.15V4.18zM5.1 7.63L12 4.18v8.55l-4.3 2.15-2.6-5.2zm0 8.74l2.6-5.2 4.3 2.15v4.32L5.1 16.37zm12.8 0l-6.9 3.45v-4.32l4.3-2.15 2.6 5.2z"/></svg>
+						</div>
+						<div class="absolute bottom-4 left-4 right-4">
+							<h3 class="text-sm font-bold text-white">JDR (Jeux de Rôle)</h3>
+						</div>
+					</a>
+
+					<!-- Carte JDS -->
+					<a href="#jds" id="jds-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
+						<img src="{{ asset('images/cards/jds.jpg') }}" alt="Jeux de Société" class="absolute inset-0 h-full w-full object-cover">
+						<div class="absolute inset-0 image-overlay"></div>
+						<div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
+							<svg class="h-4 w-4" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1V9a2 2 0 0 1 2-2h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+						</div>
+						<div class="absolute bottom-4 left-4 right-4">
+							<h3 class="text-sm font-bold text-white">JDS (Jeux de Société)</h3>
+						</div>
+					</a>
+
+					<!-- Carte GN -->
+					<a href="#gn" id="gn-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
+						<img src="{{ asset('images/cards/gn.jpg') }}" alt="Grandeur Nature" class="absolute inset-0 h-full w-full object-cover">
+						<div class="absolute inset-0 image-overlay"></div>
+						<div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
+							<svg class="h-4 w-4" fill="currentColor" viewbox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+						</div>
+						<div class="absolute bottom-4 left-4 right-4">
+							<h3 class="text-sm font-bold text-white">GN (Grandeur Nature)</h3>
+						</div>
+					</a>
+				</div>
+			</section>
 		</div>
 	</section>
 
@@ -128,11 +170,11 @@
 	<main class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 pt-20 lg:pt-32">
 		<div
 			class="grid gap-12 lg:gap-16 lg:grid-cols-12 items-start">
-			<!-- NOS MONDES (Ordre 2 sur mobile, Ordre 1 sur Desktop) -->
-			<section class="lg:col-span-12 order-2 lg:order-1 pb-12">
+			<!-- NOS MONDES (Desktop only - part of main grid) -->
+			<section class="hidden lg:block lg:col-span-12 pb-12">
 				<h2 class="text-3xl lg:text-4xl font-bold uppercase tracking-[0.2em] text-white mb-8 lg:mb-12 text-center">NOS MONDES</h2>
 				<div
-					class="grid gap-6 sm:grid-cols-3">
+					class="grid gap-6 lg:grid-cols-3">
 					<!-- Carte JDR -->
 					<a href="#jdr" id="jdr" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg hover:-translate-y-1 transition-all duration-300">
 						<img src="{{ asset('images/cards/jdr.jpg') }}" alt="Jeux de Rôle" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
@@ -171,7 +213,7 @@
 				</div>
 			</section>
 			<!-- Section ÉVÉNEMENTS À VENIR (Sidebar - Desktop) -->
-			<aside class="lg:col-span-4 order-1 lg:order-2 space-y-10">
+			<aside class="lg:col-span-4 order-4 lg:order-2 space-y-10">
 				<div class="hidden lg:block">
 					<h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-8">ÉVÉNEMENTS À VENIR</h2>
 					<article class="bg-[#0f0f12] p-5 lg:p-6 rounded-xl border border-white/10 relative shadow-2xl glass-card">
@@ -247,7 +289,7 @@
 			</aside>
 
 			<!-- Section DERNIÈRES CHIMÈRES (Main Content) -->
-			<section class="lg:col-span-8 order-3 lg:order-3 space-y-8">
+			<section class="lg:col-span-8 order-3 lg:order-1 space-y-8">
 				<h2 class="text-base font-bold uppercase tracking-[0.2em] text-white mb-6 lg:mb-8">DERNIÈRES CHIMÈRES</h2>
 				<div
 					class="grid gap-6 md:grid-cols-2">
