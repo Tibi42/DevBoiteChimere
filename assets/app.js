@@ -9,6 +9,7 @@ import './styles/app.css';
 import './carousel.js';
 import './mobile_menu.js';
 import './reveal.js';
+import './theme_toggle.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
