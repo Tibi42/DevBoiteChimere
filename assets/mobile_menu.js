@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('mobile-menu-btn');
-    const headerContainer = document.querySelector('.header-container');
     const drawer = document.getElementById('mobile-menu-drawer');
     const overlay = document.getElementById('mobile-menu-overlay');
     const content = document.getElementById('mobile-menu-content');
@@ -35,16 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             document.body.style.overflow = '';
         }
-    }
-
-    if (headerContainer) {
-        headerContainer.addEventListener('click', (e) => {
-            if (window.innerWidth < 1024) {
-                // If the click is on an 'a' tag (logo, join button), let it through
-                if (e.target.closest('a')) return;
-                toggleMenu(e);
-            }
-        });
     }
 
     btn.addEventListener('click', toggleMenu);

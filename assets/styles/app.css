@@ -117,17 +117,6 @@ html {
     transition: all 0.3s ease;
 }
 
-@media (max-width: 1023px) {
-    .header-container {
-        cursor: pointer;
-    }
-
-    .header-container:hover {
-        background-color: #212126;
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-}
-
 @media (min-width: 1024px) {
     .header-container {
         display: flex;
