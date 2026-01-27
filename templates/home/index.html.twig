@@ -19,36 +19,39 @@
 						<div
 							id="carousel" class="flex h-auto" style="transform: translateX(0%);">
 							<!-- Slide 1 -->
-							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
+							<div class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
 								<div>
 									<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-custom-orange">Prochain événement</span>
 									<h3 class="text-lg font-bold text-white mt-0.5">Senses Etch - Champs de Valoris</h3>
 									<p class="text-sm text-gray-400 mt-1">25 JAN</p>
 								</div>
-								<a href="#" class="shrink-0 rounded-lg bg-custom-orange px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+								<a href="#" class="shrink-0 rounded-lg bg-custom-orange px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all group-hover:bg-orange-600 group-hover:scale-105 shadow-lg shadow-custom-orange/20">
 									S'INSCRIRE
+									<span class="absolute inset-0"></span>
 								</a>
 							</div>
 							<!-- Slide 2 -->
-							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
+							<div class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
 								<div>
 									<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400">Nouvel article</span>
 									<h3 class="text-lg font-bold text-white mt-0.5">Guide : Peindre ses figurines</h3>
 									<p class="text-sm text-gray-400 mt-1">PUBLLIÉ LUNDI</p>
 								</div>
-								<a href="#" class="shrink-0 rounded-lg bg-cyan-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-cyan-700 hover:scale-105 shadow-lg shadow-cyan-500/20">
+								<a href="#" class="shrink-0 rounded-lg bg-cyan-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all group-hover:bg-cyan-700 group-hover:scale-105 shadow-lg shadow-cyan-500/20">
 									LIRE LA SUITE
+									<span class="absolute inset-0"></span>
 								</a>
 							</div>
 							<!-- Slide 3 -->
-							<div class="carousel-events-slide flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full">
+							<div class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
 								<div>
 									<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400">Vie du forum</span>
 									<h3 class="text-lg font-bold text-white mt-0.5">Organisation GN été 2026</h3>
 									<p class="text-sm text-gray-400 mt-1">EN DISCUSSION</p>
 								</div>
-								<a href="#" class="shrink-0 rounded-lg bg-purple-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-purple-700 hover:scale-105 shadow-lg shadow-purple-500/20">
+								<a href="#" class="shrink-0 rounded-lg bg-purple-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all group-hover:bg-purple-700 group-hover:scale-105 shadow-lg shadow-purple-500/20">
 									PARTICIPER
+									<span class="absolute inset-0"></span>
 								</a>
 							</div>
 						</div>
@@ -145,19 +148,42 @@ let autoPlayInterval;
 function startAutoPlay() {
 clearInterval(autoPlayInterval);
 autoPlayInterval = setInterval(() => {
-if (isTransitioning) 
-return;
-
-
-
+if (! isTransitioning) {
 currentIndex++;
 updateCarousel(currentIndex);
+}
 }, 10000);
 }
 
 function stopAutoPlay() {
 clearInterval(autoPlayInterval);
 }
+
+// Swipe Support
+let touchStartX = 0;
+let touchEndX = 0;
+
+carousel.addEventListener('touchstart', (e) => {
+touchStartX = e.changedTouches[0].screenX;
+stopAutoPlay();
+}, {passive: true});
+
+carousel.addEventListener('touchend', (e) => {
+touchEndX = e.changedTouches[0].screenX;
+const swipeThreshold = 50;
+if (touchStartX - touchEndX > swipeThreshold) { // Swipe Left -> Next
+if (! isTransitioning) {
+currentIndex++;
+updateCarousel(currentIndex);
+}
+} else if (touchEndX - touchStartX > swipeThreshold) { // Swipe Right -> Prev
+if (! isTransitioning) {
+currentIndex--;
+updateCarousel(currentIndex);
+}
+}
+startAutoPlay();
+}, {passive: true});
 
 container.addEventListener('mouseenter', stopAutoPlay);
 container.addEventListener('mouseleave', startAutoPlay);
@@ -180,6 +206,7 @@ let isOpen = false;
 function toggleMenu(e) {
 if (e && e.stopPropagation) 
 e.stopPropagation();
+
 
 
 isOpen = ! isOpen;
@@ -209,6 +236,7 @@ headerContainer.addEventListener('click', (e) => {
 if (window.innerWidth < 1024) { // If the click is on an 'a' tag (logo, join button), let it through
 if (e.target.closest('a')) 
 return;
+
 
 
 toggleMenu(e);
@@ -614,10 +642,7 @@ link.addEventListener('click', toggleMenu);
 				</section>
 			</div>
 		</main>
-	</div>
-
-	<!-- Section VIE DU FORUM -->
-	<section class="px-6 lg:px-10 py-24 bg-custom-primary border-t border-white/5 relative z-10">
+	</div><!-- Section VIE DU FORUM --><section class="px-6 lg:px-10 py-24 bg-custom-primary border-t border-white/5 relative z-10">
 		<div class="mx-auto max-w-[1240px]">
 			<div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
 				<h2 class="text-base font-bold uppercase tracking-[0.2em] text-white">VIE DU FORUM</h2>
@@ -659,10 +684,7 @@ link.addEventListener('click', toggleMenu);
 				</article>
 			</div>
 		</div>
-	</section>
-
-	<!-- Footer -->
-	<footer class="mt-20 border-t border-white/5 bg-custom-tertiary py-16 relative z-10">
+	</section><!-- Footer --><footer class="mt-20 border-t border-white/5 bg-custom-tertiary py-16 relative z-10">
 		<div class="mx-auto grid max-w-[1240px] gap-12 px-6 md:grid-cols-4">
 			<div class="md:col-span-1">
 				<h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-white">COMMUNAUTÉ & RESSOURCES</h3>
@@ -719,7 +741,6 @@ link.addEventListener('click', toggleMenu);
 				LA BOÎTE À CHIMÈRE. Tous droits réservés.</p>
 		</div>
 	</footer>
-
 	<script>
 		document.addEventListener('DOMContentLoaded', () => { // Intersection Observer for Reveal animations
 const observerOptions = {
