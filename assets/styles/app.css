@@ -6,7 +6,7 @@
     --color-custom-secondary: #1c1c1f;
     --color-custom-tertiary: #26262b;
     --color-custom-orange: #f8742c;
-    
+
     --shadow-custom: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --shadow-custom-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
 }
@@ -84,6 +84,17 @@ html {
     transition: all 0.3s ease;
 }
 
+@media (max-width: 1023px) {
+    .header-container {
+        cursor: pointer;
+    }
+
+    .header-container:hover {
+        background-color: #212126;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
 @media (min-width: 1024px) {
     .header-container {
         display: flex;
@@ -120,16 +131,16 @@ html {
     transition-duration: 200ms;
 }
 
-.toggle-input:checked + .toggle-track {
+.toggle-input:checked+.toggle-track {
     background-color: var(--cyan-accent);
 }
 
-.toggle-input:checked + .toggle-track.toggle-violet {
+.toggle-input:checked+.toggle-track.toggle-violet {
     background-color: var(--purple-accent);
 }
 
 /* Toggle pour Science-Fiction - cyan */
-.toggle-input:checked + .toggle-track.toggle-cyan {
+.toggle-input:checked+.toggle-track.toggle-cyan {
     background-color: var(--cyan-accent);
 }
 
@@ -148,7 +159,7 @@ html {
     transform: translateX(0.125rem) translateY(0.125rem);
 }
 
-.toggle-input:checked + .toggle-track .toggle-knob {
+.toggle-input:checked+.toggle-track .toggle-knob {
     transform: translateX(1.25rem) translateY(0.125rem);
 }
 
@@ -206,11 +217,25 @@ html {
 }
 
 /* Staggered delay classes */
-.delay-100 { transition-delay: 100ms; }
-.delay-200 { transition-delay: 200ms; }
-.delay-300 { transition-delay: 300ms; }
-.delay-400 { transition-delay: 400ms; }
-.delay-500 { transition-delay: 500ms; }
+.delay-100 {
+    transition-delay: 100ms;
+}
+
+.delay-200 {
+    transition-delay: 200ms;
+}
+
+.delay-300 {
+    transition-delay: 300ms;
+}
+
+.delay-400 {
+    transition-delay: 400ms;
+}
+
+.delay-500 {
+    transition-delay: 500ms;
+}
 
 /* Amélioration des cartes au survol - Effet Premium */
 .card-premium {

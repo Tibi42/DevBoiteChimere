@@ -5,7 +5,7 @@
 
 {% block body %}
 	<!-- Hero Section avec Carousel, Header et NOS MONDES -->
-	<section class="relative w-full min-h-[600px] lg:min-h-[700px] overflow-hidden mb-12 lg:mb-0">
+	<section id="home" class="relative w-full min-h-[600px] lg:min-h-[700px] overflow-hidden mb-12 lg:mb-0">
 		<img src="{{ asset('images/hero/hero.jpg') }}" alt="Hero" class="absolute inset-0 h-full w-full object-cover">
 		<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
 
@@ -98,8 +98,11 @@ let dotIndex = index - 1;
 if (index === 0) 
 dotIndex = totalOriginalSlides - 1;
 
+
+
 if (index === totalOriginalSlides + 1) 
 dotIndex = 0;
+
 
 
 dots.forEach((dot, i) => {
@@ -130,6 +133,8 @@ dot.addEventListener('click', () => {
 if (isTransitioning) 
 return;
 
+
+
 currentIndex = index + 1;
 updateCarousel(currentIndex);
 startAutoPlay();
@@ -142,6 +147,8 @@ clearInterval(autoPlayInterval);
 autoPlayInterval = setInterval(() => {
 if (isTransitioning) 
 return;
+
+
 
 currentIndex++;
 updateCarousel(currentIndex);
@@ -163,13 +170,18 @@ updateCarousel(currentIndex, false);
 // Mobile Menu Logic
 document.addEventListener('DOMContentLoaded', () => {
 const btn = document.getElementById('mobile-menu-btn');
+const headerContainer = document.querySelector('.header-container');
 const drawer = document.getElementById('mobile-menu-drawer');
 const overlay = document.getElementById('mobile-menu-overlay');
 const content = document.getElementById('mobile-menu-content');
 const spans = btn.querySelectorAll('span');
 let isOpen = false;
 
-function toggleMenu() {
+function toggleMenu(e) {
+if (e && e.stopPropagation) 
+e.stopPropagation();
+
+
 isOpen = ! isOpen;
 if (isOpen) {
 drawer.classList.remove('opacity-0', 'pointer-events-none');
@@ -192,6 +204,18 @@ document.body.style.overflow = '';
 }
 }
 
+if (headerContainer) {
+headerContainer.addEventListener('click', (e) => {
+if (window.innerWidth < 1024) { // If the click is on an 'a' tag (logo, join button), let it through
+if (e.target.closest('a')) 
+return;
+
+
+toggleMenu(e);
+}
+});
+}
+
 btn.addEventListener('click', toggleMenu);
 overlay.addEventListener('click', toggleMenu);
 document.querySelectorAll('.mobile-nav-link').forEach(link => {
@@ -204,7 +228,7 @@ link.addEventListener('click', toggleMenu);
 			<!-- Header -->
 			<header class="mx-auto max-w-[1240px] lg:max-w-[1360px] px-8 lg:px-10 mb-12 lg:mb-16">
 				<div class="header-container mx-auto max-w-[1240px] lg:max-w-[1360px] px-7 py-3 bg-[#1a1a1e] rounded-xl shadow-2xl border border-white/5 flex items-center justify-between">
-					<a href="/" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
+					<a href="/#home" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
 						<div class="h-10 w-10 shrink-0">
 							<svg class="h-full w-full" viewbox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 								<path d="M20 2L36 12v16L20 38L4 28V12L20 2z" stroke="url(#logo)" stroke-width="1.5" fill="none"/>
