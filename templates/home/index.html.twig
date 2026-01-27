@@ -17,7 +17,7 @@
 				<div class="relative rounded-2xl border border-white/10 glass-card shadow-xl overflow-hidden">
 					<div class="overflow-hidden rounded-2xl">
 						<div
-							id="carousel" class="flex h-auto" style="transform: translateX(0%);">
+							id="carousel" class="flex h-auto" style="transform: translateX(0%); touch-action: pan-y;">
 							<!-- Slide 1 -->
 							<div class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-wrap items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
 								<div>
@@ -131,6 +131,15 @@ updateCarousel(currentIndex, false);
 }
 });
 
+// Safety check to reset isTransitioning if it gets stuck
+setInterval(() => {
+if (isTransitioning) {
+// If we are stuck in transitioning state for more than 2 seconds, reset it
+// This can happen if transitionend doesn't fire
+isTransitioning = false;
+}
+}, 2000);
+
 dots.forEach((dot, index) => {
 dot.addEventListener('click', () => {
 if (isTransitioning) 
@@ -164,12 +173,17 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 carousel.addEventListener('touchstart', (e) => {
-touchStartX = e.changedTouches[0].screenX;
+touchStartX = e.touches[0].clientX;
 stopAutoPlay();
 }, {passive: true});
 
+carousel.addEventListener('touchmove', (e) => {
+// Optional: prevent default if we want to lock horizontal scroll
+// but since we use passive: true, we can't. touch-action will handle it.
+}, {passive: true});
+
 carousel.addEventListener('touchend', (e) => {
-touchEndX = e.changedTouches[0].screenX;
+touchEndX = e.changedTouches[0].clientX;
 const swipeThreshold = 50;
 if (touchStartX - touchEndX > swipeThreshold) { // Swipe Left -> Next
 if (! isTransitioning) {
@@ -182,6 +196,10 @@ currentIndex--;
 updateCarousel(currentIndex);
 }
 }
+startAutoPlay();
+}, {passive: true});
+
+carousel.addEventListener('touchcancel', () => {
 startAutoPlay();
 }, {passive: true});
 
