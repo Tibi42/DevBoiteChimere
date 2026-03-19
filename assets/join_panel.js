@@ -1,9 +1,59 @@
+/**
+ * Panneau « NOUS REJOINDRE » (desktop + mobile).
+ * Garde anti double-init : DOMContentLoaded + turbo:load ne doivent pas empiler les listeners
+ * (sinon un clic peut ouvrir puis refermer dans le même tick).
+ */
+
+let escapeHandlerInstalled = false;
+
+function installEscapeHandlerOnce() {
+    if (escapeHandlerInstalled) {
+        return;
+    }
+    escapeHandlerInstalled = true;
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') {
+            return;
+        }
+        const panel = document.getElementById('join-panel');
+        const joinBtn = document.getElementById('join-btn');
+        const mobileForm = document.getElementById('mobile-join-form');
+        const mobileJoinBtn = document.getElementById('mobile-join-btn');
+
+        const desktopOpen =
+            panel &&
+            joinBtn &&
+            panel.style.maxHeight &&
+            panel.style.maxHeight !== '0' &&
+            panel.style.maxHeight !== '0px';
+        if (desktopOpen) {
+            panel.style.maxHeight = '0';
+            joinBtn.classList.remove('ring-2', 'ring-white/30');
+        }
+
+        const mobileOpen =
+            mobileForm &&
+            mobileJoinBtn &&
+            mobileForm.style.maxHeight &&
+            mobileForm.style.maxHeight !== '0' &&
+            mobileForm.style.maxHeight !== '0px';
+        if (mobileOpen) {
+            mobileForm.style.maxHeight = '0';
+            mobileJoinBtn.classList.remove('ring-2', 'ring-white/30');
+        }
+    });
+}
+
 function initJoinPanel() {
-    // Desktop panel
+    installEscapeHandlerOnce();
+
+    // Desktop
     const btn = document.getElementById('join-btn');
     const panel = document.getElementById('join-panel');
 
-    if (btn && panel) {
+    if (btn && panel && btn.dataset.joinPanelInit !== '1') {
+        btn.dataset.joinPanelInit = '1';
+
         let open = false;
 
         function openPanel() {
@@ -19,15 +69,23 @@ function initJoinPanel() {
             btn.classList.remove('ring-2', 'ring-white/30');
         }
 
-        btn.addEventListener('click', () => open ? closePanel() : openPanel());
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) closePanel(); });
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (open) {
+                closePanel();
+            } else {
+                openPanel();
+            }
+        });
     }
 
-    // Mobile panel (inside burger menu)
+    // Mobile (menu burger)
     const mobileBtn = document.getElementById('mobile-join-btn');
     const mobileForm = document.getElementById('mobile-join-form');
 
-    if (mobileBtn && mobileForm) {
+    if (mobileBtn && mobileForm && mobileBtn.dataset.joinPanelInit !== '1') {
+        mobileBtn.dataset.joinPanelInit = '1';
+
         let mobileOpen = false;
 
         function openMobile() {
@@ -43,10 +101,25 @@ function initJoinPanel() {
             mobileBtn.classList.remove('ring-2', 'ring-white/30');
         }
 
-        mobileBtn.addEventListener('click', () => mobileOpen ? closeMobile() : openMobile());
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileOpen) closeMobile(); });
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (mobileOpen) {
+                closeMobile();
+            } else {
+                openMobile();
+            }
+        });
     }
 }
 
-document.addEventListener('DOMContentLoaded', initJoinPanel);
+function bootJoinPanel() {
+    initJoinPanel();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootJoinPanel, { once: true });
+} else {
+    bootJoinPanel();
+}
+
 document.addEventListener('turbo:load', initJoinPanel);

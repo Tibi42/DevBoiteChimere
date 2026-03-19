@@ -1,18 +1,10 @@
-
 services:
-###> doctrine/doctrine-bundle ###
+  php:
+    environment:
+      APP_DEBUG: 1
+      XDEBUG_MODE: "off" # Changer en "debug" pour activer Xdebug
+    
   database:
     ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
-
-###> symfony/mailer ###
-  mailer:
-    image: axllent/mailpit
-    ports:
-      - "1025"
-      - "8025"
-    environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
-###< symfony/mailer ###
+      - "3307:3306" # Accès MySQL depuis votre machine (DBeaver, TablePlus…)
+# Port 3307 pour éviter le conflit avec Laragon
