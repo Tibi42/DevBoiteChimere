@@ -1,44 +1,40 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initMobileMenu() {
     const btn = document.getElementById('mobile-menu-btn');
     const drawer = document.getElementById('mobile-menu-drawer');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const content = document.getElementById('mobile-menu-content');
-    const spans = btn?.querySelectorAll('span');
+
+    if (!btn || !drawer) return;
+    if (btn.dataset.menuInit) return;
+    btn.dataset.menuInit = '1';
+
+    const spans = btn.querySelectorAll('span');
     let isOpen = false;
 
-    if (!btn || !drawer || !overlay || !content) return;
-
-    function toggleMenu(e) {
-        if (e && e.stopPropagation) e.stopPropagation();
-        isOpen = !isOpen;
-        if (isOpen) {
-            drawer.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('opacity-100');
-            content.classList.remove('translate-x-full');
-            // Hamburger to X
-            if (spans) {
-                spans[0].classList.add('rotate-45', 'translate-y-2');
-                spans[1].classList.add('opacity-0');
-                spans[2].classList.add('-rotate-45', '-translate-y-1.5');
-            }
-            document.body.style.overflow = 'hidden';
-        } else {
-            drawer.classList.add('opacity-0', 'pointer-events-none');
-            overlay.classList.remove('opacity-100');
-            content.classList.add('translate-x-full');
-            // X back to Hamburger
-            if (spans) {
-                spans[0].classList.remove('rotate-45', 'translate-y-2');
-                spans[1].classList.remove('opacity-0');
-                spans[2].classList.remove('-rotate-45', '-translate-y-1.5');
-            }
-            document.body.style.overflow = '';
-        }
+    function open() {
+        isOpen = true;
+        drawer.classList.remove('pointer-events-none');
+        drawer.classList.add('menu-open');
+        spans[0]?.classList.add('rotate-45', 'translate-y-2');
+        spans[1]?.classList.add('opacity-0', 'scale-x-0');
+        spans[2]?.classList.add('-rotate-45', '-translate-y-2');
+        document.body.style.overflow = 'hidden';
     }
 
-    btn.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
+    function close() {
+        isOpen = false;
+        drawer.classList.remove('menu-open');
+        drawer.classList.add('pointer-events-none');
+        spans[0]?.classList.remove('rotate-45', 'translate-y-2');
+        spans[1]?.classList.remove('opacity-0', 'scale-x-0');
+        spans[2]?.classList.remove('-rotate-45', '-translate-y-2');
+        document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', (e) => { e.stopPropagation(); isOpen ? close() : open(); });
+    document.getElementById('mobile-menu-overlay')?.addEventListener('click', close);
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', toggleMenu);
+        link.addEventListener('click', close);
     });
-});
+}
+
+document.addEventListener('DOMContentLoaded', initMobileMenu);
+document.addEventListener('turbo:load', initMobileMenu);

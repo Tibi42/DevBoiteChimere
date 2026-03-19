@@ -13,6 +13,13 @@
         {% endblock %}
     </head>
     <body class="bg-custom-primary text-white">
+        {% for label, messages in app.flashes(['success', 'warning', 'error']) %}
+            {% for message in messages %}
+                <div class="mx-auto max-w-[1240px] px-4 py-3 mt-4 rounded-xl border border-custom {{ label == 'success' ? 'bg-emerald-900/50 text-emerald-200' : (label == 'warning' ? 'bg-amber-900/50 text-amber-200' : 'bg-red-900/50 text-red-200') }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Activity;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+class ActivityType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('title', TextType::class, [
+                'label' => 'Titre',
+                'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
+                'attr' => ['placeholder' => 'Ex : Soirée Jeux de société', 'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+                'constraints' => [new NotBlank(message: 'Le titre est obligatoire.')],
+            ])
+            ->add('type', ChoiceType::class, [
+                'label' => 'Type d\'activité',
+                'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
+                'choices' => [
+                    '-- Choisir --' => '',
+                    'BOITE' => 'BOITE',
+                    'JDS (Jeux de Société)' => 'JDS',
+                    'JDR (Jeux de Rôle)' => 'JDR',
+                    'GN (Grandeur Nature)' => 'GN',
+                    'AG (Assemblée Générale)' => 'AG',
+                ],
+                'required' => false,
+                'attr' => ['class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
+                'required' => false,
+                'attr' => ['placeholder' => 'Description de l\'événement...', 'rows' => 4, 'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+            ])
+            ->add('startAt', DateType::class, [
+                'label' => 'Date de début',
+                'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'attr' => [
+                    'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange activity-date-picker',
+                    'autocomplete' => 'off',
+                ],
+                'constraints' => [new NotBlank(message: 'La date de début est obligatoire.')],
+            ])
+            ->add('location', TextType::class, [
+                'label' => 'Lieu',
+                'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
+                'required' => false,
+                'attr' => ['placeholder' => 'Ex : Local association', 'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Activity::class,
+        ]);
+    }
+}

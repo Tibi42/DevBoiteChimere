@@ -10,6 +10,7 @@ import './carousel.js';
 import './mobile_menu.js';
 import './reveal.js';
 import './theme_toggle.js';
+import './join_panel.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 

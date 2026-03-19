@@ -9,49 +9,7 @@
 		<img src="{{ asset('images/hero/hero.jpg') }}" alt="Hero" class="absolute inset-0 h-full w-full object-cover">
 		<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
 
-		<!-- Données du Carousel -->
-		{% set slides = [
-            {
-                tag: "Prochain événement",
-                tag_color: "text-custom-orange",
-                title: "Senses Etch - Champs de Valoris",
-                date: "25 JAN",
-                btn_text: "S'INSCRIRE",
-                btn_class: "bg-custom-orange group-hover:bg-orange-600 shadow-custom-orange/20"
-            },
-            {
-                tag: "Nouvel article",
-                tag_color: "text-cyan-400",
-                title: "Guide : Peindre ses figurines",
-                date: "PUBLIÉ LUNDI",
-                btn_text: "LIRE LA SUITE",
-                btn_class: "bg-cyan-600 group-hover:bg-cyan-700 shadow-cyan-500/20"
-            },
-            {
-                tag: "Vie du forum",
-                tag_color: "text-purple-400",
-                title: "Organisation GN été 2026",
-                date: "EN DISCUSSION",
-                btn_text: "PARTICIPER",
-                btn_class: "bg-purple-600 group-hover:bg-purple-700 shadow-purple-500/20"
-            },
-            {
-                tag: "Soirée spéciale",
-                tag_color: "text-rose-400",
-                title: "Soirée Jeux de société Expert",
-                date: "12 FÉVRIER",
-                btn_text: "RÉSERVER",
-                btn_class: "bg-rose-600 group-hover:bg-rose-700 shadow-rose-500/20"
-            },
-            {
-                tag: "Association",
-                tag_color: "text-emerald-400",
-                title: "Nouvel arrivage : 15 nouveaux jeux",
-                date: "DISPONIBLES AU LOCAL",
-                btn_text: "VOIR LA LISTE",
-                btn_class: "bg-emerald-600 group-hover:bg-emerald-700 shadow-emerald-500/20"
-            }
-        ] %}
+		<!-- Données du Carousel (fournies par le contrôleur : BDD ou défaut) -->
 
 		<!-- Données Mondes -->
 		{% set worlds = [
@@ -75,7 +33,7 @@
 										<h3 class="text-base sm:text-lg font-bold text-text-primary mt-0.5 leading-tight">{{ slide.title }}</h3>
 										<p class="text-xs sm:text-sm text-text-secondary mt-1">{{ slide.date }}</p>
 									</div>
-									<a href="#" class="w-full sm:w-auto text-center shrink-0 rounded-lg {{ slide.btn_class }} px-5 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-text-primary transition-all group-hover:scale-105 shadow-lg">
+									<a href="{{ slide.btn_url|default('#') }}" class="w-full sm:w-auto text-center shrink-0 rounded-lg {{ slide.btn_class }} px-5 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-text-primary transition-all group-hover:scale-105 shadow-lg">
 										{{ slide.btn_text }}
 										<span class="absolute inset-0"></span>
 									</a>
@@ -94,7 +52,7 @@
 			<!-- Header -->
 			<header class="mx-auto max-w-[1240px] lg:max-w-[1360px] px-8 lg:px-10 mb-12 lg:mb-16">
 				<div class="header-container mx-auto max-w-[1240px] lg:max-w-[1360px] px-7 py-3 bg-custom-secondary rounded-xl shadow-2xl border border-custom flex items-center justify-between">
-					<a href="/#home" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
+					<a href="/#home" data-turbo="false" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
 						<div class="h-10 w-10 shrink-0">
 							<svg class="h-full w-full" viewbox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 								<path d="M20 2L36 12v16L20 38L4 28V12L20 2z" stroke="url(#logo)" stroke-width="1.5" fill="none"/>
@@ -116,11 +74,11 @@
 					</a>
 
 					<nav class="hidden lg:flex items-center gap-10">
-						<a href="#jds" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDS</a>
-						<a href="#jdr" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDR</a>
-						<a href="#gn" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">GN</a>
-						<a href="#societe" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">SOCIÉTÉ</a>
-						<a href="#forum" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
+						<a href="#jds" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDS</a>
+						<a href="#jdr" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDR</a>
+						<a href="#gn" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">GN</a>
+						<a href="#societe" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">SOCIÉTÉ</a>
+						<a href="#forum" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
 					</nav>
 
 					<div class="flex items-center gap-4">
@@ -132,29 +90,49 @@
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
 							</svg>
 						</button>
-						<a href="#" class="hidden sm:inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20 z-[75]">
-							REJOIGNEZ L'AVENTURE
-						</a>
+						<button type="button" id="join-btn" class="hidden sm:inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							NOUS REJOINDRE
+						</button>
 						<!-- Hamburger Menu Button -->
 						<button id="mobile-menu-btn" type="button" class="lg:hidden flex flex-col gap-1.5 p-2 z-[100] text-text-primary" aria-label="Menu principal">
 							<span class="w-6 h-0.5 bg-current transition-all duration-300 origin-center"></span>
-							<span class="w-6 h-0.5 bg-current transition-all duration-300"></span>
+							<span class="w-6 h-0.5 bg-current transition-all duration-300 origin-center"></span>
 							<span class="w-6 h-0.5 bg-current transition-all duration-300 origin-center"></span>
 						</button>
 					</div>
 				</div>
-			</header>
 
+				<!-- Panel connexion : glisse sous la barre -->
+				<div id="join-panel" class="hidden sm:block mx-auto max-w-[1240px] lg:max-w-[1360px] overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
+					<div class="bg-custom-secondary border border-t-0 border-custom rounded-b-xl px-7 pt-4 pb-5">
+						<form action="{{ path('app_login') }}" method="post" class="flex flex-col gap-2">
+							<input type="hidden" name="_csrf_token" value="{{ login_csrf_token }}">
+							<div class="flex items-end gap-3">
+								<div class="flex-1">
+									<label for="join-username" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Identifiant ou email</label>
+									<input type="text" id="join-username" name="_username" required autocomplete="username" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="Votre identifiant">
+								</div>
+								<div class="flex-1">
+									<label for="join-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
+									<input type="password" id="join-password" name="_password" required autocomplete="current-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········">
+								</div>
+								<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[155px] text-center">SE CONNECTER</button>
+							</div>
+							<a href="#" class="text-xs text-text-secondary hover:text-custom-orange transition-colors text-center">Mot de passe oublié ?</a>
+						</form>
+					</div>
+				</div>
+			</header>
 			<!-- Mobile Menu Drawer -->
-			<div id="mobile-menu-drawer" class="fixed inset-0 z-[95] lg:hidden transition-all duration-500 opacity-0 pointer-events-none">
-				<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-500 opacity-0"></div>
-				<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-custom shadow-2xl transition-transform duration-500 translate-x-full pt-20 px-8">
+			<div id="mobile-menu-drawer" class="fixed inset-0 z-[95] lg:hidden pointer-events-none">
+				<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+				<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-custom shadow-2xl pt-20 px-8">
 					<nav class="flex flex-col gap-6">
-						<a href="#jds" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
-						<a href="#jdr" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
-						<a href="#gn" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
-						<a href="#societe" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">SOCIÉTÉ</a>
-						<a href="#forum" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
+						<a href="#jds" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
+						<a href="#jdr" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
+						<a href="#gn" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
+						<a href="#societe" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">SOCIÉTÉ</a>
+						<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
 						<hr class="border-custom my-4">
 						<div class="flex items-center justify-between">
 							<span class="text-sm font-bold uppercase tracking-widest text-text-secondary">THÈME</span>
@@ -167,9 +145,24 @@
 								</svg>
 							</button>
 						</div>
-						<a href="#" class="mt-4 rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20">
-							REJOINDRE
-						</a>
+						<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
+							NOUS REJOINDRE
+						</button>
+						<div id="mobile-join-form" class="overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
+							<form action="{{ path('app_login') }}" method="post" class="flex flex-col gap-3 pt-4">
+								<input type="hidden" name="_csrf_token" value="{{ login_csrf_token }}">
+								<div>
+									<label for="mobile-join-username" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Identifiant ou email</label>
+									<input type="text" id="mobile-join-username" name="_username" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="Identifiant" autocomplete="username">
+								</div>
+								<div>
+									<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
+									<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
+								</div>
+								<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
+								<a href="#" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
+							</form>
+						</div>
 					</nav>
 					<div class="absolute bottom-10 left-8 right-8 text-center">
 						<p class="text-[10px] uppercase tracking-widest text-text-secondary/30 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
@@ -177,52 +170,93 @@
 				</div>
 			</div>
 
-			<!-- ÉVÉNEMENTS À VENIR (Mobile only - inside hero for layout flow) -->
-			<div class="lg:hidden mx-auto max-w-[1240px] px-8 mb-8">
-				<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary mb-6">ÉVÉNEMENTS À VENIR</h2>
-				<article class="bg-custom-primary p-5 rounded-xl border border-custom relative shadow-2xl glass-card">
-					<div class="flex gap-4 mb-6">
-						<div class="flex-1">
-							<div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold uppercase tracking-tighter text-text-secondary mb-4">
-								<span>Lu</span>
-								<span>Ma</span>
-								<span>Me</span>
-								<span>Je</span>
-								<span>Ve</span>
-								<span>Sa</span>
-								<span class="text-cyan-400">Di</span>
-								{% set days = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31] %}
-								{% for day in days %}
-									{% if day %}
-										{% if day == 25 %}
-											<span class="py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40">25</span>
+			<!-- ÉVÉNEMENTS À VENIR (Mobile only - inside hero for layout flow). Turbo-frame : mise à jour partielle pour ne pas fermer le menu / modales. -->
+			<turbo-frame id="calendar-frame">
+				<div id="calendar" class="lg:hidden mx-auto max-w-[1240px] px-8 mb-8">
+					<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary mb-6">ÉVÉNEMENTS À VENIR</h2>
+					<article class="bg-custom-primary p-5 rounded-xl border border-custom relative shadow-2xl glass-card">
+						{# Navigation mois #}
+						<div class="flex items-center justify-between mb-4">
+							<a href="{{ path('app_home', { month: prevMonth, year: prevYear }) }}#calendar" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">&larr; {{ prevMonthName }}</a>
+							<span class="text-[10px] font-bold uppercase tracking-wider text-text-primary">{{ calendarMonthName }} {{ calendarYear }}</span>
+							<a href="{{ path('app_home', { month: nextMonth, year: nextYear }) }}#calendar" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">{{ nextMonthName }} &rarr;</a>
+						</div>
+						<div class="flex gap-4 mb-6">
+							<div class="flex-1">
+								<div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold uppercase tracking-tighter text-text-secondary mb-4">
+									<span>Lu</span>
+									<span>Ma</span>
+									<span>Me</span>
+									<span>Je</span>
+									<span>Ve</span>
+									<span>Sa</span>
+									<span class="text-cyan-400">Di</span>
+									{% for day in calendarDays %}
+										{% if day is not null %}
+											{% if day in daysWithActivities %}
+												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar" class="block py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40 hover:ring-2 hover:ring-white transition-all {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+													<span>{{ day }}</span>
+													{% if (activitiesCountByDay[day] ?? 1) > 1 %}
+														<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
+													{% endif %}
+												</a>
+											{% else %}
+												<span class="py-2">{{ day }}</span>
+											{% endif %}
 										{% else %}
-											<span class="py-2">{{ day }}</span>
+											<span class="py-2"></span>
 										{% endif %}
-									{% else %}
-										<span class="py-2"></span>
-									{% endif %}
-								{% endfor %}
+									{% endfor %}
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom">
-						<div class="flex justify-between items-start mb-1">
-							<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">BOITE</span>
-							<span class="font-bold text-text-primary text-base">25 JAN</span>
-						</div>
-						<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">Senses Etch - Champs de Valoris</h4>
-						<a href="#" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
-					</div>
-				</article>
-			</div>
+						{% if selectedDay %}
+							<p class="text-[10px] font-bold uppercase tracking-wider text-custom-orange mb-3">
+								Événements du {{ selectedDay }} {{ calendarMonthName }}
+								{% if activitiesForSelectedDay|length > 1 %}
+									<span class="text-text-secondary font-normal">({{ activitiesForSelectedDay|length }} événements)</span>
+								{% endif %}
+							</p>
+							{% for activity in activitiesForSelectedDay %}
+							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
+								<div class="flex justify-between items-start mb-1">
+									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
+								</div>
+								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
+								<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+							</div>
+							{% else %}
+							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center mb-4">
+								<p class="text-xs text-text-secondary">Aucun événement ce jour-là.</p>
+							</div>
+							{% endfor %}
+						{% else %}
+							{% for activity in activities %}
+							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
+								<div class="flex justify-between items-start mb-1">
+									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
+								</div>
+								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
+								<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+							</div>
+							{% else %}
+							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center">
+								<p class="text-xs text-text-secondary">Aucun événement ce mois-ci. Cliquez sur un jour du calendrier pour voir les événements.</p>
+							</div>
+							{% endfor %}
+						{% endif %}
+					</article>
+				</div>
+			</turbo-frame>
 			<!-- NOS MONDES (Mobile only variant) -->
 			<div class="lg:hidden bg-custom-primary border-t border-custom">
 				<section class="mx-auto max-w-[1240px] px-8 py-12">
 					<h2 class="text-3xl font-bold uppercase tracking-[0.2em] text-text-primary mb-8 text-center">NOS MONDES</h2>
 					<div class="grid gap-6">
 						{% for world in worlds %}
-							<a href="#{{ world.id }}" id="{{ world.id }}-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
+							<a href="#{{ world.id }}" data-turbo="false" id="{{ world.id }}-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
 								<img src="{{ asset('images/cards/' ~ world.image) }}" alt="{{ world.name }}" class="absolute inset-0 h-full w-full object-cover">
 								<div class="absolute inset-0 image-overlay"></div>
 								<div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
@@ -246,7 +280,7 @@
 		<h2 class="text-3xl lg:text-4xl font-bold uppercase tracking-[0.2em] text-text-primary mb-16 text-center">NOS MONDES</h2>
 		<div class="grid gap-6 lg:grid-cols-3">
 			{% for world in worlds %}
-				<a href="#{{ world.id }}" id="{{ world.id }}" class="reveal delay-{{ loop.index }}00 card-premium group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg border border-custom">
+				<a href="#{{ world.id }}" data-turbo="false" id="{{ world.id }}" class="reveal delay-{{ loop.index }}00 card-premium group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg border border-custom">
 					<img src="{{ asset('images/cards/' ~ world.image) }}" alt="{{ world.name }}" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700">
 					<div class="absolute inset-0 image-overlay"></div>
 					<div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
@@ -269,46 +303,87 @@
 			<div
 				class="grid gap-12 lg:gap-16 lg:grid-cols-12 items-start">
 
-				<!-- Section ÉVÉNEMENTS À VENIR (Sidebar - Desktop) -->
-				<aside class="lg:col-span-4 order-4 lg:order-1 space-y-10">
-					<div class="hidden lg:block">
-						<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary mb-6 lg:mb-8">ÉVÉNEMENTS À VENIR</h2>
-						<article class="bg-custom-primary p-5 lg:p-6 rounded-xl border border-custom relative shadow-2xl glass-card">
-							<div class="flex gap-4 mb-6">
-								<div class="flex-1">
-									<div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold uppercase tracking-tighter text-text-secondary mb-4">
-										<span>Lu</span>
-										<span>Ma</span>
-										<span>Me</span>
-										<span>Je</span>
-										<span>Ve</span>
-										<span>Sa</span>
-										<span class="text-cyan-400">Di</span>
-										{% set days = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31] %}
-										{% for day in days %}
-											{% if day %}
-												{% if day == 25 %}
-													<span class="py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40">25</span>
+				<!-- Section ÉVÉNEMENTS À VENIR (Sidebar - Desktop). Turbo-frame : mise à jour partielle pour ne pas fermer les modales. -->
+				<aside id="calendar-desktop" class="lg:col-span-4 order-4 lg:order-1 space-y-10">
+					<turbo-frame id="calendar-desktop-frame">
+						<div class="hidden lg:block">
+							<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary mb-6 lg:mb-8">ÉVÉNEMENTS À VENIR</h2>
+							<article class="bg-custom-primary p-5 lg:p-6 rounded-xl border border-custom relative shadow-2xl glass-card">
+								{# Navigation mois #}
+								<div class="flex items-center justify-between mb-4">
+									<a href="{{ path('app_home', { month: prevMonth, year: prevYear }) }}#calendar-desktop" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">&larr; {{ prevMonthName }}</a>
+									<span class="text-[10px] font-bold uppercase tracking-wider text-text-primary">{{ calendarMonthName }} {{ calendarYear }}</span>
+									<a href="{{ path('app_home', { month: nextMonth, year: nextYear }) }}#calendar-desktop" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">{{ nextMonthName }} &rarr;</a>
+								</div>
+								<div class="flex gap-4 mb-6">
+									<div class="flex-1">
+										<div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold uppercase tracking-tighter text-text-secondary mb-4">
+											<span>Lu</span>
+											<span>Ma</span>
+											<span>Me</span>
+											<span>Je</span>
+											<span>Ve</span>
+											<span>Sa</span>
+											<span class="text-cyan-400">Di</span>
+											{% for day in calendarDays %}
+												{% if day is not null %}
+													{% if day in daysWithActivities %}
+														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar-desktop" class="block py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40 hover:ring-2 hover:ring-white transition-all {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+															<span>{{ day }}</span>
+															{% if (activitiesCountByDay[day] ?? 1) > 1 %}
+																<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
+															{% endif %}
+														</a>
+													{% else %}
+														<span class="py-2">{{ day }}</span>
+													{% endif %}
 												{% else %}
-													<span class="py-2">{{ day }}</span>
+													<span class="py-2"></span>
 												{% endif %}
-											{% else %}
-												<span class="py-2"></span>
-											{% endif %}
-										{% endfor %}
+											{% endfor %}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom">
-								<div class="flex justify-between items-start mb-1">
-									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">BOITE</span>
-									<span class="font-bold text-text-primary text-base">25 JAN</span>
-								</div>
-								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">Senses Etch - Champs de Valoris</h4>
-								<a href="#" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
-							</div>
-						</article>
-					</div>
+								{% if selectedDay %}
+									<p class="text-[10px] font-bold uppercase tracking-wider text-custom-orange mb-3">
+										Événements du {{ selectedDay }} {{ calendarMonthName }}
+										{% if activitiesForSelectedDay|length > 1 %}
+											<span class="text-text-secondary font-normal">({{ activitiesForSelectedDay|length }} événements)</span>
+										{% endif %}
+									</p>
+									{% for activity in activitiesForSelectedDay %}
+									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
+										<div class="flex justify-between items-start mb-1">
+											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
+										</div>
+										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
+										<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+									</div>
+									{% else %}
+									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center mb-4">
+										<p class="text-xs text-text-secondary">Aucun événement ce jour-là.</p>
+									</div>
+									{% endfor %}
+								{% else %}
+									{% for activity in activities %}
+									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
+										<div class="flex justify-between items-start mb-1">
+											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
+										</div>
+										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
+										<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+									</div>
+									{% else %}
+									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center">
+										<p class="text-xs text-text-secondary">Aucun événement ce mois-ci. Cliquez sur un jour pour voir les événements.</p>
+									</div>
+									{% endfor %}
+								{% endif %}
+							</article>
+						</div>
+					</turbo-frame>
 
 					<div
 						class="grid grid-cols-1 gap-6 lg:gap-4">
@@ -511,4 +586,6 @@
 				LA BOÎTE À CHIMÈRE. Tous droits réservés.</p>
 		</div>
 	</footer>
+
+
 {% endblock %}

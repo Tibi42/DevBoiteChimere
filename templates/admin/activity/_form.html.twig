@@ -1,0 +1,35 @@
+{{ form_start(form, { attr: { class: 'space-y-4' } }) }}
+	<div>
+		{{ form_label(form.title) }}
+		{{ form_widget(form.title) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.title) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.type) }}
+		{{ form_widget(form.type) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.type) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.description) }}
+		{{ form_widget(form.description) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.description) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.startAt) }}
+		{{ form_widget(form.startAt) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.startAt) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.location) }}
+		{{ form_widget(form.location) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.location) }}</div>
+	</div>
+	<div class="flex flex-wrap gap-3 pt-2">
+		<button type="submit" class="rounded-lg bg-custom-orange py-3 px-6 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
+			{{ button_label|default('Enregistrer') }}
+		</button>
+		<a href="{{ path('app_activity_index') }}" class="rounded-lg border border-custom bg-custom-secondary py-3 px-6 text-sm font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-custom-orange transition-all">
+			Annuler
+		</a>
+	</div>
+{{ form_end(form) }}

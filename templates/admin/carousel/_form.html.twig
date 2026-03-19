@@ -1,0 +1,54 @@
+{{ form_start(form, { attr: { class: 'space-y-4' } }) }}
+	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+		<div>
+			{{ form_label(form.position) }}
+			{{ form_widget(form.position) }}
+			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.position) }}</div>
+		</div>
+		<div>
+			{{ form_label(form.tag) }}
+			{{ form_widget(form.tag) }}
+			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.tag) }}</div>
+		</div>
+	</div>
+	<div>
+		{{ form_label(form.tagColor) }}
+		{{ form_widget(form.tagColor) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.tagColor) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.title) }}
+		{{ form_widget(form.title) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.title) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.date) }}
+		{{ form_widget(form.date) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.date) }}</div>
+	</div>
+	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+		<div>
+			{{ form_label(form.btnText) }}
+			{{ form_widget(form.btnText) }}
+			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.btnText) }}</div>
+		</div>
+		<div>
+			{{ form_label(form.btnClass) }}
+			{{ form_widget(form.btnClass) }}
+			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.btnClass) }}</div>
+		</div>
+	</div>
+	<div>
+		{{ form_label(form.btnUrl) }}
+		{{ form_widget(form.btnUrl) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.btnUrl) }}</div>
+	</div>
+	<div class="flex flex-wrap gap-3 pt-2">
+		<button type="submit" class="rounded-lg bg-custom-orange py-3 px-6 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
+			{{ button_label|default('Enregistrer') }}
+		</button>
+		<a href="{{ path('app_admin_carousel_index') }}" class="rounded-lg border border-custom bg-custom-secondary py-3 px-6 text-sm font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-custom-orange transition-all">
+			Annuler
+		</a>
+	</div>
+{{ form_end(form) }}
