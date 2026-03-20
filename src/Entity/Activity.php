@@ -170,6 +170,14 @@ class Activity
 
     public function setStatus(string $status): static
     {
+        if (!in_array($status, [self::STATUS_PUBLISHED, self::STATUS_PENDING], true)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid status "%s". Allowed values: "%s", "%s".',
+                $status,
+                self::STATUS_PUBLISHED,
+                self::STATUS_PENDING
+            ));
+        }
         $this->status = $status;
         return $this;
     }
