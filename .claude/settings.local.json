@@ -45,7 +45,11 @@
       "Bash(git:*)",
       "Bash(cd:*)",
       "Bash(php -r \":*)",
-      "Bash(docker compose:*)"
+      "Bash(docker compose:*)",
+      "Bash(docker exec:*)",
+      "Bash(echo \"EXIT: $?\")",
+      "Read(//c/Users/gpecquet/AppData/Local/Temp/claude/C--laragon/www/DevBoiteChimere/tasks/**)",
+      "Read(//c/Users/gpecquet/AppData/Local/Temp/claude/C--laragon-www-DevBoiteChimere/5e4e5d6e-285c-4cc1-9a41-0a495445661e/tasks/**)"
     ]
   }
 }

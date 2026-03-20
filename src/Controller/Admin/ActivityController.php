@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Activity;
+use App\Entity\User;
 use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +39,10 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            if ($user instanceof User) {
+                $activity->setCreatedBy($user);
+            }
             $this->entityManager->persist($activity);
             $this->entityManager->flush();
             $this->addFlash('success', 'L\'activité « ' . $activity->getTitle() . ' » a été créée.');

@@ -27,4 +27,26 @@ class InscriptionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult() > 0;
     }
+
+    public function countAll(): int
+    {
+        return (int) $this->createQueryBuilder('i')
+            ->select('COUNT(i.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @return Inscription[] Liste triée des inscriptions les plus récentes, avec la relation Activity.
+     */
+    public function findLatestWithActivity(int $limit = 1): array
+    {
+        return $this->createQueryBuilder('i')
+            ->leftJoin('i.activity', 'a')
+            ->addSelect('a')
+            ->orderBy('i.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -8,6 +8,93 @@
         <p class="text-muted small mt-1">La Boîte à Chimère — Administration</p>
     </div>
 
+    {# Inscriptions #}
+    <div class="col-md-6 col-xl-4">
+        <div class="card h-100 border-0" style="background: #1e293b; color: #f1f5f9;">
+            <div class="card-body d-flex flex-column gap-3 p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-2">📝</span>
+                    <div>
+                        <div class="fw-bold fs-5">Inscriptions</div>
+                        <div class="text-muted small">Nombre total</div>
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <div class="fw-extrabold display-6" style="line-height: 1.1;">{{ inscriptionsTotal|default(0) }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Dernières inscriptions #}
+    <div class="col-md-6 col-xl-4">
+        <div class="card h-100 border-0" style="background: #1e293b; color: #f1f5f9;">
+            <div class="card-body d-flex flex-column gap-3 p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-2">⏱️</span>
+                    <div>
+                        <div class="fw-bold fs-5">Dernier inscrit</div>
+                        <div class="text-muted small">10 dernières inscriptions</div>
+                    </div>
+                </div>
+
+                {% if latestInscriptions|length > 0 %}
+                    <div class="mt-auto d-flex flex-column gap-2">
+                        {% for inscription in latestInscriptions %}
+                            <div class="d-flex justify-content-between align-items-start gap-3">
+                                <div class="text-truncate">
+                                    <div class="fw-semibold" style="font-size: .9rem;">
+                                        {{ inscription.participantName|default(inscription.participantEmail) }}
+                                    </div>
+                                    <div class="text-muted small">
+                                        Activité : {{ inscription.activity.title|default('—') }}
+                                    </div>
+                                </div>
+                                <div class="text-muted small text-nowrap">
+                                    {{ inscription.createdAt|date('d/m H:i') }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="mt-auto text-muted small">Aucune inscription pour le moment.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {# Top proposants #}
+    <div class="col-md-6 col-xl-4">
+        <div class="card h-100 border-0" style="background: #1e293b; color: #f1f5f9;">
+            <div class="card-body d-flex flex-column gap-3 p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-2">🏆</span>
+                    <div>
+                        <div class="fw-bold fs-5">Top proposants</div>
+                        <div class="text-muted small">Mois en cours</div>
+                    </div>
+                </div>
+
+                {% if topProposers|length > 0 %}
+                    <div class="mt-auto d-flex flex-column gap-2">
+                        {% for proposer in topProposers %}
+                            <div class="d-flex justify-content-between align-items-center gap-3">
+                                <div class="text-truncate">
+                                    <span class="fw-bold">
+                                        {{ proposer.username|default(proposer.email)|default('—') }}
+                                    </span>
+                                </div>
+                                <span class="badge" style="background:#f8742c;">{{ proposer.activityCount }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="mt-auto text-muted small">Aucune activité proposée sur la période.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
     {# Activités #}
     <div class="col-md-6 col-xl-4">
         <a href="{{ path('app_activity_index') }}" class="card h-100 text-decoration-none shadow-sm border-0" style="transition: transform .15s; background: #1e293b; color: #f1f5f9;">

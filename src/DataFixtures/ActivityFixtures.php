@@ -3,15 +3,29 @@
 namespace App\DataFixtures;
 
 use App\Entity\Activity;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class ActivityFixtures extends Fixture
 {
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
+
     public function load(ObjectManager $manager): void
     {
         $now = new \DateTimeImmutable('now');
         $baseMonth = $now->modify('first day of this month');
+
+        /** @var User[] $users */
+        $users = $manager->getRepository(User::class)->findAll();
+        $users = array_values($users);
+        $usersCount = count($users);
+        $userIndex = 0;
 
         $activities = [
             [
@@ -142,6 +156,7 @@ class ActivityFixtures extends Fixture
         $lastDay = (int) $baseMonth->modify('last day of this month')->format('j');
 
         foreach ($activities as $data) {
+            $createdBy = $usersCount > 0 ? $users[$userIndex % $usersCount] : null;
             $day = $data['dayOffset'] + 1;
             if ($day > $lastDay) {
                 continue;
@@ -157,8 +172,11 @@ class ActivityFixtures extends Fixture
             $activity->setStartAt($startAt);
             $activity->setEndAt($endAt);
             $activity->setLocation($data['location']);
+            $activity->setCreatedBy($createdBy);
 
             $manager->persist($activity);
+
+            $userIndex++;
         }
 
         // Quelques événements le mois prochain
@@ -171,6 +189,7 @@ class ActivityFixtures extends Fixture
         ];
 
         foreach ($nextActivities as $data) {
+            $createdBy = $usersCount > 0 ? $users[$userIndex % $usersCount] : null;
             $startAt = $nextMonth->setTime($data['hour'], $data['minute'], 0)->modify('+' . ($data['day'] - 1) . ' days');
             $endAt = $startAt->modify('+4 hours');
 
@@ -180,8 +199,11 @@ class ActivityFixtures extends Fixture
             $activity->setStartAt($startAt);
             $activity->setEndAt($endAt);
             $activity->setLocation('Local association');
+            $activity->setCreatedBy($createdBy);
 
             $manager->persist($activity);
+
+            $userIndex++;
         }
 
         $manager->flush();
