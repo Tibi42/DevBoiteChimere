@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Password Reset Email Sent{% endblock %}
+{% block title %}Email envoyé — La Boîte à Chimère{% endblock %}
 
 {% block body %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+<div class="min-h-screen flex items-center justify-center px-4 py-20">
+    <div class="w-full max-w-md">
+        <div class="bg-custom-secondary border border-custom rounded-2xl shadow-2xl px-8 py-10 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="h-14 w-14 rounded-full bg-custom-orange/10 flex items-center justify-center">
+                    <svg class="h-7 w-7 text-custom-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+            </div>
+            <h1 class="text-lg font-extrabold uppercase tracking-[0.15em] text-text-primary mb-3">Vérifiez votre email</h1>
+            <p class="text-xs text-text-secondary leading-relaxed mb-8">
+                Un email a été envoyé avec un lien de réinitialisation. Ce lien est valable <strong class="text-text-primary">1 heure</strong>.
+            </p>
+            <a href="{{ path('app_home') }}" class="inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

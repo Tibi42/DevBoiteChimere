@@ -1,22 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Mot de passe oublié — La Boîte à Chimère{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
+<div class="min-h-screen flex items-center justify-center px-4 py-20">
+    <div class="w-full max-w-md">
+        <div class="bg-custom-secondary border border-custom rounded-2xl shadow-2xl px-8 py-10">
+            <h1 class="text-lg font-extrabold uppercase tracking-[0.15em] text-text-primary mb-2 text-center">Mot de passe oublié</h1>
+            <p class="text-xs text-text-secondary text-center mb-8">Entrez votre adresse email. Vous recevrez un lien pour réinitialiser votre mot de passe.</p>
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address, and we will send you a
-                link to reset your password.
-            </small>
+            {% for flash in app.flashes('reset_password_error') %}
+                <div class="mb-4 rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3 text-xs text-red-400 text-center">
+                    {{ flash }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(requestForm, { attr: { class: 'flex flex-col gap-4', 'data-turbo': 'false' } }) }}
+                <div>
+                    {{ form_label(requestForm.email, 'Email', { label_attr: { class: 'block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5' } }) }}
+                    {{ form_widget(requestForm.email, { attr: { class: 'w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange', placeholder: 'votre@email.com' } }) }}
+                    {{ form_errors(requestForm.email) }}
+                </div>
+                <button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20">
+                    Envoyer le lien
+                </button>
+            {{ form_end(requestForm) }}
+
+            <div class="mt-6 text-center">
+                <a href="{{ path('app_home') }}" class="text-xs text-text-secondary hover:text-custom-orange transition-colors">← Retour à l'accueil</a>
+            </div>
         </div>
-
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+    </div>
+</div>
 {% endblock %}

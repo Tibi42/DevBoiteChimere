@@ -1,12 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Nouveau mot de passe — La Boîte à Chimère{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
+<div class="min-h-screen flex items-center justify-center px-4 py-20">
+    <div class="w-full max-w-md">
+        <div class="bg-custom-secondary border border-custom rounded-2xl shadow-2xl px-8 py-10">
+            <h1 class="text-lg font-extrabold uppercase tracking-[0.15em] text-text-primary mb-2 text-center">Nouveau mot de passe</h1>
+            <p class="text-xs text-text-secondary text-center mb-8">Choisissez un nouveau mot de passe pour votre compte.</p>
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+            {{ form_start(resetForm, { attr: { class: 'flex flex-col gap-4', 'data-turbo': 'false' } }) }}
+                <div>
+                    {{ form_label(resetForm.plainPassword.first, 'Nouveau mot de passe', { label_attr: { class: 'block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5' } }) }}
+                    {{ form_widget(resetForm.plainPassword.first, { attr: { class: 'w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange', placeholder: '········' } }) }}
+                </div>
+                <div>
+                    {{ form_label(resetForm.plainPassword.second, 'Confirmer le mot de passe', { label_attr: { class: 'block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5' } }) }}
+                    {{ form_widget(resetForm.plainPassword.second, { attr: { class: 'w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange', placeholder: '········' } }) }}
+                    {{ form_errors(resetForm.plainPassword) }}
+                </div>
+                <button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20">
+                    Réinitialiser le mot de passe
+                </button>
+            {{ form_end(resetForm) }}
+        </div>
+    </div>
+</div>
 {% endblock %}
