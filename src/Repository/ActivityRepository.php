@@ -26,8 +26,10 @@ class ActivityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->andWhere('a.startAt >= :start')
             ->andWhere('a.startAt <= :end')
+            ->andWhere('a.status = :status')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
+            ->setParameter('status', Activity::STATUS_PUBLISHED)
             ->orderBy('a.startAt', 'ASC')
             ->getQuery()
             ->getResult();
@@ -38,11 +40,48 @@ class ActivityRepository extends ServiceEntityRepository
      *
      * @return Activity[]
      */
-    public function findAllOrderByStartDesc(): array
+    public function findAllOrderByStartDesc(?string $status = null): array
     {
+        $qb = $this->createQueryBuilder('a')
+            ->leftJoin('a.proposedBy', 'u')
+            ->addSelect('u')
+            ->orderBy('a.startAt', 'DESC');
+
+        if ($status !== null) {
+            $qb->andWhere('a.status = :status')
+               ->setParameter('status', $status);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Retourne le top des utilisateurs ayant le plus d'activités créées
+     * sur la période [start; end[ (end exclus).
+     *
+     * @return array<int, array{id:int, username:string|null, email:string|null, activityCount:int}>
+     */
+    public function findTopProposersBetween(
+        \DateTimeInterface $start,
+        \DateTimeInterface $end,
+        int $limit = 5
+    ): array {
         return $this->createQueryBuilder('a')
-            ->orderBy('a.startAt', 'DESC')
+            ->select('u.id as id')
+            ->addSelect('u.username as username')
+            ->addSelect('u.email as email')
+            ->addSelect('COUNT(a.id) as activityCount')
+            ->innerJoin('a.createdBy', 'u')
+            ->andWhere('a.createdAt >= :start')
+            ->andWhere('a.createdAt < :end')
+            ->groupBy('u.id')
+            ->addGroupBy('u.username')
+            ->addGroupBy('u.email')
+            ->orderBy('activityCount', 'DESC')
+            ->setMaxResults($limit)
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 }
