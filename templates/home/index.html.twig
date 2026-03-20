@@ -79,6 +79,9 @@
 						<a href="#gn" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">GN</a>
 						<a href="#societe" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">SOCIÉTÉ</a>
 						<a href="#forum" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a href="{{ path('admin') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
+					{% endif %}
 					</nav>
 
 					<div class="flex items-center gap-4">
@@ -140,6 +143,9 @@
 						<a href="#gn" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
 						<a href="#societe" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">SOCIÉTÉ</a>
 						<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
+						{% endif %}
 						<hr class="border-custom my-4">
 						{% if app.user %}
 							<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
