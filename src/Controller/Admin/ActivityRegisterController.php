@@ -28,6 +28,11 @@ class ActivityRegisterController extends AbstractController
             throw $this->createNotFoundException('Cet événement n\'existe pas.');
         }
 
+        if ($activity->getStartAt() < new \DateTimeImmutable()) {
+            $this->addFlash('warning', 'Les inscriptions pour cet événement sont fermées (date dépassée).');
+            return $this->redirectToRoute('app_home');
+        }
+
         $inscription = new Inscription();
         $inscription->setActivity($activity);
 

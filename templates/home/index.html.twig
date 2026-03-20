@@ -203,6 +203,8 @@
 														<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
 													{% endif %}
 												</a>
+											{% elseif today == day %}
+												<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
 											{% else %}
 												<span class="py-2">{{ day }}</span>
 											{% endif %}
@@ -227,7 +229,11 @@
 									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
-								<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+								{% if activity.startAt > date() %}
+									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+								{% else %}
+									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
+								{% endif %}
 							</div>
 							{% else %}
 							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center mb-4">
@@ -242,7 +248,11 @@
 									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
-								<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+								{% if activity.startAt > date() %}
+									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+								{% else %}
+									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
+								{% endif %}
 							</div>
 							{% else %}
 							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center">
@@ -337,6 +347,8 @@
 																<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
 															{% endif %}
 														</a>
+													{% elseif today == day %}
+														<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
 													{% else %}
 														<span class="py-2">{{ day }}</span>
 													{% endif %}
@@ -361,7 +373,11 @@
 											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
-										<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+										{% if activity.startAt > date() %}
+									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+								{% else %}
+									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
+								{% endif %}
 									</div>
 									{% else %}
 									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center mb-4">
@@ -376,7 +392,11 @@
 											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
-										<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+										{% if activity.startAt > date() %}
+									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+								{% else %}
+									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
+								{% endif %}
 									</div>
 									{% else %}
 									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom text-center">

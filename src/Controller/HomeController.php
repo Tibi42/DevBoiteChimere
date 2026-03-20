@@ -23,9 +23,16 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-        $month = (int) $request->query->get('month', (int) date('n'));
-        $year = (int) $request->query->get('year', (int) date('Y'));
-        $selectedDay = (int) $request->query->get('day', 0);
+        $currentMonth = (int) date('n');
+        $currentYear = (int) date('Y');
+        $today = (int) date('j');
+
+        $month = (int) $request->query->get('month', $currentMonth);
+        $year = (int) $request->query->get('year', $currentYear);
+
+        // Pré-sélectionner le jour courant si on est sur le mois en cours et qu'aucun jour n'est explicitement demandé
+        $defaultDay = ($month === $currentMonth && $year === $currentYear) ? $today : 0;
+        $selectedDay = (int) $request->query->get('day', $defaultDay);
 
         // Limiter à un mois valide
         $month = max(1, min(12, $month));
@@ -84,6 +91,7 @@ class HomeController extends AbstractController
             'login_error' => $loginError,
             'last_username' => $lastUsername,
             'slides' => $slides,
+            'today' => ($month === $currentMonth && $year === $currentYear) ? $today : 0,
             'calendarMonth' => $month,
             'calendarYear' => $year,
             'calendarMonthName' => $this->getMonthName($month),
