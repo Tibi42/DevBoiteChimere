@@ -48,6 +48,14 @@ class ActivityRepository extends ServiceEntityRepository
             ->orderBy('a.startAt', 'DESC');
 
         if ($status !== null) {
+            if (!in_array($status, [Activity::STATUS_PUBLISHED, Activity::STATUS_PENDING], true)) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Invalid status "%s". Allowed values: "%s", "%s".',
+                    $status,
+                    Activity::STATUS_PUBLISHED,
+                    Activity::STATUS_PENDING
+                ));
+            }
             $qb->andWhere('a.status = :status')
                ->setParameter('status', $status);
         }
