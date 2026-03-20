@@ -90,9 +90,15 @@
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
 							</svg>
 						</button>
-						<button type="button" id="join-btn" class="hidden sm:inline-block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
-							NOUS REJOINDRE
-						</button>
+						{% if app.user %}
+							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+								DÉCONNEXION
+							</a>
+						{% else %}
+							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+								NOUS REJOINDRE
+							</button>
+						{% endif %}
 						<!-- Hamburger Menu Button -->
 						<button id="mobile-menu-btn" type="button" class="lg:hidden flex flex-col gap-1.5 p-2 z-[100] text-text-primary" aria-label="Menu principal">
 							<span class="w-6 h-0.5 bg-current transition-all duration-300 origin-center"></span>
@@ -105,12 +111,13 @@
 				<!-- Panel connexion : glisse sous la barre -->
 				<div id="join-panel" class="hidden sm:block mx-auto max-w-[1240px] lg:max-w-[1360px] overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
 					<div class="bg-custom-secondary border border-t-0 border-custom rounded-b-xl px-7 pt-4 pb-5">
-						<form action="{{ path('app_login') }}" method="post" class="flex flex-col gap-2">
+						{% if login_error %}<p class="mb-3 text-xs font-semibold text-red-400 text-center">{{ login_error.messageKey|trans(login_error.messageData, 'security') }}</p>{% endif %}
+						<form action="{{ path('app_login') }}" method="post" data-turbo="false" class="flex flex-col gap-2">
 							<input type="hidden" name="_csrf_token" value="{{ login_csrf_token }}">
 							<div class="flex items-end gap-3">
 								<div class="flex-1">
-									<label for="join-username" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Identifiant ou email</label>
-									<input type="text" id="join-username" name="_username" required autocomplete="username" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="Votre identifiant">
+									<label for="join-username" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Email</label>
+									<input type="email" id="join-username" name="_username" value="{{ last_username }}" required autocomplete="email" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange {{ login_error ? 'border-red-500' : '' }}" placeholder="votre@email.com">
 								</div>
 								<div class="flex-1">
 									<label for="join-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
@@ -134,26 +141,22 @@
 						<a href="#societe" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">SOCIÉTÉ</a>
 						<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
 						<hr class="border-custom my-4">
-						<div class="flex items-center justify-between">
-							<span class="text-sm font-bold uppercase tracking-widest text-text-secondary">THÈME</span>
-							<button id="mobile-theme-toggle" type="button" class="p-3 rounded-lg bg-custom-tertiary border border-custom text-text-secondary transition-all">
-								<svg class="h-6 w-6 sun-icon" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-								</svg>
-								<svg class="h-6 w-6 moon-icon hidden" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-								</svg>
+						{% if app.user %}
+							<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
+								DÉCONNEXION
+							</a>
+						{% else %}
+							<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
+								NOUS REJOINDRE
 							</button>
-						</div>
-						<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
-							NOUS REJOINDRE
-						</button>
+						{% endif %}
 						<div id="mobile-join-form" class="overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
-							<form action="{{ path('app_login') }}" method="post" class="flex flex-col gap-3 pt-4">
+							{% if login_error %}<p class="mb-2 text-xs font-semibold text-red-400 text-center">{{ login_error.messageKey|trans(login_error.messageData, 'security') }}</p>{% endif %}
+							<form action="{{ path('app_login') }}" method="post" data-turbo="false" class="flex flex-col gap-3 pt-4">
 								<input type="hidden" name="_csrf_token" value="{{ login_csrf_token }}">
 								<div>
-									<label for="mobile-join-username" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Identifiant ou email</label>
-									<input type="text" id="mobile-join-username" name="_username" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="Identifiant" autocomplete="username">
+									<label for="mobile-join-username" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Email</label>
+									<input type="email" id="mobile-join-username" name="_username" value="{{ last_username }}" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange {{ login_error ? 'border-red-500' : '' }}" placeholder="votre@email.com" autocomplete="email">
 								</div>
 								<div>
 									<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
@@ -589,3 +592,4 @@
 
 
 {% endblock %}
+

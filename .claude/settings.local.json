@@ -8,7 +8,12 @@
       "Bash(/c/laragon/bin/php/php8.3.14/php.exe:*)",
       "Bash(/c/laragon/bin/php/php-8.3.28-Win32-vs16-x64/php.exe:*)",
       "Bash(/c/laragon/bin/php/php-8.4.12-nts-Win32-vs17-x64/php.exe:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(ls:*)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_pages",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script"
     ]
   }
 }

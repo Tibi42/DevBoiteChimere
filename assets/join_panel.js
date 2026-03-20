@@ -114,6 +114,15 @@ function initJoinPanel() {
 
 function bootJoinPanel() {
     initJoinPanel();
+    // Auto-open when redirected back after a login error (?open=login)
+    if (new URLSearchParams(window.location.search).get('open') === 'login') {
+        const panel = document.getElementById('join-panel');
+        const btn = document.getElementById('join-btn');
+        if (panel && btn) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            btn.classList.add('ring-2', 'ring-white/30');
+        }
+    }
 }
 
 if (document.readyState === 'loading') {

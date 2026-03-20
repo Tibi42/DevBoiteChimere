@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends AbstractController
 {
@@ -20,7 +21,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(Request $request): Response
+    public function index(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         $month = (int) $request->query->get('month', (int) date('n'));
         $year = (int) $request->query->get('year', (int) date('Y'));
@@ -75,9 +76,13 @@ class HomeController extends AbstractController
         $slides = $this->getCarouselSlides();
 
         $loginCsrfToken = $this->csrfTokenManager->getToken('authenticate')->getValue();
+        $loginError = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('home/index.html.twig', [
             'login_csrf_token' => $loginCsrfToken,
+            'login_error' => $loginError,
+            'last_username' => $lastUsername,
             'slides' => $slides,
             'calendarMonth' => $month,
             'calendarYear' => $year,
