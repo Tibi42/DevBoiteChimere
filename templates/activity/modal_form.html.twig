@@ -1,0 +1,55 @@
+{# templates/activity/modal_form.html.twig #}
+{# Fragment nu — pas d'extends. Chargé dans turbo-frame id="activity-modal-frame" #}
+<turbo-frame id="activity-modal-frame">
+    <div class="flex items-center justify-between mb-5">
+        <h2 class="text-base font-bold uppercase tracking-wide text-text-primary">
+            {% if is_granted('ROLE_ADMIN') %}
+                Nouvel événement
+            {% else %}
+                Proposer un événement
+            {% endif %}
+        </h2>
+        <button type="button" data-modal-close
+                class="text-text-secondary hover:text-text-primary transition-colors p-1 rounded">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    {% if not is_granted('ROLE_ADMIN') %}
+        <p class="text-xs text-text-secondary mb-4 p-3 rounded-lg bg-custom-orange/10 border border-custom-orange/30">
+            Votre proposition sera soumise à validation par un administrateur avant d'apparaître dans le calendrier.
+        </p>
+    {% endif %}
+
+    {{ form_start(form, {
+        attr: {
+            'data-turbo-frame': '_top',
+            class: 'space-y-4'
+        }
+    }) }}
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.startAt) }}
+        {{ form_row(form.location) }}
+        {{ form_row(form.description) }}
+
+        <div class="flex gap-3 pt-2">
+            <button type="submit"
+                    class="flex-1 rounded-lg bg-custom-orange py-3 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg">
+                {% if is_granted('ROLE_ADMIN') %}
+                    Créer l'événement
+                {% else %}
+                    Envoyer la proposition
+                {% endif %}
+            </button>
+            <button type="button" data-modal-close
+                    class="rounded-lg border border-custom px-4 py-3 text-xs font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors">
+                Annuler
+            </button>
+        </div>
+
+    {{ form_end(form) }}
+</turbo-frame>
