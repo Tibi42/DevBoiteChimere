@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Activity
 {
+    public const STATUS_PUBLISHED = 'published';
+    public const STATUS_PENDING   = 'pending';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -35,6 +38,17 @@ class Activity
      */
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $type = null;
+
+    #[ORM\Column(length: 16, options: ['default' => 'published'])]
+    private string $status = self::STATUS_PUBLISHED;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?User $proposedBy = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?User $createdBy = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
@@ -128,6 +142,17 @@ class Activity
         return $this;
     }
 
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): static
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -136,5 +161,27 @@ class Activity
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getProposedBy(): ?User
+    {
+        return $this->proposedBy;
+    }
+
+    public function setProposedBy(?User $proposedBy): static
+    {
+        $this->proposedBy = $proposedBy;
+        return $this;
     }
 }
