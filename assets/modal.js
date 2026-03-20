@@ -21,7 +21,6 @@ function initModal() {
         // Vider le frame pour éviter le contenu périmé à la prochaine ouverture
         frame.innerHTML = '';
         frame.removeAttribute('src');
-        delete modal.dataset.modalInit;
     }
 
     // Ouvrir quand le frame charge le formulaire
