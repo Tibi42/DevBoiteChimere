@@ -22,12 +22,18 @@ class ActivityController extends AbstractController
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $activities = $this->activityRepository->findAllOrderByStartDesc();
+        $status = $request->query->get('status');
+        if ($status !== null && !in_array($status, [Activity::STATUS_PUBLISHED, Activity::STATUS_PENDING], true)) {
+            $status = null;
+        }
+
+        $activities = $this->activityRepository->findAllOrderByStartDesc($status);
 
         return $this->render('admin/activity/index.html.twig', [
             'activities' => $activities,
+            'currentStatus' => $status,
         ]);
     }
 
@@ -73,6 +79,39 @@ class ActivityController extends AbstractController
             'activity' => $activity,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}/approuver', name: 'approve', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function approve(Request $request, Activity $activity): Response
+    {
+        $token = $request->request->get('_token');
+        if (!$this->isCsrfTokenValid('approve' . $activity->getId(), $token)) {
+            $this->addFlash('error', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('app_activity_index');
+        }
+
+        $activity->setStatus(Activity::STATUS_PUBLISHED);
+        $this->entityManager->flush();
+        $this->addFlash('success', 'L\'activité « ' . $activity->getTitle() . ' » a été approuvée et est maintenant visible.');
+
+        return $this->redirectToRoute('app_activity_index');
+    }
+
+    #[Route('/{id}/rejeter', name: 'reject', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function reject(Request $request, Activity $activity): Response
+    {
+        $token = $request->request->get('_token');
+        if (!$this->isCsrfTokenValid('reject' . $activity->getId(), $token)) {
+            $this->addFlash('error', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('app_activity_index');
+        }
+
+        $title = $activity->getTitle();
+        $this->entityManager->remove($activity);
+        $this->entityManager->flush();
+        $this->addFlash('success', 'La proposition « ' . $title . ' » a été rejetée et supprimée.');
+
+        return $this->redirectToRoute('app_activity_index');
     }
 
     #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
