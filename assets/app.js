@@ -1,3 +1,4 @@
+import '@hotwired/turbo';
 import './stimulus_bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
@@ -11,6 +12,7 @@ import './mobile_menu.js';
 import './reveal.js';
 import './theme_toggle.js';
 import './join_panel.js';
+import './modal.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
