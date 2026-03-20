@@ -1,0 +1,30 @@
+{{ form_start(form, { attr: { class: 'space-y-4' } }) }}
+	<div>
+		{{ form_label(form.email) }}
+		{{ form_widget(form.email) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.email) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.username) }}
+		{{ form_widget(form.username) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.username) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.roles) }}
+		{{ form_widget(form.roles) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.roles) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.plainPassword) }}
+		{{ form_widget(form.plainPassword) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.plainPassword) }}</div>
+	</div>
+	<div class="flex flex-wrap gap-3 pt-2">
+		<button type="submit" class="rounded-lg bg-custom-orange py-3 px-6 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
+			{{ button_label|default('Enregistrer') }}
+		</button>
+		<a href="{{ path('app_admin_user_index') }}" class="rounded-lg border border-custom bg-custom-secondary py-3 px-6 text-sm font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-custom-orange transition-all">
+			Annuler
+		</a>
+	</div>
+{{ form_end(form) }}

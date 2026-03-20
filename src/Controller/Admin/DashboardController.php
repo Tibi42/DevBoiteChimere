@@ -27,5 +27,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToRoute('Activités', 'fa fa-calendar', 'app_activity_index');
         yield MenuItem::linkToRoute('Carousel', 'fa fa-images', 'app_admin_carousel_index');
+        yield MenuItem::linkToRoute('Utilisateurs', 'fa fa-users', 'app_admin_user_index');
     }
 }

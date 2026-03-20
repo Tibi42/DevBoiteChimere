@@ -44,6 +44,24 @@
         </a>
     </div>
 
+    {# Utilisateurs #}
+    <div class="col-md-6 col-xl-4">
+        <a href="{{ path('app_admin_user_index') }}" class="card h-100 text-decoration-none shadow-sm border-0" style="transition: transform .15s; background: #1e293b; color: #f1f5f9;">
+            <div class="card-body d-flex flex-column gap-3 p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-2">👥</span>
+                    <div>
+                        <div class="fw-bold fs-5">Utilisateurs</div>
+                        <div class="text-muted small">Comptes et rôles</div>
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <span class="badge" style="background:#f8742c;">Gérer →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
     {# Retour site #}
     <div class="col-md-6 col-xl-4">
         <a href="{{ path('app_home') }}" class="card h-100 text-decoration-none shadow-sm border-0" style="transition: transform .15s; background: #1e293b; color: #f1f5f9;">
