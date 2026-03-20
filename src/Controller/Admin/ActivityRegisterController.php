@@ -55,6 +55,6 @@ class ActivityRegisterController extends AbstractController
         return $this->render('admin/activity_register/register.html.twig', [
             'activity' => $activity,
             'form' => $form,
-        ]);
+        ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 }

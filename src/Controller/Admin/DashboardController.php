@@ -23,6 +23,7 @@ class DashboardController extends AbstractDashboardController
     {
         $inscriptionsTotal = $this->inscriptionRepository->countAll();
         $latestInscriptions = $this->inscriptionRepository->findLatestWithActivity(10);
+        $pendingActivitiesCount = $this->activityRepository->countPendingApproval();
 
         $now = new \DateTimeImmutable();
         $monthStart = $now->modify('first day of this month')->setTime(0, 0, 0);
@@ -33,6 +34,7 @@ class DashboardController extends AbstractDashboardController
             'inscriptionsTotal' => $inscriptionsTotal,
             'latestInscriptions' => $latestInscriptions,
             'topProposers' => $topProposers,
+            'pendingActivitiesCount' => $pendingActivitiesCount,
         ]);
     }
 
@@ -44,8 +46,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        $pendingActivitiesCount = $this->activityRepository->countPendingApproval();
+        $activitiesLabel = sprintf('Activités (%d en attente d\'approbation)', $pendingActivitiesCount);
+
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToRoute('Activités', 'fa fa-calendar', 'app_activity_index');
+        yield MenuItem::linkToRoute($activitiesLabel, 'fa fa-calendar', 'app_activity_index');
         yield MenuItem::linkToRoute('Carousel', 'fa fa-images', 'app_admin_carousel_index');
         yield MenuItem::linkToRoute('Utilisateurs', 'fa fa-users', 'app_admin_user_index');
     }

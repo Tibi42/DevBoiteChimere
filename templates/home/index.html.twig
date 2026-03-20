@@ -196,7 +196,17 @@
 				</div>
 			</div>
 
-				<!-- ÉVÉNEMENTS À VENIR (Mobile only - inside hero for layout flow). Turbo-frame : mise à jour partielle pour ne pas fermer le menu / modales. -->
+				{# Modal d'ajout d'événement.
+			   Mobile : carte inline au-dessus du calendrier.
+			   Desktop : le JS la déplace dans <body> pour éviter le stacking context. #}
+			<div id="activity-modal"
+				 class="hidden px-8 mb-6">
+				<div class="glass-card rounded-2xl border border-custom shadow-2xl w-full lg:max-w-lg relative p-6">
+					<turbo-frame id="activity-modal-frame" loading="lazy"></turbo-frame>
+				</div>
+			</div>
+
+			<!-- ÉVÉNEMENTS À VENIR (Mobile only - inside hero for layout flow). Turbo-frame : mise à jour partielle pour ne pas fermer le menu / modales. -->
 			<turbo-frame id="calendar-frame">
 				<div id="calendar" class="lg:hidden mx-auto max-w-[1240px] px-8 mb-8">
 					<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary mb-6">ÉVÉNEMENTS À VENIR</h2>
@@ -233,12 +243,12 @@
 												</a>
 											{% elseif isToday %}
 												{% if isClickable %}
-													<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
+													<button type="button" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block w-full py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</button>
 												{% else %}
 													<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
 												{% endif %}
 											{% elseif isClickable %}
-												<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
+												<button type="button" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block w-full py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</button>
 											{% else %}
 												<span class="py-2">{{ day }}</span>
 											{% endif %}
@@ -259,8 +269,21 @@
 							{% for activity in activitiesForSelectedDay %}
 							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 								<div class="flex justify-between items-start mb-1">
-									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
-									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
+									{% set actType = activity.type|default('Play Test') %}
+													{% if actType == 'JDS' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400 px-2 py-0.5 rounded bg-emerald-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDR' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-violet-400 px-2 py-0.5 rounded bg-violet-400/10">{{ actType }}</span>
+													{% elseif actType == 'GN' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 px-2 py-0.5 rounded bg-red-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDF' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-sky-400 px-2 py-0.5 rounded bg-sky-400/10">{{ actType }}</span>
+													{% elseif actType == 'AG' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-amber-400 px-2 py-0.5 rounded bg-amber-400/10">{{ actType }}</span>
+													{% else %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ actType }}</span>
+													{% endif %}
+									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
 								{% if activity.startAt > date() %}
@@ -274,11 +297,33 @@
 								<p class="text-xs text-text-secondary">Aucun événement ce jour-là.</p>
 							</div>
 							{% endfor %}
+							{% set selectedDayIsFuture = (calendarYear > nowYear)
+								or (calendarYear == nowYear and calendarMonth > nowMonth)
+								or (calendarYear == nowYear and calendarMonth == nowMonth and selectedDay >= nowDay) %}
+							{% if is_granted('ROLE_USER') and selectedDayIsFuture %}
+								<button type="button" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(selectedDay)}) }}"
+								   class="inline-flex w-full justify-center rounded-lg border-2 border-dashed border-custom-orange/50 py-3 mt-4 text-[10px] font-extrabold uppercase tracking-widest text-custom-orange hover:bg-custom-orange/10 transition-all cursor-pointer">
+									+ Ajouter une activité
+								</button>
+							{% endif %}
 						{% else %}
 							{% for activity in activities %}
 							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 								<div class="flex justify-between items-start mb-1">
-									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
+									{% set actType = activity.type|default('Play Test') %}
+													{% if actType == 'JDS' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400 px-2 py-0.5 rounded bg-emerald-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDR' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-violet-400 px-2 py-0.5 rounded bg-violet-400/10">{{ actType }}</span>
+													{% elseif actType == 'GN' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 px-2 py-0.5 rounded bg-red-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDF' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-sky-400 px-2 py-0.5 rounded bg-sky-400/10">{{ actType }}</span>
+													{% elseif actType == 'AG' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-amber-400 px-2 py-0.5 rounded bg-amber-400/10">{{ actType }}</span>
+													{% else %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ actType }}</span>
+													{% endif %}
 									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
@@ -388,12 +433,12 @@
 														</a>
 													{% elseif isToday %}
 														{% if isClickable %}
-															<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
+															<button type="button" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block w-full py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</button>
 														{% else %}
 															<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
 														{% endif %}
 													{% elseif isClickable %}
-														<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
+														<button type="button" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block w-full py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</button>
 													{% else %}
 														<span class="py-2">{{ day }}</span>
 													{% endif %}
@@ -414,8 +459,21 @@
 									{% for activity in activitiesForSelectedDay %}
 									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 										<div class="flex justify-between items-start mb-1">
-											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
-											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
+											{% set actType = activity.type|default('Play Test') %}
+													{% if actType == 'JDS' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400 px-2 py-0.5 rounded bg-emerald-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDR' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-violet-400 px-2 py-0.5 rounded bg-violet-400/10">{{ actType }}</span>
+													{% elseif actType == 'GN' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 px-2 py-0.5 rounded bg-red-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDF' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-sky-400 px-2 py-0.5 rounded bg-sky-400/10">{{ actType }}</span>
+													{% elseif actType == 'AG' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-amber-400 px-2 py-0.5 rounded bg-amber-400/10">{{ actType }}</span>
+													{% else %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ actType }}</span>
+													{% endif %}
+											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
 										{% if activity.startAt > date() %}
@@ -429,11 +487,33 @@
 										<p class="text-xs text-text-secondary">Aucun événement ce jour-là.</p>
 									</div>
 									{% endfor %}
+									{% set selectedDayIsFuture = (calendarYear > nowYear)
+										or (calendarYear == nowYear and calendarMonth > nowMonth)
+										or (calendarYear == nowYear and calendarMonth == nowMonth and selectedDay >= nowDay) %}
+									{% if is_granted('ROLE_USER') and selectedDayIsFuture %}
+										<button type="button" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(selectedDay)}) }}"
+										   class="inline-flex w-full justify-center rounded-lg border-2 border-dashed border-custom-orange/50 py-3 mt-4 text-[10px] font-extrabold uppercase tracking-widest text-custom-orange hover:bg-custom-orange/10 transition-all cursor-pointer">
+											+ Ajouter une activité
+										</button>
+									{% endif %}
 								{% else %}
 									{% for activity in activities %}
 									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 										<div class="flex justify-between items-start mb-1">
-											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
+											{% set actType = activity.type|default('Play Test') %}
+													{% if actType == 'JDS' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400 px-2 py-0.5 rounded bg-emerald-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDR' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-violet-400 px-2 py-0.5 rounded bg-violet-400/10">{{ actType }}</span>
+													{% elseif actType == 'GN' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 px-2 py-0.5 rounded bg-red-400/10">{{ actType }}</span>
+													{% elseif actType == 'JDF' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-sky-400 px-2 py-0.5 rounded bg-sky-400/10">{{ actType }}</span>
+													{% elseif actType == 'AG' %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-amber-400 px-2 py-0.5 rounded bg-amber-400/10">{{ actType }}</span>
+													{% else %}
+														<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ actType }}</span>
+													{% endif %}
 											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
@@ -655,14 +735,5 @@
 		</div>
 	</footer>
 
-{# Modal d'ajout d'événement — placée hors de toute section z-index/overflow.
-   Mobile : carte inline (le JS scrolle vers elle).
-   Desktop (lg+) : overlay fixe centré avec backdrop sombre. #}
-<div id="activity-modal"
-	 class="hidden px-8 mb-6 lg:fixed lg:inset-0 lg:z-[9999] lg:bg-black/70 lg:px-4 lg:mb-0 lg:items-center lg:justify-center">
-	<div class="glass-card rounded-2xl border border-custom shadow-2xl w-full lg:max-w-lg relative p-6 max-h-[80vh] overflow-y-auto lg:mx-auto lg:mt-[10vh]">
-		<turbo-frame id="activity-modal-frame" loading="lazy"></turbo-frame>
-	</div>
-</div>
 {% endblock %}
 

@@ -92,4 +92,9 @@ class ActivityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+
+    public function countPendingApproval(): int
+    {
+        return $this->count(['status' => Activity::STATUS_PENDING]);
+    }
 }

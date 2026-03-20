@@ -53,13 +53,13 @@ class ActivityController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', 'L\'activité « ' . $activity->getTitle() . ' » a été créée.');
 
-            return $this->redirectToRoute('app_activity_index');
+            return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/activity/new.html.twig', [
             'activity' => $activity,
             'form' => $form,
-        ]);
+        ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 
     #[Route('/{id}/modifier', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
@@ -72,13 +72,13 @@ class ActivityController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', 'L\'activité « ' . $activity->getTitle() . ' » a été mise à jour.');
 
-            return $this->redirectToRoute('app_activity_index');
+            return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/activity/edit.html.twig', [
             'activity' => $activity,
             'form' => $form,
-        ]);
+        ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 
     #[Route('/{id}/approuver', name: 'approve', requirements: ['id' => '\d+'], methods: ['POST'])]
@@ -87,14 +87,14 @@ class ActivityController extends AbstractController
         $token = $request->request->get('_token');
         if (!$this->isCsrfTokenValid('approve' . $activity->getId(), $token)) {
             $this->addFlash('error', 'Jeton de sécurité invalide.');
-            return $this->redirectToRoute('app_activity_index');
+            return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $activity->setStatus(Activity::STATUS_PUBLISHED);
         $this->entityManager->flush();
         $this->addFlash('success', 'L\'activité « ' . $activity->getTitle() . ' » a été approuvée et est maintenant visible.');
 
-        return $this->redirectToRoute('app_activity_index');
+        return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/rejeter', name: 'reject', requirements: ['id' => '\d+'], methods: ['POST'])]
@@ -103,7 +103,7 @@ class ActivityController extends AbstractController
         $token = $request->request->get('_token');
         if (!$this->isCsrfTokenValid('reject' . $activity->getId(), $token)) {
             $this->addFlash('error', 'Jeton de sécurité invalide.');
-            return $this->redirectToRoute('app_activity_index');
+            return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $title = $activity->getTitle();
@@ -111,7 +111,7 @@ class ActivityController extends AbstractController
         $this->entityManager->flush();
         $this->addFlash('success', 'La proposition « ' . $title . ' » a été rejetée et supprimée.');
 
-        return $this->redirectToRoute('app_activity_index');
+        return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
@@ -120,7 +120,7 @@ class ActivityController extends AbstractController
         $token = $request->request->get('_token');
         if (!$this->isCsrfTokenValid('delete' . $activity->getId(), $token)) {
             $this->addFlash('error', 'Jeton de sécurité invalide.');
-            return $this->redirectToRoute('app_activity_index');
+            return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $title = $activity->getTitle();
@@ -128,6 +128,6 @@ class ActivityController extends AbstractController
         $this->entityManager->flush();
         $this->addFlash('success', 'L\'activité « ' . $title . ' » a été supprimée.');
 
-        return $this->redirectToRoute('app_activity_index');
+        return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
     }
 }

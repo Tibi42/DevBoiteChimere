@@ -8,22 +8,23 @@
         <p class="text-muted small mt-1">La Boîte à Chimère — Administration</p>
     </div>
 
-    {# Inscriptions #}
+    {# En attente d'approbation #}
     <div class="col-md-6 col-xl-4">
-        <div class="card h-100 border-0" style="background: #1e293b; color: #f1f5f9;">
+        <a href="{{ path('app_activity_index', { status: 'pending' }) }}" class="card h-100 text-decoration-none shadow-sm border-0" style="transition: transform .15s; background: #1e293b; color: #f1f5f9;">
             <div class="card-body d-flex flex-column gap-3 p-4">
                 <div class="d-flex align-items-center gap-3">
-                    <span class="fs-2">📝</span>
+                    <span class="fs-2">⏳</span>
                     <div>
-                        <div class="fw-bold fs-5">Inscriptions</div>
-                        <div class="text-muted small">Nombre total</div>
+                        <div class="fw-bold fs-5">En attente</div>
+                        <div class="text-muted small">Événements à approuver</div>
                     </div>
                 </div>
-                <div class="mt-auto">
-                    <div class="fw-extrabold display-6" style="line-height: 1.1;">{{ inscriptionsTotal|default(0) }}</div>
+                <div class="mt-auto d-flex justify-content-between align-items-end">
+                    <div class="fw-extrabold display-6" style="line-height: 1.1;">{{ pendingActivitiesCount|default(0) }}</div>
+                    <span class="badge" style="background:#f8742c;">Voir →</span>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 
     {# Dernières inscriptions #}

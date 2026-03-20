@@ -38,20 +38,14 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->isGranted('ROLE_ADMIN')) {
-                $activity->setStatus(Activity::STATUS_PUBLISHED);
-                $activity->setProposedBy(null);
-                $this->addFlash('success', 'L\'activité « ' . $activity->getTitle() . ' » a été créée.');
-            } else {
-                $activity->setStatus(Activity::STATUS_PENDING);
-                $activity->setProposedBy($this->getUser());
-                $this->addFlash('success', 'Votre proposition « ' . $activity->getTitle() . ' » a été envoyée et sera examinée par un administrateur.');
-            }
+            $activity->setStatus(Activity::STATUS_PENDING);
+            $activity->setProposedBy($this->getUser());
+            $this->addFlash('success', 'Votre proposition « ' . $activity->getTitle() . ' » a été envoyée et sera examinée par un administrateur.');
 
             $this->entityManager->persist($activity);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         // GET : fragment nu pour Turbo Frame

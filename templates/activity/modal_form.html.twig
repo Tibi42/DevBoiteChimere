@@ -24,8 +24,9 @@
     {% endif %}
 
     {{ form_start(form, {
+        action: path('app_activity_new_public'),
         attr: {
-            'data-turbo-frame': '_top',
+            'data-turbo': 'false',
             class: 'space-y-4'
         }
     }) }}

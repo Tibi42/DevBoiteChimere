@@ -53,7 +53,7 @@ class CarouselController extends AbstractController
         return $this->render('admin/carousel/new.html.twig', [
             'slide' => $slide,
             'form' => $form,
-        ]);
+        ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 
     #[Route('/{id}/modifier', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
@@ -72,7 +72,7 @@ class CarouselController extends AbstractController
         return $this->render('admin/carousel/edit.html.twig', [
             'slide' => $slide,
             'form' => $form,
-        ]);
+        ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 
     #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
