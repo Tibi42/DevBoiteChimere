@@ -12,11 +12,13 @@ function initModal() {
 
     function openModal() {
         modal.classList.remove('hidden');
+        modal.classList.add('flex');
         document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
         modal.classList.add('hidden');
+        modal.classList.remove('flex');
         document.body.style.overflow = '';
         // Vider le frame pour éviter le contenu périmé à la prochaine ouverture
         frame.innerHTML = '';
