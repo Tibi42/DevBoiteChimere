@@ -217,6 +217,11 @@
 									<span class="text-cyan-400">Di</span>
 									{% for day in calendarDays %}
 										{% if day is not null %}
+											{% set isFuture = (calendarYear > nowYear)
+												or (calendarYear == nowYear and calendarMonth > nowMonth)
+												or (calendarYear == nowYear and calendarMonth == nowMonth and day > nowDay) %}
+											{% set isToday = (calendarYear == nowYear and calendarMonth == nowMonth and day == nowDay) %}
+											{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
 											{% if day in daysWithActivities %}
 												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar" class="block py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40 hover:ring-2 hover:ring-white transition-all {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 													<span>{{ day }}</span>
@@ -224,8 +229,14 @@
 														<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
 													{% endif %}
 												</a>
-											{% elseif today == day %}
-												<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
+											{% elseif isToday %}
+												{% if isClickable %}
+													<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
+												{% else %}
+													<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
+												{% endif %}
+											{% elseif isClickable %}
+												<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
 											{% else %}
 												<span class="py-2">{{ day }}</span>
 											{% endif %}
@@ -361,6 +372,11 @@
 											<span class="text-cyan-400">Di</span>
 											{% for day in calendarDays %}
 												{% if day is not null %}
+													{% set isFuture = (calendarYear > nowYear)
+														or (calendarYear == nowYear and calendarMonth > nowMonth)
+														or (calendarYear == nowYear and calendarMonth == nowMonth and day > nowDay) %}
+													{% set isToday = (calendarYear == nowYear and calendarMonth == nowMonth and day == nowDay) %}
+													{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
 													{% if day in daysWithActivities %}
 														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar-desktop" class="block py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40 hover:ring-2 hover:ring-white transition-all {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 															<span>{{ day }}</span>
@@ -368,8 +384,14 @@
 																<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
 															{% endif %}
 														</a>
-													{% elseif today == day %}
-														<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
+													{% elseif isToday %}
+														{% if isClickable %}
+															<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
+														{% else %}
+															<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
+														{% endif %}
+													{% elseif isClickable %}
+														<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
 													{% else %}
 														<span class="py-2">{{ day }}</span>
 													{% endif %}
@@ -631,6 +653,12 @@
 		</div>
 	</footer>
 
-
+{# Modal d'ajout d'événement - chargée via Turbo Frame depuis le calendrier #}
+<div id="activity-modal"
+     class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl border border-custom shadow-2xl w-full max-w-lg relative p-6 max-h-[90vh] overflow-y-auto">
+        <turbo-frame id="activity-modal-frame" loading="lazy"></turbo-frame>
+    </div>
+</div>
 {% endblock %}
 

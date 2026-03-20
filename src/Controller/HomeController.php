@@ -87,6 +87,9 @@ class HomeController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('home/index.html.twig', [
+            'nowYear'  => (int) (new \DateTimeImmutable())->format('Y'),
+            'nowMonth' => (int) (new \DateTimeImmutable())->format('n'),
+            'nowDay'   => (int) (new \DateTimeImmutable())->format('j'),
             'login_csrf_token' => $loginCsrfToken,
             'login_error' => $loginError,
             'last_username' => $lastUsername,
