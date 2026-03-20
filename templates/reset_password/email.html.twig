@@ -4,7 +4,7 @@ Vous avez demandé une réinitialisation de mot de passe pour votre compte La Bo
 
 Cliquez sur le lien ci-dessous pour définir un nouveau mot de passe (valable 1 heure) :
 
-{{ resetToken.resetUrl }}
+{{ url('app_reset_password', {token: resetToken.token}) }}
 
 Si vous n'avez pas fait cette demande, ignorez simplement cet email.
 
