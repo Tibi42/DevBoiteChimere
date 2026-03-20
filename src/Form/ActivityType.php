@@ -6,6 +6,7 @@ use App\Entity\Activity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,6 +17,19 @@ class ActivityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $choices = [
+            '-- Choisir --' => '',
+            'Play Test' => 'Play Test',
+            'JDS (Jeux de Société)' => 'JDS',
+            'JDR (Jeux de Rôle)' => 'JDR',
+            'GN (Grandeur Nature)' => 'GN',
+            'JDF (Jeux de Figurines)' => 'JDF',
+        ];
+
+        if ($options['is_admin']) {
+            $choices['AG (Assemblée Générale)'] = 'AG';
+        }
+
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre',
@@ -26,14 +40,7 @@ class ActivityType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'label' => 'Type d\'activité',
                 'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
-                'choices' => [
-                    '-- Choisir --' => '',
-                    'BOITE' => 'BOITE',
-                    'JDS (Jeux de Société)' => 'JDS',
-                    'JDR (Jeux de Rôle)' => 'JDR',
-                    'GN (Grandeur Nature)' => 'GN',
-                    'AG (Assemblée Générale)' => 'AG',
-                ],
+                'choices' => $choices,
                 'required' => false,
                 'attr' => ['class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
             ])
@@ -54,11 +61,22 @@ class ActivityType extends AbstractType
                 ],
                 'constraints' => [new NotBlank(message: 'La date de début est obligatoire.')],
             ])
-            ->add('location', TextType::class, [
+            ->add('location', ChoiceType::class, [
                 'label' => 'Lieu',
                 'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
+                'choices' => [
+                    '-- Choisir --' => '',
+                    'L\'auberge de jeunesse Yves Robert' => 'L\'auberge de jeunesse Yves Robert',
+                    'Le Natema' => 'Le Natema',
+                ],
                 'required' => false,
-                'attr' => ['placeholder' => 'Ex : Local association', 'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+                'attr' => ['class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+            ])
+            ->add('maxParticipants', IntegerType::class, [
+                'label' => 'Nombre maximum de participants',
+                'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
+                'required' => false,
+                'attr' => ['placeholder' => 'Ex : 8', 'min' => 1, 'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
             ]);
     }
 
@@ -66,6 +84,7 @@ class ActivityType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Activity::class,
+            'is_admin' => false,
         ]);
     }
 }

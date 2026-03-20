@@ -3,6 +3,8 @@
 {% block title %}La Boîte à Chimère - Communauté de Jeux de Rôle et de Société
 {% endblock %}
 
+{% block importmap %}{{ importmap(['app', 'carousel.js']) }}{% endblock %}
+
 {% block body %}
 	<!-- Hero Section avec Carousel, Header et NOS MONDES -->
 	<section id="home" class="relative w-full min-h-[600px] lg:min-h-[700px] overflow-hidden mb-12 lg:mb-0">
@@ -194,7 +196,7 @@
 				</div>
 			</div>
 
-			<!-- ÉVÉNEMENTS À VENIR (Mobile only - inside hero for layout flow). Turbo-frame : mise à jour partielle pour ne pas fermer le menu / modales. -->
+				<!-- ÉVÉNEMENTS À VENIR (Mobile only - inside hero for layout flow). Turbo-frame : mise à jour partielle pour ne pas fermer le menu / modales. -->
 			<turbo-frame id="calendar-frame">
 				<div id="calendar" class="lg:hidden mx-auto max-w-[1240px] px-8 mb-8">
 					<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary mb-6">ÉVÉNEMENTS À VENIR</h2>
@@ -231,12 +233,12 @@
 												</a>
 											{% elseif isToday %}
 												{% if isClickable %}
-													<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
+													<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
 												{% else %}
 													<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
 												{% endif %}
 											{% elseif isClickable %}
-												<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
+												<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
 											{% else %}
 												<span class="py-2">{{ day }}</span>
 											{% endif %}
@@ -257,7 +259,7 @@
 							{% for activity in activitiesForSelectedDay %}
 							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 								<div class="flex justify-between items-start mb-1">
-									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
 									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
@@ -276,7 +278,7 @@
 							{% for activity in activities %}
 							<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 								<div class="flex justify-between items-start mb-1">
-									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
 									<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
@@ -386,12 +388,12 @@
 														</a>
 													{% elseif isToday %}
 														{% if isClickable %}
-															<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
+															<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer text-custom-orange font-bold underline underline-offset-2" title="Ajouter un événement">{{ day }}</a>
 														{% else %}
 															<span class="py-2 text-custom-orange font-bold underline underline-offset-2">{{ day }}</span>
 														{% endif %}
 													{% elseif isClickable %}
-														<a href="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" data-turbo-frame="activity-modal-frame" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
+														<a href="#" data-modal-url="{{ path('app_activity_new_public', {date: calendarYear ~ '-' ~ '%02d'|format(calendarMonth) ~ '-' ~ '%02d'|format(day)}) }}" class="block py-2 hover:text-custom-orange hover:bg-custom-orange/10 rounded transition-colors cursor-pointer" title="Ajouter un événement">{{ day }}</a>
 													{% else %}
 														<span class="py-2">{{ day }}</span>
 													{% endif %}
@@ -412,7 +414,7 @@
 									{% for activity in activitiesForSelectedDay %}
 									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 										<div class="flex justify-between items-start mb-1">
-											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
 											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('H:i') }}</span>
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
@@ -431,7 +433,7 @@
 									{% for activity in activities %}
 									<div class="rounded-xl bg-custom-secondary/40 p-4 border border-custom mb-4 last:mb-0">
 										<div class="flex justify-between items-start mb-1">
-											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('BOITE') }}</span>
+											<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('Play Test') }}</span>
 											<span class="font-bold text-text-primary text-base">{{ activity.startAt|date('j M')|upper }}</span>
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
@@ -653,12 +655,14 @@
 		</div>
 	</footer>
 
-{# Modal d'ajout d'événement - chargée via Turbo Frame depuis le calendrier #}
+{# Modal d'ajout d'événement — placée hors de toute section z-index/overflow.
+   Mobile : carte inline (le JS scrolle vers elle).
+   Desktop (lg+) : overlay fixe centré avec backdrop sombre. #}
 <div id="activity-modal"
-     class="hidden fixed inset-0 z-50 bg-black/70 items-center justify-center p-4">
-    <div class="glass-card rounded-2xl border border-custom shadow-2xl w-full max-w-lg relative p-6 max-h-[90vh] overflow-y-auto">
-        <turbo-frame id="activity-modal-frame" loading="lazy"></turbo-frame>
-    </div>
+	 class="hidden px-8 mb-6 lg:fixed lg:inset-0 lg:z-[9999] lg:bg-black/70 lg:px-4 lg:mb-0 lg:items-center lg:justify-center">
+	<div class="glass-card rounded-2xl border border-custom shadow-2xl w-full lg:max-w-lg relative p-6 max-h-[80vh] overflow-y-auto lg:mx-auto lg:mt-[10vh]">
+		<turbo-frame id="activity-modal-frame" loading="lazy"></turbo-frame>
+	</div>
 </div>
 {% endblock %}
 

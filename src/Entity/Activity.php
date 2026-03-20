@@ -42,6 +42,9 @@ class Activity
     #[ORM\Column(length: 16, options: ['default' => 'published'])]
     private string $status = self::STATUS_PUBLISHED;
 
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private ?int $maxParticipants = null;
+
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?User $proposedBy = null;
@@ -190,6 +193,17 @@ class Activity
     public function setProposedBy(?User $proposedBy): static
     {
         $this->proposedBy = $proposedBy;
+        return $this;
+    }
+
+    public function getMaxParticipants(): ?int
+    {
+        return $this->maxParticipants;
+    }
+
+    public function setMaxParticipants(?int $maxParticipants): static
+    {
+        $this->maxParticipants = $maxParticipants;
         return $this;
     }
 }

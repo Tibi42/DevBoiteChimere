@@ -24,6 +24,11 @@
 		{{ form_widget(form.location) }}
 		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.location) }}</div>
 	</div>
+	<div>
+		{{ form_label(form.maxParticipants) }}
+		{{ form_widget(form.maxParticipants) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.maxParticipants) }}</div>
+	</div>
 	<div class="flex flex-wrap gap-3 pt-2">
 		<button type="submit" class="rounded-lg bg-custom-orange py-3 px-6 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
 			{{ button_label|default('Enregistrer') }}

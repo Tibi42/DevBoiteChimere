@@ -7,7 +7,6 @@ import './stimulus_bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
-import './carousel.js';
 import './mobile_menu.js';
 import './reveal.js';
 import './theme_toggle.js';
