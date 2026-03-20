@@ -27,17 +27,32 @@
 					<div class="overflow-hidden rounded-2xl">
 						<div id="carousel" class="flex h-auto" style="transform: translateX(0%); touch-action: pan-y;">
 							{% for slide in slides %}
-								<div class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
-									<div class="flex-1">
-										<span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] {{ slide.tag_color }}">{{ slide.tag }}</span>
-										<h3 class="text-base sm:text-lg font-bold text-text-primary mt-0.5 leading-tight">{{ slide.title }}</h3>
-										<p class="text-xs sm:text-sm text-text-secondary mt-1">{{ slide.date }}</p>
-									</div>
-									<a href="{{ slide.btn_url|default('#') }}" class="w-full sm:w-auto text-center shrink-0 rounded-lg {{ slide.btn_class }} px-5 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-text-primary transition-all group-hover:scale-105 shadow-lg">
-										{{ slide.btn_text }}
-										<span class="absolute inset-0"></span>
+								{% set btnUrl = slide.btn_url|default('') %}
+								{% if btnUrl %}
+									<a href="{{ btnUrl }}" class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
+										<div class="flex-1">
+											<span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] {{ slide.tag_color }}">{{ slide.tag }}</span>
+											<h3 class="text-base sm:text-lg font-bold text-text-primary mt-0.5 leading-tight">{{ slide.title }}</h3>
+											<p class="text-xs sm:text-sm text-text-secondary mt-1">{{ slide.date }}</p>
+										</div>
+										<span class="w-full sm:w-auto text-center shrink-0 rounded-lg {{ slide.btn_class }} px-5 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-text-primary transition-all group-hover:scale-105 shadow-lg">
+											{{ slide.btn_text }}
+											<span class="absolute inset-0"></span>
+										</span>
 									</a>
-								</div>
+								{% else %}
+									<div class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
+										<div class="flex-1">
+											<span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] {{ slide.tag_color }}">{{ slide.tag }}</span>
+											<h3 class="text-base sm:text-lg font-bold text-text-primary mt-0.5 leading-tight">{{ slide.title }}</h3>
+											<p class="text-xs sm:text-sm text-text-secondary mt-1">{{ slide.date }}</p>
+										</div>
+										<span class="w-full sm:w-auto text-center shrink-0 rounded-lg {{ slide.btn_class }} px-5 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-text-primary transition-all group-hover:scale-105 shadow-lg">
+											{{ slide.btn_text }}
+											<span class="absolute inset-0"></span>
+										</span>
+									</div>
+								{% endif %}
 							{% endfor %}
 						</div>
 					</div>
