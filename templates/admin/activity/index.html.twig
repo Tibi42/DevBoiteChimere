@@ -17,6 +17,22 @@
 			</a>
 		</div>
 
+		{# Filtre status #}
+		<div class="flex gap-2 mb-4">
+			<a href="{{ path('app_activity_index') }}"
+			   class="px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-colors {{ currentStatus is null ? 'bg-custom-orange text-text-primary' : 'border border-custom text-text-secondary hover:text-text-primary' }}">
+				Toutes
+			</a>
+			<a href="{{ path('app_activity_index', {status: 'pending'}) }}"
+			   class="px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-colors {{ currentStatus == 'pending' ? 'bg-custom-orange text-text-primary' : 'border border-custom text-text-secondary hover:text-text-primary' }}">
+				En attente
+			</a>
+			<a href="{{ path('app_activity_index', {status: 'published'}) }}"
+			   class="px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-colors {{ currentStatus == 'published' ? 'bg-custom-orange text-text-primary' : 'border border-custom text-text-secondary hover:text-text-primary' }}">
+				Publiées
+			</a>
+		</div>
+
 		<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card">
 			{% if activities|length > 0 %}
 				<div class="overflow-x-auto">
@@ -27,26 +43,54 @@
 								<th class="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-text-secondary">Titre</th>
 								<th class="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-text-secondary">Type</th>
 								<th class="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-text-secondary">Lieu</th>
+								<th class="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-text-secondary">Proposé par</th>
 								<th class="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-text-secondary text-right">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for activity in activities %}
-								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors">
+								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ activity.status == 'pending' ? 'bg-custom-orange/5' : '' }}">
 									<td class="px-4 py-3 text-sm text-text-primary whitespace-nowrap">
 										{{ activity.startAt|date('d/m/Y H:i') }}
 									</td>
 									<td class="px-4 py-3">
-										<span class="font-medium text-text-primary">{{ activity.title }}</span>
+										<div class="flex items-center gap-2">
+											<span class="font-medium text-text-primary">{{ activity.title }}</span>
+											{% if activity.status == 'pending' %}
+												<span class="bg-custom-orange text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0">
+													En attente
+												</span>
+											{% endif %}
+										</div>
 									</td>
 									<td class="px-4 py-3">
 										<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('—') }}</span>
 									</td>
 									<td class="px-4 py-3 text-sm text-text-secondary">{{ activity.location|default('—') }}</td>
+									<td class="px-4 py-3 text-sm text-text-secondary">
+										{% if activity.proposedBy %}
+											<span class="text-text-secondary">{{ activity.proposedBy.email }}</span>
+										{% else %}
+											<span class="text-text-secondary/40">—</span>
+										{% endif %}
+									</td>
 									<td class="px-4 py-3 text-right whitespace-nowrap">
-										<a href="{{ path('app_activity_edit', { id: activity.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors mr-3">Modifier</a>
-										<a href="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors mr-3" target="_blank" rel="noopener">Voir inscription</a>
-										<form method="post" action="{{ path('app_activity_delete', { id: activity.id }) }}" class="inline" onsubmit="return confirm('Supprimer cette activité ? Les inscriptions associées seront aussi supprimées.');">
+										{% if activity.status == 'pending' %}
+											<form method="post" action="{{ path('app_activity_approve', { id: activity.id }) }}" class="inline">
+												<input type="hidden" name="_token" value="{{ csrf_token('approve' ~ activity.id) }}">
+												<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-green-400 hover:text-green-300 transition-colors mr-3">Approuver</button>
+											</form>
+											<form method="post" action="{{ path('app_activity_reject', { id: activity.id }) }}" class="inline"
+												  onsubmit="return confirm('Rejeter et supprimer cette proposition ?')">
+												<input type="hidden" name="_token" value="{{ csrf_token('reject' ~ activity.id) }}">
+												<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors mr-3">Rejeter</button>
+											</form>
+										{% else %}
+											<a href="{{ path('app_activity_edit', { id: activity.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors mr-3">Modifier</a>
+											<a href="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors mr-3" target="_blank" rel="noopener">Voir inscription</a>
+										{% endif %}
+										<form method="post" action="{{ path('app_activity_delete', { id: activity.id }) }}" class="inline"
+											  onsubmit="return confirm('Supprimer cette activité ? Les inscriptions associées seront aussi supprimées.')">
 											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">
 											<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
 										</form>
