@@ -13,9 +13,7 @@ function initMobileMenu() {
         isOpen = true;
         drawer.classList.remove('pointer-events-none');
         drawer.classList.add('menu-open');
-        spans[0]?.classList.add('rotate-45', 'translate-y-2');
-        spans[1]?.classList.add('opacity-0', 'scale-x-0');
-        spans[2]?.classList.add('-rotate-45', '-translate-y-2');
+        btn.classList.add('hidden');
         document.body.style.overflow = 'hidden';
     }
 
@@ -23,9 +21,7 @@ function initMobileMenu() {
         isOpen = false;
         drawer.classList.remove('menu-open');
         drawer.classList.add('pointer-events-none');
-        spans[0]?.classList.remove('rotate-45', 'translate-y-2');
-        spans[1]?.classList.remove('opacity-0', 'scale-x-0');
-        spans[2]?.classList.remove('-rotate-45', '-translate-y-2');
+        btn.classList.remove('hidden');
         document.body.style.overflow = '';
     }
 

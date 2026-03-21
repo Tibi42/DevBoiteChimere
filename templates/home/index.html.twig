@@ -150,52 +150,7 @@
 					</div>
 				</div>
 			</header>
-			<!-- Mobile Menu Drawer -->
-			<div id="mobile-menu-drawer" class="fixed inset-0 z-[95] lg:hidden pointer-events-none">
-				<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-				<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-custom shadow-2xl pt-20 px-8">
-					<nav class="flex flex-col gap-6">
-						<a href="{{ path('app_jds') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
-						<a href="{{ path('app_jdr') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
-						<a href="{{ path('app_gn') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
-						<a href="{{ path('app_association') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">ASSOCIATION</a>
-						<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
-						{% if is_granted('ROLE_ADMIN') %}
-							<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
-						{% endif %}
-						<hr class="border-custom my-4">
-						{% if app.user %}
-							<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
-								DÉCONNEXION
-							</a>
-						{% else %}
-							<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
-								NOUS REJOINDRE
-							</button>
-						{% endif %}
-						<div id="mobile-join-form" class="overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
-							{% if login_error %}<p class="mb-2 text-xs font-semibold text-red-400 text-center">{{ login_error.messageKey|trans(login_error.messageData, 'security') }}</p>{% endif %}
-							<form action="{{ path('app_login') }}" method="post" data-turbo="false" class="flex flex-col gap-3 pt-4">
-								<input type="hidden" name="_csrf_token" value="{{ login_csrf_token }}">
-								<div>
-									<label for="mobile-join-username" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Email</label>
-									<input type="email" id="mobile-join-username" name="_username" value="{{ last_username }}" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange {{ login_error ? 'border-red-500' : '' }}" placeholder="votre@email.com" autocomplete="email">
-								</div>
-								<div>
-									<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
-									<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
-								</div>
-								<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
-								<a href="{{ path('app_forgot_password_request') }}" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
-							</form>
-						</div>
-					</nav>
-					<div class="absolute bottom-10 left-8 right-8 text-center">
-						<p class="text-[10px] uppercase tracking-widest text-text-secondary/30 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
-					</div>
-				</div>
-			</div>
-
+	
 				{# Modal d'ajout d'événement.
 			   Mobile : carte inline au-dessus du calendrier.
 			   Desktop : le JS la déplace dans <body> pour éviter le stacking context. #}
@@ -387,6 +342,52 @@
 			{% endfor %}
 		</div>
 	</section>
+
+	<!-- Mobile Menu Drawer (hors du hero pour éviter le stacking context) -->
+	<div id="mobile-menu-drawer" class="fixed inset-0 z-[95] lg:hidden pointer-events-none">
+		<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+		<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-custom shadow-2xl pt-20 px-8">
+			<nav class="flex flex-col gap-6">
+				<a href="{{ path('app_jds') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
+				<a href="{{ path('app_jdr') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
+				<a href="{{ path('app_gn') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
+				<a href="{{ path('app_association') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">ASSOCIATION</a>
+				<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
+				{% if is_granted('ROLE_ADMIN') %}
+					<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
+				{% endif %}
+				<hr class="border-custom my-4">
+				{% if app.user %}
+					<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
+						DÉCONNEXION
+					</a>
+				{% else %}
+					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
+						NOUS REJOINDRE
+					</button>
+				{% endif %}
+				<div id="mobile-join-form" class="overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
+					{% if login_error %}<p class="mb-2 text-xs font-semibold text-red-400 text-center">{{ login_error.messageKey|trans(login_error.messageData, 'security') }}</p>{% endif %}
+					<form action="{{ path('app_login') }}" method="post" data-turbo="false" class="flex flex-col gap-3 pt-4">
+						<input type="hidden" name="_csrf_token" value="{{ login_csrf_token }}">
+						<div>
+							<label for="mobile-join-username" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Email</label>
+							<input type="email" id="mobile-join-username" name="_username" value="{{ last_username }}" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange {{ login_error ? 'border-red-500' : '' }}" placeholder="votre@email.com" autocomplete="email">
+						</div>
+						<div>
+							<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
+							<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
+						</div>
+						<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
+						<a href="{{ path('app_forgot_password_request') }}" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
+					</form>
+				</div>
+			</nav>
+			<div class="absolute bottom-10 left-8 right-8 text-center">
+				<p class="text-[10px] uppercase tracking-widest text-text-secondary/30 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
+			</div>
+		</div>
+	</div>
 
 	<div
 		id="separateur" class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 py-12 lg:py-8 lg:-mt-10">
