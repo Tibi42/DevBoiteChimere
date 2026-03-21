@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initReveal() {
     const revealEls = document.querySelectorAll('.reveal');
 
-    // Éléments déjà visibles au chargement : affichage immédiat (sans délai d’IntersectionObserver)
+    // Éléments déjà visibles au chargement : affichage immédiat (sans délai d'IntersectionObserver)
     function setVisibleInstantly(el) {
         el.classList.add('reveal-instant', 'active');
         requestAnimationFrame(() => {
@@ -43,4 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(el);
         }
     });
-});
+}
+
+document.addEventListener('DOMContentLoaded', initReveal);
+document.addEventListener('turbo:load', initReveal);

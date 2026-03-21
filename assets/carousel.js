@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initCarousel() {
     const carousel = document.getElementById('carousel');
     const container = document.getElementById('carousel-container');
     const dots = document.querySelectorAll('.carousel-events-dot');
 
     if (!carousel || !container || carousel.children.length === 0) return;
 
-    // Prevent double initialization (Turbo/cache issue)
+    // Prevent double initialization
     if (carousel.dataset.carouselInit) return;
     carousel.dataset.carouselInit = 'true';
 
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 1;
     let isTransitioning = false;
     let autoPlayInterval;
+    let safetyInterval;
 
     const setPosition = (index) => {
         carousel.style.transform = `translateX(-${index * 100}%)`;
@@ -106,20 +107,36 @@ document.addEventListener('DOMContentLoaded', () => {
     container.addEventListener('mouseenter', stopAutoPlay);
     container.addEventListener('mouseleave', startAutoPlay);
 
+    // Pause quand le carousel n'est pas visible (économise CPU)
+    const visibilityObserver = new IntersectionObserver((entries) => {
+        entries[0].isIntersecting ? startAutoPlay() : stopAutoPlay();
+    }, { threshold: 0.1 });
+    visibilityObserver.observe(container);
+
     // Initial setup
     updateCarousel(currentIndex, false);
     startAutoPlay();
 
-    // Safety reset with boundary check (FIX: was missing boundary check)
-    setInterval(() => {
+    // Safety reset (nettoyable)
+    safetyInterval = setInterval(() => {
         if (isTransitioning) {
             isTransitioning = false;
             checkBoundaries();
         }
-        // Failsafe: prevent runaway index
         if (currentIndex < 0 || currentIndex > totalOriginalSlides + 1) {
             currentIndex = 1;
             updateCarousel(currentIndex, false);
         }
     }, 3000);
-});
+
+    // Cleanup on Turbo navigation
+    document.addEventListener('turbo:before-cache', () => {
+        stopAutoPlay();
+        clearInterval(safetyInterval);
+        visibilityObserver.disconnect();
+        carousel.removeAttribute('data-carousel-init');
+    }, { once: true });
+}
+
+document.addEventListener('DOMContentLoaded', initCarousel);
+document.addEventListener('turbo:load', initCarousel);

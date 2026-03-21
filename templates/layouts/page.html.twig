@@ -103,9 +103,9 @@
 								DÉCONNEXION
 							</a>
 						{% else %}
-							<a href="{{ path('app_home') }}#home" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
 								NOUS REJOINDRE
-							</a>
+							</button>
 						{% endif %}
 						{# Hamburger Menu Button #}
 						<button id="mobile-menu-btn" type="button" class="lg:hidden flex flex-col gap-1.5 p-2 z-[100] text-text-primary" aria-label="Menu principal">
@@ -115,6 +115,29 @@
 						</button>
 					</div>
 				</div>
+
+				{# ── Panel connexion desktop : glisse sous la barre ── #}
+				{% if not app.user %}
+					<div id="join-panel" class="hidden sm:block mx-auto max-w-[1240px] lg:max-w-[1360px] overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
+						<div class="bg-custom-secondary border border-t-0 border-custom rounded-b-xl px-7 pt-4 pb-5">
+							<form action="{{ path('app_login') }}" method="post" data-turbo="false" class="flex flex-col gap-2">
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+								<div class="flex items-end gap-3">
+									<div class="flex-1">
+										<label for="join-username" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Email</label>
+										<input type="email" id="join-username" name="_username" required autocomplete="email" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="votre@email.com">
+									</div>
+									<div class="flex-1">
+										<label for="join-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
+										<input type="password" id="join-password" name="_password" required autocomplete="current-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········">
+									</div>
+									<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[155px] text-center">SE CONNECTER</button>
+								</div>
+								<a href="{{ path('app_forgot_password_request') }}" class="text-xs text-text-secondary hover:text-custom-orange transition-colors text-center">Mot de passe oublié ?</a>
+							</form>
+						</div>
+					</div>
+				{% endif %}
 			</header>
 
 			{# ── Hero content (titre de la page) ────────────────── #}
@@ -145,9 +168,27 @@
 						DÉCONNEXION
 					</a>
 				{% else %}
-					<a href="{{ path('app_home') }}#home" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
+					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
 						NOUS REJOINDRE
-					</a>
+					</button>
+				{% endif %}
+				{# ── Formulaire connexion mobile ── #}
+				{% if not app.user %}
+					<div id="mobile-join-form" class="overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
+						<form action="{{ path('app_login') }}" method="post" data-turbo="false" class="flex flex-col gap-3 pt-4">
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<div>
+								<label for="mobile-join-username" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Email</label>
+								<input type="email" id="mobile-join-username" name="_username" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="votre@email.com" autocomplete="email">
+							</div>
+							<div>
+								<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
+								<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
+							</div>
+							<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
+							<a href="{{ path('app_forgot_password_request') }}" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
+						</form>
+					</div>
 				{% endif %}
 			</nav>
 			<div class="absolute bottom-10 left-8 right-8 text-center">

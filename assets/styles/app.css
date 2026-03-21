@@ -55,8 +55,17 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Amélioration des transitions */
-* {
+/* Transitions ciblées (au lieu de * qui cause du jank) */
+a,
+button,
+input,
+.toggle-track,
+.toggle-knob,
+.card-premium,
+.glass,
+.glass-card,
+.reveal,
+[class*="hover:"] {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 200ms;

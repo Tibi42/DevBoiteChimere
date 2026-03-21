@@ -3,10 +3,16 @@ function initMobileMenu() {
     const drawer = document.getElementById('mobile-menu-drawer');
 
     if (!btn || !drawer) return;
+
+    // Toujours réinitialiser l'état au chargement (Turbo peut restaurer un état ouvert depuis le cache)
+    btn.classList.remove('hidden');
+    drawer.classList.remove('menu-open');
+    drawer.classList.add('pointer-events-none');
+    document.body.style.overflow = '';
+
     if (btn.dataset.menuInit) return;
     btn.dataset.menuInit = '1';
 
-    const spans = btn.querySelectorAll('span');
     let isOpen = false;
 
     function open() {
