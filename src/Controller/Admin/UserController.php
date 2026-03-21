@@ -79,6 +79,33 @@ class UserController extends AbstractController
         ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 
+    #[Route('/{id}/suspendre', name: 'suspend', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function suspend(Request $request, User $user): Response
+    {
+        if ($user === $this->getUser()) {
+            $this->addFlash('error', 'Vous ne pouvez pas suspendre votre propre compte.');
+            return $this->redirectToRoute('app_admin_user_index');
+        }
+
+        if (in_array('ROLE_SUPER_ADMIN', $user->getRoles(), true) && !$this->isGranted('ROLE_SUPER_ADMIN')) {
+            $this->addFlash('error', 'Seul un super administrateur peut suspendre un autre super administrateur.');
+            return $this->redirectToRoute('app_admin_user_index');
+        }
+
+        if (!$this->isCsrfTokenValid('suspend' . $user->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('app_admin_user_index');
+        }
+
+        $user->setSuspended(!$user->isSuspended());
+        $this->entityManager->flush();
+
+        $action = $user->isSuspended() ? 'suspendu' : 'réactivé';
+        $this->addFlash('success', 'Utilisateur « ' . $user->getEmail() . ' » ' . $action . '.');
+
+        return $this->redirectToRoute('app_admin_user_index');
+    }
+
     #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, User $user): Response
     {

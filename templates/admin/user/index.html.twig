@@ -42,11 +42,14 @@
 						</thead>
 						<tbody>
 							{% for user in users %}
-								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ user == app.user ? 'bg-custom-orange/5' : '' }}">
+								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ user == app.user ? 'bg-custom-orange/5' : '' }} {{ user.suspended ? 'opacity-50' : '' }}">
 									<td class="px-4 py-3">
 										<span class="font-medium text-text-primary">{{ user.username }}</span>
 										{% if user == app.user %}
 											<span class="ml-2 text-[9px] font-bold uppercase tracking-widest text-custom-orange px-1.5 py-0.5 rounded bg-custom-orange/10">Vous</span>
+										{% endif %}
+										{% if user.suspended %}
+											<span class="ml-2 text-[9px] font-bold uppercase tracking-widest text-red-400 px-1.5 py-0.5 rounded bg-red-400/10">Suspendu</span>
 										{% endif %}
 									</td>
 									<td class="px-4 py-3 text-sm text-text-secondary">{{ user.email }}</td>
@@ -68,6 +71,10 @@
 											<a href="{{ path('app_admin_user_edit', { id: user.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors mr-3">Modifier</a>
 										{% endif %}
 										{% if user != app.user and (not isSuperAdmin or is_granted('ROLE_SUPER_ADMIN')) %}
+											<form method="post" action="{{ path('app_admin_user_suspend', { id: user.id }) }}" class="inline" onsubmit="return confirm('{{ user.suspended ? 'Réactiver' : 'Suspendre' }} l\'utilisateur {{ user.email }} ?');">
+												<input type="hidden" name="_token" value="{{ csrf_token('suspend' ~ user.id) }}">
+												<button type="submit" class="text-[10px] font-bold uppercase tracking-wider {{ user.suspended ? 'text-emerald-400 hover:text-emerald-300' : 'text-amber-400 hover:text-amber-300' }} transition-colors mr-3">{{ user.suspended ? 'Réactiver' : 'Suspendre' }}</button>
+											</form>
 											<form method="post" action="{{ path('app_admin_user_delete', { id: user.id }) }}" class="inline" onsubmit="return confirm('Supprimer l\'utilisateur {{ user.email }} ?');">
 												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
 												<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
