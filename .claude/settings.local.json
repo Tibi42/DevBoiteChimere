@@ -84,7 +84,10 @@
       "Bash(MSYS_NO_PATHCONV=1 docker exec devboitechimere-php-1 rm -rf /app/var/cache/*)",
       "Bash(find C:laragonwwwDevBoiteChimere -type f -name *Authenticator* -o -name *Security*)",
       "Bash(find /c/laragon/www/DevBoiteChimere/templates -type f -name *.twig)",
-      "Bash(du:*)"
+      "Bash(du:*)",
+      "Bash(cat C:laragonetcapache2sites-enabled/*.conf)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__emulate",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages"
     ]
   }
 }
