@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
@@ -28,6 +29,7 @@ class ResetPasswordController extends AbstractController
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private EntityManagerInterface $entityManager,
+        private RateLimiterFactory $passwordResetLimiter,
     ) {
     }
 
@@ -41,6 +43,13 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $limiter = $this->passwordResetLimiter->create($request->getClientIp());
+            if (!$limiter->consume()->isAccepted()) {
+                $this->addFlash('reset_password_error', 'Trop de demandes. Veuillez réessayer dans quelques minutes.');
+
+                return $this->redirectToRoute('app_forgot_password_request');
+            }
+
             /** @var string $email */
             $email = $form->get('email')->getData();
 

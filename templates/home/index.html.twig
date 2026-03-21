@@ -94,7 +94,7 @@
 						<a href="#jds" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDS</a>
 						<a href="#jdr" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDR</a>
 						<a href="#gn" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">GN</a>
-						<a href="#societe" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">SOCIÉTÉ</a>
+						<a href="#association" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">ASSOCIATION</a>
 						<a href="#forum" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
 					{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{ path('admin') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
@@ -158,7 +158,7 @@
 						<a href="#jds" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
 						<a href="#jdr" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
 						<a href="#gn" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
-						<a href="#societe" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">SOCIÉTÉ</a>
+						<a href="#association" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">ASSOCIATION</a>
 						<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
 						{% if is_granted('ROLE_ADMIN') %}
 							<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
@@ -345,7 +345,7 @@
 			<!-- NOS MONDES (Mobile only variant) -->
 			<div class="lg:hidden bg-custom-primary border-t border-custom">
 				<section class="mx-auto max-w-[1240px] px-8 py-12">
-					<h2 class="text-3xl font-bold uppercase tracking-[0.2em] text-text-primary mb-8 text-center">NOS MONDES</h2>
+					<h2 class="text-3xl font-bold uppercase tracking-[0.2em] text-text-primary mb-8 text-center">ASSOCIATION LUDIQUE PARISIENNE</h2>
 					<div class="grid gap-6">
 						{% for world in worlds %}
 							<a href="#{{ world.id }}" data-turbo="false" id="{{ world.id }}-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
@@ -369,7 +369,7 @@
 
 	<!-- NOS MONDES (Desktop only) -->
 	<section class="hidden lg:block relative z-30 mx-auto max-w-[1240px] px-8 lg:px-10 lg:-mt-44 mb-20">
-		<h2 class="text-3xl lg:text-4xl font-bold uppercase tracking-[0.2em] text-text-primary mb-16 text-center">NOS MONDES</h2>
+		<h2 class="text-3xl lg:text-4xl font-bold uppercase tracking-[0.2em] text-text-primary mb-16 text-center">ASSOCIATION LUDIQUE PARISIENNE</h2>
 		<div class="grid gap-6 lg:grid-cols-3">
 			{% for world in worlds %}
 				<a href="#{{ world.id }}" data-turbo="false" id="{{ world.id }}" class="reveal delay-{{ loop.index }}00 card-premium group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg border border-custom">
