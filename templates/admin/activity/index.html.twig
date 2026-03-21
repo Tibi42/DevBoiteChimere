@@ -1,3 +1,4 @@
+{% from 'components/_activity_badge.html.twig' import badge as activity_badge %}
 {% extends 'base.html.twig' %}
 
 {% block title %}Gestion des activités - La Boîte à Chimère{% endblock %}
@@ -64,7 +65,7 @@
 										</div>
 									</td>
 									<td class="px-4 py-3">
-										<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-2 py-0.5 rounded bg-custom-orange/10">{{ activity.type|default('—') }}</span>
+										{{ activity_badge(activity.type|default('—')) }}
 									</td>
 									<td class="px-4 py-3 text-sm text-text-secondary">{{ activity.location|default('—') }}</td>
 									<td class="px-4 py-3 text-sm text-text-secondary">

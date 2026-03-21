@@ -54,15 +54,22 @@ class HomeController extends AbstractController
             $selectedDay = 0;
         }
 
-        // Jours du mois qui ont au moins une activité + nombre d'activités par jour
+        // Jours du mois qui ont au moins une activité + nombre d'activités par jour + types par jour
         $daysWithActivities = [];
         $activitiesCountByDay = [];
+        $activitiesTypesByDay = [];
         foreach ($activities as $activity) {
             $d = (int) $activity->getStartAt()->format('j');
             if (!\in_array($d, $daysWithActivities, true)) {
                 $daysWithActivities[] = $d;
             }
             $activitiesCountByDay[$d] = ($activitiesCountByDay[$d] ?? 0) + 1;
+            $type = $activity->getType() ?? '';
+            if ($type && !isset($activitiesTypesByDay[$d])) {
+                $activitiesTypesByDay[$d] = $type;
+            } elseif ($type && isset($activitiesTypesByDay[$d]) && $activitiesTypesByDay[$d] !== $type) {
+                $activitiesTypesByDay[$d] = 'mixed';
+            }
         }
 
         // Grille du calendrier : offset (null) puis 1, 2, ... lastDay
@@ -95,6 +102,7 @@ class HomeController extends AbstractController
             'calendarDays' => $calendarDays,
             'daysWithActivities' => $daysWithActivities,
             'activitiesCountByDay' => $activitiesCountByDay,
+            'activitiesTypesByDay' => $activitiesTypesByDay,
             'activities' => $activities,
             'selectedDay' => $selectedDay,
             'activitiesForSelectedDay' => $activitiesForSelectedDay,

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}La Boîte à Chimère - Communauté de Jeux de Rôle et de Société
+{% block title %}La Boîte à Chimère - Communauté de Jeux de Rôle et de Société Parisienne
 {% endblock %}
 
 {% block importmap %}{{ importmap(['app', 'carousel.js']) }}{% endblock %}
@@ -13,6 +13,7 @@
 
 		{% set slides = carousel_slides() %}
 		{% from 'components/_activity_badge.html.twig' import badge as activity_badge %}
+	{% from 'components/_calendar_day.html.twig' import day_classes %}
 
 		<!-- Données Mondes -->
 		{% set worlds = [
@@ -190,8 +191,9 @@
 												or (calendarYear == nowYear and calendarMonth == nowMonth and day > nowDay) %}
 											{% set isToday = (calendarYear == nowYear and calendarMonth == nowMonth and day == nowDay) %}
 											{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
+											{% set isPast = not isFuture and not isToday %}
 											{% if day in daysWithActivities %}
-												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar" class="block py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40 hover:ring-2 hover:ring-white transition-all {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 													<span>{{ day }}</span>
 													{% if (activitiesCountByDay[day] ?? 1) > 1 %}
 														<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
@@ -402,8 +404,9 @@
 														or (calendarYear == nowYear and calendarMonth == nowMonth and day > nowDay) %}
 													{% set isToday = (calendarYear == nowYear and calendarMonth == nowMonth and day == nowDay) %}
 													{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
+													{% set isPast = not isFuture and not isToday %}
 													{% if day in daysWithActivities %}
-														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar-desktop" class="block py-2 rounded bg-custom-orange text-text-primary shadow-lg shadow-custom-orange/40 hover:ring-2 hover:ring-white transition-all {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar-desktop" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : ''  }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 															<span>{{ day }}</span>
 															{% if (activitiesCountByDay[day] ?? 1) > 1 %}
 																<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
