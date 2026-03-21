@@ -1,0 +1,102 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% block title %}L'Association - La Boîte à Chimère{% endblock %}
+
+{% block page_title %}L'Association{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Association ludique parisienne depuis 2020</p>{% endblock %}
+
+{% block content %}
+	<div class="grid gap-12 lg:gap-16 lg:grid-cols-3">
+		{# ── Contenu principal ────────────────────────── #}
+		<div class="lg:col-span-2 space-y-12">
+			<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
+				<div class="flex items-center gap-3 mb-6">
+					<div class="glass h-10 w-10 flex items-center justify-center rounded-lg text-custom-orange">
+						<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+						</svg>
+					</div>
+					<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary">Qui sommes-nous ?</h2>
+				</div>
+				<div class="space-y-4 text-text-secondary leading-relaxed">
+					<p>
+						La Boîte à Chimère est une association loi 1901 dédiée aux jeux sous toutes leurs formes : jeux de société, jeux de rôle sur table, et grandeur nature (GN).
+					</p>
+					<p>
+						Notre mission est de rassembler les passionnés de jeux dans un cadre convivial et inclusif. Que vous soyez un joueur chevronné ou un curieux souhaitant découvrir de nouveaux horizons ludiques, vous trouverez votre place parmi nous.
+					</p>
+					<p>
+						Nous organisons régulièrement des soirées, des événements thématiques et des initiations pour permettre à chacun de vivre sa passion du jeu.
+					</p>
+				</div>
+			</section>
+
+			{# ── Nos activités ────────────────────────────── #}
+			<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
+				<h2 class="text-xl font-bold uppercase tracking-wider text-text-primary mb-6">Nos activités</h2>
+				<div class="space-y-4">
+					<a href="{{ path('app_jds') }}" class="flex items-center gap-4 p-5 rounded-xl bg-custom-tertiary border border-custom hover:border-emerald-400/30 transition-all group">
+						<div class="glass h-12 w-12 flex items-center justify-center rounded-lg text-emerald-400 shrink-0">
+							<svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+						</div>
+						<div>
+							<h3 class="text-sm font-bold text-text-primary group-hover:text-emerald-400 transition-colors">Jeux de Société</h3>
+							<p class="text-xs text-text-secondary mt-1">Soirées bi-hebdomadaires le vendredi à 19h</p>
+						</div>
+					</a>
+					<a href="{{ path('app_jdr') }}" class="flex items-center gap-4 p-5 rounded-xl bg-custom-tertiary border border-custom hover:border-violet-400/30 transition-all group">
+						<div class="glass h-12 w-12 flex items-center justify-center rounded-lg text-violet-400 shrink-0">
+							<svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/></svg>
+						</div>
+						<div>
+							<h3 class="text-sm font-bold text-text-primary group-hover:text-violet-400 transition-colors">Jeux de Rôle</h3>
+							<p class="text-xs text-text-secondary mt-1">Soirées hebdomadaires le mardi à 19h</p>
+						</div>
+					</a>
+					<a href="{{ path('app_gn') }}" class="flex items-center gap-4 p-5 rounded-xl bg-custom-tertiary border border-custom hover:border-red-400/30 transition-all group">
+						<div class="glass h-12 w-12 flex items-center justify-center rounded-lg text-red-400 shrink-0">
+							<svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+						</div>
+						<div>
+							<h3 class="text-sm font-bold text-text-primary group-hover:text-red-400 transition-colors">Grandeur Nature</h3>
+							<p class="text-xs text-text-secondary mt-1">Événements mensuels le dimanche à 14h</p>
+						</div>
+					</a>
+				</div>
+			</section>
+		</div>
+
+		{# ── Sidebar ──────────────────────────────────── #}
+		<aside class="space-y-8">
+			<div class="rounded-2xl border border-custom glass-card p-6 shadow-xl">
+				<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-text-primary/60 mb-4">NOUS REJOINDRE</h3>
+				<div class="space-y-4">
+					<p class="text-sm text-text-secondary leading-relaxed">
+						Envie de rejoindre l'aventure ? L'adhésion est ouverte toute l'année et vous donne accès à toutes nos activités.
+					</p>
+					<a href="{{ path('app_home') }}#home" class="inline-flex w-full justify-center rounded-lg bg-custom-orange px-5 py-3 text-[10px] font-extrabold uppercase tracking-wider text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+						S'INSCRIRE
+					</a>
+				</div>
+			</div>
+
+			<div class="rounded-2xl border border-custom glass-card p-6 shadow-xl">
+				<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-text-primary/60 mb-4">INFORMATIONS</h3>
+				<div class="space-y-4">
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-4">
+						<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange mb-1 block">Statut</span>
+						<p class="text-sm font-bold text-text-primary">Association loi 1901</p>
+					</div>
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-4">
+						<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange mb-1 block">Localisation</span>
+						<p class="text-sm font-bold text-text-primary">Paris</p>
+					</div>
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-4">
+						<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange mb-1 block">Contact</span>
+						<p class="text-sm font-bold text-text-primary">contact@laboiteachimere.fr</p>
+					</div>
+				</div>
+			</div>
+		</aside>
+	</div>
+{% endblock %}

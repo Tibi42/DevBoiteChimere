@@ -15,9 +15,9 @@
 
 		<!-- Données Mondes -->
 		{% set worlds = [
-            { id: 'jdr', name: 'Nos soirées hebdomadaires du mardi (19h)', image: 'jdr.jpg', icon: 'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45-2.6 5.2-4.3-2.15V4.18zM5.1 7.63L12 4.18v8.55l-4.3 2.15-2.6-5.2zm0 8.74l2.6-5.2 4.3 2.15v4.32L5.1 16.37zm12.8 0l-6.9 3.45v-4.32l4.3-2.15 2.6 5.2z' },
-            { id: 'jds', name: 'Nos soirées bi-hebdomadaires du vendredi (19h)', image: 'jds.jpg', icon: 'M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1V9a2 2 0 0 1 2-2h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z' },
-            { id: 'gn', name: 'Nos apres-midi mensuelles du dimanche (14h)', image: 'gn.jpg', icon: 'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z' }
+            { id: 'jdr', name: 'Nos soirées hebdomadaires du mardi (19h)', image: 'jdr.jpg', icon: 'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45-2.6 5.2-4.3-2.15V4.18zM5.1 7.63L12 4.18v8.55l-4.3 2.15-2.6-5.2zm0 8.74l2.6-5.2 4.3 2.15v4.32L5.1 16.37zm12.8 0l-6.9 3.45v-4.32l4.3-2.15 2.6 5.2z', route: 'app_jdr' },
+            { id: 'jds', name: 'Nos soirées bi-hebdomadaires du vendredi (19h)', image: 'jds.jpg', icon: 'M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1V9a2 2 0 0 1 2-2h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z', route: 'app_jds' },
+            { id: 'gn', name: 'Nos apres-midi mensuelles du dimanche (14h)', image: 'gn.jpg', icon: 'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z', route: 'app_gn' }
         ] %}
 
 		<!-- Contenu par-dessus l'image hero -->
@@ -91,10 +91,10 @@
 					</a>
 
 					<nav class="hidden lg:flex items-center gap-10">
-						<a href="#jds" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDS</a>
-						<a href="#jdr" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDR</a>
-						<a href="#gn" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">GN</a>
-						<a href="#association" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">ASSOCIATION</a>
+						<a href="{{ path('app_jds') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDS</a>
+						<a href="{{ path('app_jdr') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDR</a>
+						<a href="{{ path('app_gn') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">GN</a>
+						<a href="{{ path('app_association') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">ASSOCIATION</a>
 						<a href="#forum" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
 					{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{ path('admin') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
@@ -155,10 +155,10 @@
 				<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
 				<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-custom shadow-2xl pt-20 px-8">
 					<nav class="flex flex-col gap-6">
-						<a href="#jds" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
-						<a href="#jdr" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
-						<a href="#gn" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
-						<a href="#association" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">ASSOCIATION</a>
+						<a href="{{ path('app_jds') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
+						<a href="{{ path('app_jdr') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
+						<a href="{{ path('app_gn') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
+						<a href="{{ path('app_association') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">ASSOCIATION</a>
 						<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
 						{% if is_granted('ROLE_ADMIN') %}
 							<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
@@ -348,7 +348,7 @@
 					<h2 class="text-3xl font-bold uppercase tracking-[0.2em] text-text-primary mb-8 text-center">ASSOCIATION LUDIQUE PARISIENNE</h2>
 					<div class="grid gap-6">
 						{% for world in worlds %}
-							<a href="#{{ world.id }}" data-turbo="false" id="{{ world.id }}-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
+							<a href="{{ path(world.route) }}" data-turbo="false" id="{{ world.id }}-mobile" class="group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg">
 								<img src="{{ asset('images/cards/' ~ world.image) }}" alt="{{ world.name }}" class="absolute inset-0 h-full w-full object-cover">
 								<div class="absolute inset-0 image-overlay"></div>
 								<div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">
@@ -372,7 +372,7 @@
 		<h2 class="text-3xl lg:text-4xl font-bold uppercase tracking-[0.2em] text-text-primary mb-16 text-center">ASSOCIATION LUDIQUE PARISIENNE</h2>
 		<div class="grid gap-6 lg:grid-cols-3">
 			{% for world in worlds %}
-				<a href="#{{ world.id }}" data-turbo="false" id="{{ world.id }}" class="reveal delay-{{ loop.index }}00 card-premium group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg border border-custom">
+				<a href="{{ path(world.route) }}" data-turbo="false" id="{{ world.id }}" class="reveal delay-{{ loop.index }}00 card-premium group relative aspect-[1.8/1] overflow-hidden rounded-xl bg-custom-tertiary shadow-lg border border-custom">
 					<img src="{{ asset('images/cards/' ~ world.image) }}" alt="{{ world.name }}" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700">
 					<div class="absolute inset-0 image-overlay"></div>
 					<div class="absolute left-4 top-4 glass h-8 w-8 flex items-center justify-center rounded-lg text-cyan-400">

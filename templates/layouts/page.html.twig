@@ -1,0 +1,207 @@
+{% extends 'base.html.twig' %}
+
+{% block importmap %}{{ importmap(['app', 'carousel.js']) }}{% endblock %}
+
+{% block body %}
+	{% set slides = carousel_slides() %}
+	{# ── Hero banner ─────────────────────────────────────────── #}
+	<section class="relative w-full min-h-[320px] lg:min-h-[400px] overflow-hidden">
+		<img src="{{ asset('images/hero/' ~ (block('hero_image') is defined ? block('hero_image') : 'hero.jpg')) }}" alt="Hero" class="absolute inset-0 h-full w-full object-cover">
+		<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
+
+		<div class="relative z-10">
+			{# ── Carousel ────────────────────────────────────────── #}
+			<section class="mx-auto max-w-[1240px] px-4 sm:px-8 lg:px-10 pt-6 lg:pt-10 mb-8 lg:mb-12" id="carousel-container" aria-label="Événements à la une">
+				<div class="relative rounded-2xl border border-custom glass-card shadow-xl overflow-hidden">
+					<div class="overflow-hidden rounded-2xl">
+						<div id="carousel" class="flex h-auto" style="transform: translateX(0%); touch-action: pan-y;">
+							{% for slide in slides %}
+								{% set btnUrl = slide.btn_url|default('') %}
+								{% if btnUrl %}
+									<a href="{{ btnUrl }}" class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
+										<div class="flex-1">
+											<span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] {{ slide.tag_color }}">{{ slide.tag }}</span>
+											<h3 class="text-base sm:text-lg font-bold text-text-primary mt-0.5 leading-tight">{{ slide.title }}</h3>
+											<p class="text-xs sm:text-sm text-text-secondary mt-1">{{ slide.date }}</p>
+										</div>
+										<span class="w-full sm:w-auto text-center shrink-0 rounded-lg {{ slide.btn_class }} px-5 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-text-primary transition-all group-hover:scale-105 shadow-lg">
+											{{ slide.btn_text }}
+											<span class="absolute inset-0"></span>
+										</span>
+									</a>
+								{% else %}
+									<div class="carousel-events-slide relative group cursor-pointer flex flex-shrink-0 flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 lg:px-6 lg:py-4 min-w-full hover:bg-white/5 transition-colors">
+										<div class="flex-1">
+											<span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] {{ slide.tag_color }}">{{ slide.tag }}</span>
+											<h3 class="text-base sm:text-lg font-bold text-text-primary mt-0.5 leading-tight">{{ slide.title }}</h3>
+											<p class="text-xs sm:text-sm text-text-secondary mt-1">{{ slide.date }}</p>
+										</div>
+										<span class="w-full sm:w-auto text-center shrink-0 rounded-lg {{ slide.btn_class }} px-5 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-text-primary transition-all group-hover:scale-105 shadow-lg">
+											{{ slide.btn_text }}
+											<span class="absolute inset-0"></span>
+										</span>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div id="carousel-events-dots" class="flex justify-center items-center gap-3 py-4 mt-2">
+					{% for slide in slides %}
+						<button type="button" class="carousel-events-dot h-3 w-3 rounded-full transition-all bg-white/50 hover:bg-white/80" data-index="{{ loop.index0 }}" data-slide="{{ loop.index0 }}"></button>
+					{% endfor %}
+				</div>
+			</section>
+
+			{# ── Header / Navbar ────────────────────────────────── #}
+			<header class="mx-auto max-w-[1240px] lg:max-w-[1360px] px-8 lg:px-10 mb-8 lg:mb-12">
+				<div class="header-container mx-auto max-w-[1240px] lg:max-w-[1360px] px-7 py-3 bg-custom-secondary rounded-xl shadow-2xl border border-custom flex items-center justify-between">
+					<a href="{{ path('app_home') }}" class="flex items-center gap-4 transition-all hover:opacity-80 z-[75]">
+						<div class="h-10 w-10 shrink-0">
+							<svg class="h-full w-full" viewbox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+								<path d="M20 2L36 12v16L20 38L4 28V12L20 2z" stroke="url(#logo)" stroke-width="1.5" fill="none"/>
+								<path d="M20 8l10 6v8l-10 6-10-6v-8l10-6z" stroke="url(#logo2)" stroke-width="1" fill="none"/>
+								<defs>
+									<linearGradient id="logo" x1="4" y1="2" x2="36" y2="38" gradientunits="userSpaceOnUse">
+										<stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
+									</linearGradient>
+									<linearGradient id="logo2" x1="10" y1="8" x2="30" y2="32" gradientunits="userSpaceOnUse">
+										<stop stop-color="#14b8a6"/><stop offset="1" stop-color="#f8742c"/>
+									</linearGradient>
+								</defs>
+							</svg>
+						</div>
+						<div class="flex flex-col leading-[0.9]">
+							<span class="text-base font-extrabold uppercase tracking-tight text-text-primary leading-none">LA BOÎTE</span>
+							<span class="text-base font-extrabold uppercase tracking-tight text-text-primary leading-none">À CHIMÈRE</span>
+						</div>
+					</a>
+
+					<nav class="hidden lg:flex items-center gap-10">
+						<a href="{{ path('app_jds') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jds' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">JDS</a>
+						<a href="{{ path('app_jdr') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jdr' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">JDR</a>
+						<a href="{{ path('app_gn') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_gn' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">GN</a>
+						<a href="{{ path('app_association') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_association' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">ASSOCIATION</a>
+						<a href="#forum" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('admin') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
+						{% endif %}
+					</nav>
+
+					<div class="flex items-center gap-4">
+						<button id="theme-toggle" type="button" class="p-2.5 rounded-lg bg-custom-tertiary border border-custom text-text-secondary hover:text-text-primary transition-all z-[75]" aria-label="Changer de thème">
+							<svg class="h-5 w-5 sun-icon" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+							</svg>
+							<svg class="h-5 w-5 moon-icon hidden" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+							</svg>
+						</button>
+						{% if app.user %}
+							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+								DÉCONNEXION
+							</a>
+						{% else %}
+							<a href="{{ path('app_home') }}#home" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+								NOUS REJOINDRE
+							</a>
+						{% endif %}
+						{# Hamburger Menu Button #}
+						<button id="mobile-menu-btn" type="button" class="lg:hidden flex flex-col gap-1.5 p-2 z-[100] text-text-primary" aria-label="Menu principal">
+							<span class="w-6 h-0.5 bg-current transition-all duration-300 origin-center"></span>
+							<span class="w-6 h-0.5 bg-current transition-all duration-300 origin-center"></span>
+							<span class="w-6 h-0.5 bg-current transition-all duration-300 origin-center"></span>
+						</button>
+					</div>
+				</div>
+			</header>
+
+			{# ── Hero content (titre de la page) ────────────────── #}
+			<div class="mx-auto max-w-[1240px] px-8 lg:px-10 pb-16 lg:pb-24 text-center">
+				<h1 class="text-4xl lg:text-5xl font-bold uppercase tracking-[0.15em] text-text-primary mb-4">{% block page_title %}{% endblock %}</h1>
+				{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto"></p>{% endblock %}
+			</div>
+		</div>
+	</section>
+
+	{# ── Mobile Menu Drawer (hors du hero pour éviter le stacking context) ── #}
+	<div id="mobile-menu-drawer" class="fixed inset-0 z-[95] lg:hidden pointer-events-none">
+		<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+		<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-custom shadow-2xl pt-20 px-8">
+			<nav class="flex flex-col gap-6">
+				<a href="{{ path('app_home') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">HOME</a>
+				<a href="{{ path('app_jds') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest {{ app.request.attributes.get('_route') == 'app_jds' ? 'text-custom-orange' : 'text-text-primary/70 hover:text-custom-orange' }} transition-colors">JDS</a>
+				<a href="{{ path('app_jdr') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest {{ app.request.attributes.get('_route') == 'app_jdr' ? 'text-custom-orange' : 'text-text-primary/70 hover:text-custom-orange' }} transition-colors">JDR</a>
+				<a href="{{ path('app_gn') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest {{ app.request.attributes.get('_route') == 'app_gn' ? 'text-custom-orange' : 'text-text-primary/70 hover:text-custom-orange' }} transition-colors">GN</a>
+				<a href="{{ path('app_association') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest {{ app.request.attributes.get('_route') == 'app_association' ? 'text-custom-orange' : 'text-text-primary/70 hover:text-custom-orange' }} transition-colors">ASSOCIATION</a>
+				<a href="#forum" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
+				{% if is_granted('ROLE_ADMIN') %}
+					<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
+				{% endif %}
+				<hr class="border-custom my-4">
+				{% if app.user %}
+					<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
+						DÉCONNEXION
+					</a>
+				{% else %}
+					<a href="{{ path('app_home') }}#home" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
+						NOUS REJOINDRE
+					</a>
+				{% endif %}
+			</nav>
+			<div class="absolute bottom-10 left-8 right-8 text-center">
+				<p class="text-[10px] uppercase tracking-widest text-text-secondary/30 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
+			</div>
+		</div>
+	</div>
+
+	{# ── Contenu principal ───────────────────────────────────── #}
+	<main class="relative z-10 mx-auto max-w-[1240px] px-8 lg:px-10 py-16 lg:py-20">
+		{% block content %}{% endblock %}
+	</main>
+
+	{# ── Footer ──────────────────────────────────────────────── #}
+	<footer class="border-t border-custom bg-custom-tertiary py-16 relative z-10">
+		<div class="mx-auto grid max-w-[1240px] gap-12 px-6 md:grid-cols-4">
+			<div class="md:col-span-1">
+				<h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-text-primary">COMMUNAUTÉ & RESSOURCES</h3>
+				<p class="mb-4 text-sm text-text-secondary">Newsletter</p>
+				<form class="flex gap-2" action="#" method="post">
+					<input type="email" name="email" placeholder="Pour s'inscrire..." class="w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-sm text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange transition-all">
+				</form>
+			</div>
+			<div>
+				<h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-text-primary">SOCIALS</h3>
+				<div class="flex gap-4">
+					<a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/60 transition-all hover:bg-cyan-500 hover:text-text-primary hover:scale-110" aria-label="Twitter">
+						<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+					</a>
+					<a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/60 transition-all hover:bg-purple-600 hover:text-text-primary hover:scale-110" aria-label="Instagram">
+						<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+					</a>
+					<a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/60 transition-all hover:bg-red-600 hover:text-text-primary hover:scale-110" aria-label="YouTube">
+						<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+					</a>
+				</div>
+			</div>
+			<div class="md:col-span-2">
+				<h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-text-primary">PAGES IMPORTANTES</h3>
+				<div class="grid grid-cols-2 gap-4">
+					<ul class="space-y-3 text-sm text-text-secondary">
+						<li><a href="{{ path('app_home') }}" class="hover:text-text-primary transition-colors">Accueil</a></li>
+						<li><a href="{{ path('app_association') }}" class="hover:text-text-primary transition-colors">Qui sommes-nous</a></li>
+						<li><a href="#" class="hover:text-text-primary transition-colors">Contact</a></li>
+					</ul>
+					<ul class="space-y-3 text-sm text-text-secondary">
+						<li><a href="{{ path('app_jds') }}" class="hover:text-text-primary transition-colors">Jeux de Société</a></li>
+						<li><a href="{{ path('app_jdr') }}" class="hover:text-text-primary transition-colors">Jeux de Rôle</a></li>
+						<li><a href="{{ path('app_gn') }}" class="hover:text-text-primary transition-colors">Grandeur Nature</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="mx-auto mt-16 max-w-[1240px] border-t border-custom px-6 pt-8 text-center text-xs text-text-secondary">
+			<p>&copy; {{ "now"|date("Y") }} LA BOÎTE À CHIMÈRE. Tous droits réservés.</p>
+		</div>
+	</footer>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% block title %}Grandeur Nature - La Boîte à Chimère{% endblock %}
+
+{% block page_title %}Grandeur Nature{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Nos après-midi mensuelles du dimanche (14h)</p>{% endblock %}
+
+{% block content %}
+	<div class="grid gap-12 lg:gap-16 lg:grid-cols-3">
+		{# ── Carte principale ─────────────────────────── #}
+		<div class="lg:col-span-2 space-y-12">
+			<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
+				<div class="flex items-center gap-3 mb-6">
+					<div class="glass h-10 w-10 flex items-center justify-center rounded-lg text-red-400">
+						<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24">
+							<path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+						</svg>
+					</div>
+					<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary">Nos événements GN</h2>
+				</div>
+				<div class="space-y-4 text-text-secondary leading-relaxed">
+					<p>
+						Le Grandeur Nature (GN) est une expérience immersive unique où vous incarnez physiquement votre personnage. Costumes, décors et scénarios élaborés vous plongent dans des aventures inoubliables.
+					</p>
+					<p>
+						Une fois par mois, le dimanche après-midi, nous organisons des événements GN accessibles à tous. Que ce soit du médiéval-fantastique, du post-apocalyptique ou du contemporain, il y en a pour tous les goûts !
+					</p>
+				</div>
+			</section>
+
+			{# ── Infos pratiques ──────────────────────────── #}
+			<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
+				<h2 class="text-xl font-bold uppercase tracking-wider text-text-primary mb-6">Infos pratiques</h2>
+				<div class="grid gap-6 sm:grid-cols-2">
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-5">
+						<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 mb-2 block">Quand</span>
+						<p class="text-sm font-bold text-text-primary">Dimanche après-midi</p>
+						<p class="text-xs text-text-secondary mt-1">À partir de 14h00</p>
+					</div>
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-5">
+						<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 mb-2 block">Fréquence</span>
+						<p class="text-sm font-bold text-text-primary">Mensuelle</p>
+						<p class="text-xs text-text-secondary mt-1">Un dimanche par mois</p>
+					</div>
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-5">
+						<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 mb-2 block">Lieu</span>
+						<p class="text-sm font-bold text-text-primary">Variable selon l'événement</p>
+						<p class="text-xs text-text-secondary mt-1">Région parisienne</p>
+					</div>
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-5">
+						<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 mb-2 block">Public</span>
+						<p class="text-sm font-bold text-text-primary">Tous niveaux</p>
+						<p class="text-xs text-text-secondary mt-1">Costumes fournis pour débuter</p>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		{# ── Sidebar ──────────────────────────────────── #}
+		<aside class="space-y-8">
+			<div class="rounded-2xl border border-custom glass-card p-6 shadow-xl">
+				<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-text-primary/60 mb-4">PROCHAIN ÉVÉNEMENT</h3>
+				<div class="rounded-xl bg-custom-tertiary border border-custom p-5 text-center">
+					<p class="text-xs text-text-secondary">Consultez le calendrier sur la page d'accueil pour voir les prochaines dates.</p>
+					<a href="{{ path('app_home') }}" class="inline-block mt-4 rounded-lg bg-custom-orange px-5 py-2.5 text-[10px] font-extrabold uppercase tracking-wider text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+						VOIR LE CALENDRIER
+					</a>
+				</div>
+			</div>
+
+			<div class="rounded-2xl border border-custom glass-card p-6 shadow-xl">
+				<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-text-primary/60 mb-4">NOS AUTRES ACTIVITÉS</h3>
+				<div class="space-y-3">
+					<a href="{{ path('app_jds') }}" class="flex items-center gap-3 p-3 rounded-lg bg-custom-tertiary border border-custom hover:border-custom-orange transition-all group">
+						<div class="glass h-8 w-8 flex items-center justify-center rounded-lg text-emerald-400 shrink-0">
+							<svg class="h-4 w-4" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-1v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1v-1a2 2 0 0 1 2-2h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+						</div>
+						<span class="text-xs font-medium text-text-primary/70 group-hover:text-text-primary">Jeux de Société</span>
+					</a>
+					<a href="{{ path('app_jdr') }}" class="flex items-center gap-3 p-3 rounded-lg bg-custom-tertiary border border-custom hover:border-custom-orange transition-all group">
+						<div class="glass h-8 w-8 flex items-center justify-center rounded-lg text-violet-400 shrink-0">
+							<svg class="h-4 w-4" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/></svg>
+						</div>
+						<span class="text-xs font-medium text-text-primary/70 group-hover:text-text-primary">Jeux de Rôle</span>
+					</a>
+				</div>
+			</div>
+		</aside>
+	</div>
+{% endblock %}
