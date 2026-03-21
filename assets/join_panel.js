@@ -112,10 +112,59 @@ function initJoinPanel() {
     }
 }
 
+function initRegisterModal() {
+    const modal = document.getElementById('register-modal');
+    if (!modal) return;
+
+    const closeBtn = document.getElementById('register-close');
+    const overlay = document.getElementById('register-overlay');
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        setTimeout(() => {
+            const input = modal.querySelector('input:not([type="hidden"])');
+            if (input && !input.value) input.focus();
+            else {
+                const username = document.getElementById('register-username');
+                if (username) username.focus();
+            }
+        }, 100);
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        // Clean URL
+        const url = new URL(window.location);
+        url.searchParams.delete('open');
+        url.searchParams.delete('email');
+        window.history.replaceState({}, '', url);
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (overlay) overlay.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    // Auto-open if ?open=register
+    if (new URLSearchParams(window.location.search).get('open') === 'register') {
+        openModal();
+    }
+}
+
 function bootJoinPanel() {
     initJoinPanel();
-    // Auto-open when redirected back after a login error (?open=login)
-    if (new URLSearchParams(window.location.search).get('open') === 'login') {
+    initRegisterModal();
+
+    const openParam = new URLSearchParams(window.location.search).get('open');
+
+    // Auto-open login panel when redirected after a login error (?open=login)
+    if (openParam === 'login') {
         const panel = document.getElementById('join-panel');
         const btn = document.getElementById('join-btn');
         if (panel && btn) {

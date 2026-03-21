@@ -131,7 +131,7 @@
 										<label for="join-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
 										<input type="password" id="join-password" name="_password" required autocomplete="current-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········">
 									</div>
-									<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[155px] text-center">SE CONNECTER</button>
+									<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[155px] text-center">SE CONNECTER / S'INSCRIRE</button>
 								</div>
 								<a href="{{ path('app_forgot_password_request') }}" class="text-xs text-text-secondary hover:text-custom-orange transition-colors text-center">Mot de passe oublié ?</a>
 							</form>
@@ -185,7 +185,7 @@
 								<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
 								<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
 							</div>
-							<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
+							<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER / S'INSCRIRE</button>
 							<a href="{{ path('app_forgot_password_request') }}" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
 						</form>
 					</div>
@@ -258,4 +258,43 @@
 			<p>&copy; {{ "now"|date("Y") }} LA BOÎTE À CHIMÈRE. Tous droits réservés.</p>
 		</div>
 	</footer>
+
+{# ── Modale inscription (hors de tout stacking context) ── #}
+{% if not app.user %}
+	<div id="register-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center">
+		<div id="register-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+		<div class="relative z-10 w-full max-w-md mx-4 rounded-2xl border border-custom bg-custom-secondary shadow-2xl overflow-hidden">
+			<div class="bg-custom-tertiary px-6 py-4 border-b border-custom flex items-center justify-between">
+				<div>
+					<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange">Nouveau membre</span>
+					<h2 class="text-lg font-bold text-text-primary uppercase tracking-wide">Créer un compte</h2>
+				</div>
+				<button id="register-close" type="button" class="text-text-secondary hover:text-text-primary transition-colors p-1">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+				</button>
+			</div>
+			<div class="px-6 py-5">
+				{% for message in app.flashes('register_error') %}
+					<div class="mb-3 rounded-lg bg-red-400/10 px-3 py-2 text-xs text-red-400">{{ message }}</div>
+				{% endfor %}
+				<form action="{{ path('app_register') }}" method="post" data-turbo="false" class="flex flex-col gap-4">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('register') }}">
+					<div>
+						<label for="register-email" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Email</label>
+						<input type="email" id="register-email" name="email" required autocomplete="email" value="{{ app.request.query.get('email', '') }}" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="votre@email.com">
+					</div>
+					<div>
+						<label for="register-username" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Nom d'utilisateur</label>
+						<input type="text" id="register-username" name="username" required minlength="3" autocomplete="username" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="VotreNom">
+					</div>
+					<div>
+						<label for="register-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
+						<input type="password" id="register-password" name="password" required minlength="6" autocomplete="new-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="6 caractères minimum">
+					</div>
+					<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-[1.02] transition-all shadow-lg shadow-custom-orange/20">S'INSCRIRE</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endif %}
 {% endblock %}

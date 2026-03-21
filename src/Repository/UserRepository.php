@@ -19,6 +19,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
+    /** @return User[] */
+    public function findAdmins(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :admin OR u.roles LIKE :superadmin')
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->setParameter('superadmin', '%ROLE_SUPER_ADMIN%')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {

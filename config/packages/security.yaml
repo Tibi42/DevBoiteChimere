@@ -28,6 +28,7 @@ security:
                 check_path: app_login
                 enable_csrf: true
                 csrf_token_id: authenticate
+                failure_handler: App\Security\LoginFailureHandler
 
             logout:
                 path: app_logout
