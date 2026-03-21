@@ -51,7 +51,7 @@
 			<div class="mb-6 p-4 rounded-xl bg-custom-tertiary/50 border border-custom">
 				<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange">{{ activity.type|default('Événement') }}</span>
 				<p class="font-medium text-text-primary mt-1">{{ activity.title }}</p>
-				<p class="text-sm text-text-secondary mt-0.5">{{ activity.startAt|date('d/m/Y H:i') }}</p>
+				<p class="text-sm text-text-secondary mt-0.5">{{ activity.startAt|date('d/m/Y') }}</p>
 			</div>
 			{{ include('admin/activity/_form.html.twig', { form: form, button_label: 'Enregistrer' }) }}
 		</div>

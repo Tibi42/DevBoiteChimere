@@ -51,7 +51,7 @@
 							{% for activity in activities %}
 								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ activity.status == 'pending' ? 'bg-custom-orange/5' : '' }}">
 									<td class="px-4 py-3 text-sm text-text-primary whitespace-nowrap">
-										{{ activity.startAt|date('d/m/Y H:i') }}
+										{{ activity.startAt|date('d/m/Y') }}
 									</td>
 									<td class="px-4 py-3">
 										<div class="flex items-center gap-2">

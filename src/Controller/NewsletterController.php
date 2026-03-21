@@ -8,8 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -129,19 +129,14 @@ final class NewsletterController extends AbstractController
             'token' => $subscriber->getToken(),
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('newsletter@laboiteachimere.fr')
             ->to($subscriber->getEmail())
             ->subject('Confirmez votre inscription à la newsletter - La Boîte à Chimère')
-            ->text(
-                "Bonjour,\n\n"
-                . "Merci de votre intérêt pour La Boîte à Chimère !\n\n"
-                . "Pour confirmer votre inscription à notre newsletter, cliquez sur le lien ci-dessous :\n\n"
-                . $confirmUrl . "\n\n"
-                . "Si vous n'avez pas demandé cette inscription, ignorez simplement cet email.\n\n"
-                . "À bientôt,\n"
-                . "L'équipe La Boîte à Chimère"
-            );
+            ->htmlTemplate('emails/newsletter_confirmation.html.twig')
+            ->context([
+                'confirmUrl' => $confirmUrl,
+            ]);
 
         $mailer->send($email);
     }

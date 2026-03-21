@@ -13,7 +13,7 @@
 			<div class="mb-6 p-4 rounded-xl bg-custom-tertiary/50 border border-custom">
 				<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange">{{ activity.type|default('Événement') }}</span>
 				<h1 class="text-xl font-bold text-text-primary mt-1">{{ activity.title }}</h1>
-				<p class="text-sm text-text-secondary mt-1">{{ activity.startAt|date('l d F Y à H:i') }}</p>
+				<p class="text-sm text-text-secondary mt-1">{{ activity.startAt|date('l d F Y') }}</p>
 				{% if activity.location %}
 					<p class="text-xs text-text-secondary mt-1">{{ activity.location }}</p>
 				{% endif %}
