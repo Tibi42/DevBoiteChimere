@@ -78,6 +78,7 @@
 					</a>
 
 					<nav class="hidden lg:flex items-center gap-10">
+						<a href="{{ path('app_home') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">HOME</a>
 						<a href="{{ path('app_jds') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jds' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">JDS</a>
 						<a href="{{ path('app_jdr') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jdr' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">JDR</a>
 						<a href="{{ path('app_gn') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_gn' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">GN</a>
