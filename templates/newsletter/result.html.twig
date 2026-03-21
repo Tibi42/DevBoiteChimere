@@ -1,0 +1,31 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% block title %}{{ title }} - La Boîte à Chimère{% endblock %}
+
+{% block page_title %}Newsletter{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">{{ title }}</p>{% endblock %}
+
+{% block content %}
+	<div class="space-y-8">
+		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl text-center">
+			{% if success %}
+				<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-6">
+					<svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+					</svg>
+				</div>
+			{% else %}
+				<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/20 mb-6">
+					<svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+					</svg>
+				</div>
+			{% endif %}
+			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-4">{{ title }}</h2>
+			<p class="text-text-secondary leading-relaxed max-w-lg mx-auto">{{ message }}</p>
+			<a href="{{ path('app_home') }}" class="inline-block mt-8 rounded-lg bg-custom-orange px-6 py-3 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all">
+				Retour à l'accueil
+			</a>
+		</section>
+	</div>
+{% endblock %}

@@ -208,8 +208,20 @@
 			<div class="md:col-span-1">
 				<h3 class="mb-6 text-xs font-bold uppercase tracking-widest text-text-primary">COMMUNAUTÉ & RESSOURCES</h3>
 				<p class="mb-4 text-sm text-text-secondary">Newsletter</p>
-				<form class="flex gap-2" action="#" method="post">
-					<input type="email" name="email" placeholder="Pour s'inscrire..." class="w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-sm text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange transition-all">
+				{% for label, messages in app.flashes %}
+					{% if label starts with 'newsletter_' %}
+						{% for message in messages %}
+							<div class="mb-3 rounded-lg px-3 py-2 text-xs {% if label == 'newsletter_success' %}bg-green-400/10 text-green-400{% elseif label == 'newsletter_error' %}bg-red-400/10 text-red-400{% else %}bg-yellow-400/10 text-yellow-400{% endif %}">
+								{{ message }}
+							</div>
+						{% endfor %}
+					{% endif %}
+				{% endfor %}
+				<form class="flex gap-2" action="{{ path('app_newsletter_subscribe') }}" method="post" data-turbo="false">
+					<input type="email" name="email" placeholder="Pour s'inscrire..." required class="w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-sm text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange transition-all">
+					<button type="submit" class="rounded-lg bg-custom-orange px-4 py-3 text-xs font-bold text-text-primary hover:bg-orange-600 transition-all" aria-label="S'inscrire">
+						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+					</button>
 				</form>
 			</div>
 			<div>

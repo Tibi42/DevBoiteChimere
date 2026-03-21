@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\NewsletterSubscriber;
 use App\Repository\ActivityRepository;
 use App\Repository\InscriptionRepository;
+use App\Repository\NewsletterSubscriberRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -16,6 +18,7 @@ class DashboardController extends AbstractDashboardController
     public function __construct(
         private readonly InscriptionRepository $inscriptionRepository,
         private readonly ActivityRepository $activityRepository,
+        private readonly NewsletterSubscriberRepository $newsletterRepository,
     ) {
     }
 
@@ -30,11 +33,16 @@ class DashboardController extends AbstractDashboardController
         $nextMonthStart = $monthStart->modify('+1 month');
         $topProposers = $this->activityRepository->findTopProposersBetween($monthStart, $nextMonthStart, 5);
 
+        $newsletterConfirmed = $this->newsletterRepository->countByStatus(NewsletterSubscriber::STATUS_CONFIRMED);
+        $newsletterPending = $this->newsletterRepository->countByStatus(NewsletterSubscriber::STATUS_PENDING);
+
         return $this->render('admin/dashboard.html.twig', [
             'inscriptionsTotal' => $inscriptionsTotal,
             'latestInscriptions' => $latestInscriptions,
             'topProposers' => $topProposers,
             'pendingActivitiesCount' => $pendingActivitiesCount,
+            'newsletterConfirmed' => $newsletterConfirmed,
+            'newsletterPending' => $newsletterPending,
         ]);
     }
 
@@ -53,5 +61,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute($activitiesLabel, 'fa fa-calendar', 'app_activity_index');
         yield MenuItem::linkToRoute('Carousel', 'fa fa-images', 'app_admin_carousel_index');
         yield MenuItem::linkToRoute('Utilisateurs', 'fa fa-users', 'app_admin_user_index');
+        yield MenuItem::linkToRoute('Newsletter', 'fa fa-envelope', 'app_admin_newsletter_index');
     }
 }
