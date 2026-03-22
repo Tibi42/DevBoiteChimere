@@ -57,6 +57,7 @@ class ActivityRegisterController extends AbstractController
         }
 
         $alreadyRegistered = false;
+        $isAjax = $request->isXmlHttpRequest() || $request->headers->has('Turbo-Frame');
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($inscriptionRepository->hasAlreadyRegistered($activity->getId(), $inscription->getParticipantEmail())) {
@@ -65,7 +66,7 @@ class ActivityRegisterController extends AbstractController
                 $entityManager->persist($inscription);
                 $entityManager->flush();
 
-                $template = $request->isXmlHttpRequest()
+                $template = $isAjax
                     ? 'admin/activity_register/_register_frame.html.twig'
                     : 'admin/activity_register/register.html.twig';
 
@@ -78,7 +79,7 @@ class ActivityRegisterController extends AbstractController
             }
         }
 
-        $template = $request->isXmlHttpRequest()
+        $template = $isAjax
             ? 'admin/activity_register/_register_frame.html.twig'
             : 'admin/activity_register/register.html.twig';
 

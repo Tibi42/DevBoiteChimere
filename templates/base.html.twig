@@ -51,8 +51,10 @@
         {% block body %}{% endblock %}
 
         {# ── Modale inscription activité (disponible sur toutes les pages) ── #}
-        <div id="activity-modal" class="hidden fixed inset-0 z-[9999] bg-black/70 flex items-start justify-center p-4 overflow-y-auto">
-            <div class="glass-card rounded-2xl border border-custom shadow-2xl w-full lg:max-w-lg relative p-6">
+        <div id="activity-modal"
+             class="hidden fixed inset-0 z-[9999] bg-black/70 flex items-start justify-center p-4 pt-20 overflow-y-auto"
+             style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999">
+            <div class="glass-card rounded-2xl border border-custom shadow-2xl w-11/12 max-w-xl relative p-6">
                 <turbo-frame id="activity-modal-frame" loading="lazy"></turbo-frame>
             </div>
         </div>
