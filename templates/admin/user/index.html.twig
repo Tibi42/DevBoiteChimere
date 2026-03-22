@@ -28,8 +28,56 @@
 			</a>
 		</div>
 
-		<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card">
-			{% if users|length > 0 %}
+		{% if users|length > 0 %}
+			{# Vue mobile : cartes #}
+			<div class="lg:hidden space-y-3">
+				{% for user in users %}
+					{% set isSuperAdmin = 'ROLE_SUPER_ADMIN' in user.roles %}
+					<div class="rounded-xl border border-custom bg-custom-secondary p-4 shadow-lg glass-card {{ user == app.user ? 'border-custom-orange/30 bg-custom-orange/5' : '' }} {{ user.suspended ? 'opacity-50' : '' }}">
+						<div class="flex items-start justify-between gap-3 mb-2">
+							<div class="flex items-center gap-2 flex-wrap">
+								<span class="font-medium text-text-primary text-sm">{{ user.username }}</span>
+								{% if user == app.user %}
+									<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange px-1.5 py-0.5 rounded bg-custom-orange/10">Vous</span>
+								{% endif %}
+								{% if user.suspended %}
+									<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 px-1.5 py-0.5 rounded bg-red-400/10">Suspendu</span>
+								{% endif %}
+							</div>
+							<div>
+								{% for role in user.roles %}
+									{% if role != 'ROLE_USER' %}
+										<span class="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded {{ role == 'ROLE_SUPER_ADMIN' ? 'text-purple-400 bg-purple-400/10' : 'text-custom-orange bg-custom-orange/10' }}">
+											{{ role == 'ROLE_SUPER_ADMIN' ? 'Super Admin' : 'Admin' }}
+										</span>
+									{% endif %}
+								{% else %}
+									<span class="text-[9px] font-bold uppercase tracking-widest text-text-secondary px-2 py-0.5 rounded bg-white/5">Utilisateur</span>
+								{% endfor %}
+							</div>
+						</div>
+						<p class="text-xs text-text-secondary mb-3">{{ user.email }}</p>
+						<div class="flex flex-wrap items-center gap-3 pt-2 border-t border-custom/50">
+							{% if not isSuperAdmin or is_granted('ROLE_SUPER_ADMIN') %}
+								<a href="{{ path('app_admin_user_edit', { id: user.id }) }}" class="text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors">Modifier</a>
+							{% endif %}
+							{% if user != app.user and (not isSuperAdmin or is_granted('ROLE_SUPER_ADMIN')) %}
+								<form method="post" action="{{ path('app_admin_user_suspend', { id: user.id }) }}" class="contents" onsubmit="return confirm('{{ user.suspended ? 'Réactiver' : 'Suspendre' }} l\'utilisateur {{ user.email }} ?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('suspend' ~ user.id) }}">
+									<button type="submit" class="text-[10px] font-bold uppercase tracking-wider {{ user.suspended ? 'text-emerald-400 hover:text-emerald-300' : 'text-amber-400 hover:text-amber-300' }} transition-colors">{{ user.suspended ? 'Réactiver' : 'Suspendre' }}</button>
+								</form>
+								<form method="post" action="{{ path('app_admin_user_delete', { id: user.id }) }}" class="contents" onsubmit="return confirm('Supprimer l\'utilisateur {{ user.email }} ?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+									<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
+								</form>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			{# Vue desktop : tableau #}
+			<div class="hidden lg:block rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card">
 				<div class="overflow-x-auto">
 					<table class="w-full text-left">
 						<thead class="bg-custom-tertiary/50 border-b border-custom">
@@ -42,6 +90,7 @@
 						</thead>
 						<tbody>
 							{% for user in users %}
+								{% set isSuperAdmin = 'ROLE_SUPER_ADMIN' in user.roles %}
 								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ user == app.user ? 'bg-custom-orange/5' : '' }} {{ user.suspended ? 'opacity-50' : '' }}">
 									<td class="px-4 py-3">
 										<span class="font-medium text-text-primary">{{ user.username }}</span>
@@ -65,7 +114,6 @@
 											<span class="text-[9px] font-bold uppercase tracking-widest text-text-secondary px-2 py-0.5 rounded bg-white/5">Utilisateur</span>
 										{% endfor %}
 									</td>
-									{% set isSuperAdmin = 'ROLE_SUPER_ADMIN' in user.roles %}
 									<td class="px-4 py-3 text-right whitespace-nowrap">
 										{% if not isSuperAdmin or is_granted('ROLE_SUPER_ADMIN') %}
 											<a href="{{ path('app_admin_user_edit', { id: user.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors mr-3">Modifier</a>
@@ -86,14 +134,14 @@
 						</tbody>
 					</table>
 				</div>
-			{% else %}
-				<div class="px-6 py-12 text-center">
-					<p class="text-text-secondary mb-4">Aucun utilisateur pour le moment.</p>
-					<a href="{{ path('app_admin_user_new') }}" class="inline-flex items-center gap-2 rounded-lg bg-custom-orange py-2.5 px-4 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all">
-						Créer un utilisateur
-					</a>
-				</div>
-			{% endif %}
-		</div>
+			</div>
+		{% else %}
+			<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card px-6 py-12 text-center">
+				<p class="text-text-secondary mb-4">Aucun utilisateur pour le moment.</p>
+				<a href="{{ path('app_admin_user_new') }}" class="inline-flex items-center gap-2 rounded-lg bg-custom-orange py-2.5 px-4 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all">
+					Créer un utilisateur
+				</a>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

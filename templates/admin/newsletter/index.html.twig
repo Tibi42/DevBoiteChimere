@@ -32,8 +32,39 @@
 			</div>
 		</div>
 
-		<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card">
-			{% if subscribers|length > 0 %}
+		{% if subscribers|length > 0 %}
+			{# Vue mobile : cartes #}
+			<div class="lg:hidden space-y-3">
+				{% for subscriber in subscribers %}
+					<div class="rounded-xl border border-custom bg-custom-secondary p-4 shadow-lg glass-card">
+						<div class="flex items-start justify-between gap-3 mb-2">
+							<span class="font-medium text-text-primary text-sm">{{ subscriber.email }}</span>
+							{% if subscriber.status == 'confirmed' %}
+								<span class="text-[9px] font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-2 py-0.5 rounded shrink-0">Confirmé</span>
+							{% elseif subscriber.status == 'pending' %}
+								<span class="text-[9px] font-bold uppercase tracking-widest text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded shrink-0">En attente</span>
+							{% else %}
+								<span class="text-[9px] font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-2 py-0.5 rounded shrink-0">Désinscrit</span>
+							{% endif %}
+						</div>
+						<div class="flex flex-col gap-1 text-xs text-text-secondary mb-3">
+							<span>Inscrit le {{ subscriber.createdAt|date('d/m/Y à H:i') }}</span>
+							{% if subscriber.confirmedAt %}
+								<span>Confirmé le {{ subscriber.confirmedAt|date('d/m/Y à H:i') }}</span>
+							{% endif %}
+						</div>
+						<div class="flex items-center pt-2 border-t border-custom/50">
+							<form method="post" action="{{ path('app_admin_newsletter_delete', { id: subscriber.id }) }}" class="contents" onsubmit="return confirm('Supprimer cet abonné ?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ subscriber.id) }}">
+								<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
+							</form>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			{# Vue desktop : tableau #}
+			<div class="hidden lg:block rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card">
 				<div class="overflow-x-auto">
 					<table class="w-full text-left">
 						<thead class="bg-custom-tertiary/50 border-b border-custom">
@@ -73,11 +104,11 @@
 						</tbody>
 					</table>
 				</div>
-			{% else %}
-				<div class="px-6 py-12 text-center">
-					<p class="text-text-secondary">Aucun abonné pour le moment.</p>
-				</div>
-			{% endif %}
-		</div>
+			</div>
+		{% else %}
+			<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card px-6 py-12 text-center">
+				<p class="text-text-secondary">Aucun abonné pour le moment.</p>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}
