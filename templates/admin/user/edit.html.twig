@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
 {% block title %}Modifier {{ user.email }} - La Boîte à Chimère{% endblock %}
 
-{% block body %}
+{% block admin_body %}
 	<div class="min-h-screen mx-auto max-w-[1240px] px-4 sm:px-8 py-8">
 		<a href="{{ path('app_admin_user_index') }}" class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors mb-6">
 			<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>

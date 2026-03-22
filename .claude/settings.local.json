@@ -95,7 +95,11 @@
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__resize_page",
       "Bash(cat /c/laragon/etc/apache2/sites-enabled/*.conf)",
       "Bash(rm -rf var/cache/dev/importmap*)",
-      "Bash(rm -rf var/cache/dev/url_*)"
+      "Bash(rm -rf var/cache/dev/url_*)",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_fill_form",
+      "mcp__plugin_playwright_playwright__browser_type",
+      "mcp__plugin_playwright_playwright__browser_click"
     ]
   }
 }
