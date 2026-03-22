@@ -3,12 +3,14 @@
 {% block title %}La Boîte à Chimère - Communauté de Jeux de Rôle et de Société Parisienne
 {% endblock %}
 
+{% block meta_description %}<meta name="description" content="La Boîte à Chimère est une association parisienne dédiée aux jeux de rôle, jeux de société, GN et figurines. Rejoignez notre communauté et participez à nos soirées hebdomadaires !">{% endblock %}
+
 {% block importmap %}{{ importmap(['app', 'carousel.js']) }}{% endblock %}
 
 {% block body %}
 	<!-- Hero Section avec Carousel, Header et NOS MONDES -->
 	<section id="home" class="relative w-full min-h-[600px] lg:min-h-[700px] overflow-hidden mb-12 lg:mb-0">
-		<img src="{{ asset('images/hero/hero.jpg') }}" alt="Hero" class="absolute inset-0 h-full w-full object-cover">
+		<img src="{{ asset('images/hero/hero.jpg') }}" alt="Salle de jeu de La Boîte à Chimère" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover">
 		<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
 
 		{% set slides = carousel_slides() %}
@@ -63,7 +65,7 @@
 				</div>
 				<div id="carousel-events-dots" class="flex justify-center items-center gap-3 py-4 mt-2">
 					{% for slide in slides %}
-						<button type="button" class="carousel-events-dot h-3 w-3 rounded-full transition-all bg-white/50 hover:bg-white/80" data-index="{{ loop.index0 }}" data-slide="{{ loop.index0 }}"></button>
+						<button type="button" class="carousel-events-dot h-3 w-3 rounded-full transition-all bg-white/50 hover:bg-white/80" data-index="{{ loop.index0 }}" data-slide="{{ loop.index0 }}" aria-label="Aller au slide {{ loop.index }}"></button>
 					{% endfor %}
 				</div>
 			</section>
