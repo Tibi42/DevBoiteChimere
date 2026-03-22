@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -114,6 +115,126 @@ class UserController extends AbstractController
 
         $action = $user->isSuspended() ? 'suspendu' : 'réactivé';
         $this->addFlash('success', 'Utilisateur « ' . $user->getEmail() . ' » ' . $action . '.');
+
+        return $this->redirectToRoute('app_admin_user_index');
+    }
+
+    #[Route('/export-csv', name: 'export_csv', methods: ['GET'])]
+    public function exportCsv(Request $request): StreamedResponse
+    {
+        $from = $request->query->get('from');
+        $to = $request->query->get('to');
+        $role = $request->query->get('role');
+        $search = $request->query->get('q');
+
+        $fromDate = $from ? new \DateTimeImmutable($from) : null;
+        $toDate = $to ? new \DateTimeImmutable($to) : null;
+
+        $users = $this->userRepository->findAllFiltered($fromDate, $toDate, $role, $search);
+
+        $response = new StreamedResponse(function () use ($users) {
+            $handle = fopen('php://output', 'w');
+            fwrite($handle, "\xEF\xBB\xBF");
+            fputcsv($handle, ['Nom d\'utilisateur', 'Email', 'Rôles', 'Suspendu', 'Inscrit le'], ';');
+
+            foreach ($users as $user) {
+                $roles = array_filter($user->getRoles(), fn(string $r) => $r !== 'ROLE_USER');
+                fputcsv($handle, [
+                    $user->getUsername(),
+                    $user->getEmail(),
+                    implode(', ', $roles) ?: 'Utilisateur',
+                    $user->isSuspended() ? 'Oui' : 'Non',
+                    $user->getCreatedAt()?->format('d/m/Y H:i') ?? '',
+                ], ';');
+            }
+
+            fclose($handle);
+        });
+
+        $filename = 'utilisateurs_' . date('Y-m-d') . '.csv';
+        $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
+
+        return $response;
+    }
+
+    #[Route('/import-csv', name: 'import_csv', methods: ['POST'])]
+    public function importCsv(Request $request): Response
+    {
+        if (!$this->isCsrfTokenValid('import_users', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('app_admin_user_index');
+        }
+
+        $file = $request->files->get('csv_file');
+        if (!$file || $file->getClientOriginalExtension() !== 'csv') {
+            $this->addFlash('error', 'Veuillez fournir un fichier CSV valide.');
+            return $this->redirectToRoute('app_admin_user_index');
+        }
+
+        $handle = fopen($file->getPathname(), 'r');
+        // Skip BOM if present
+        $bom = fread($handle, 3);
+        if ($bom !== "\xEF\xBB\xBF") {
+            rewind($handle);
+        }
+
+        $header = fgetcsv($handle, 0, ';');
+        if (!$header) {
+            fclose($handle);
+            $this->addFlash('error', 'Fichier CSV vide ou mal formaté.');
+            return $this->redirectToRoute('app_admin_user_index');
+        }
+
+        $created = 0;
+        $skipped = 0;
+        $lineNumber = 1;
+
+        while (($row = fgetcsv($handle, 0, ';')) !== false) {
+            $lineNumber++;
+            if (count($row) < 2) {
+                $skipped++;
+                continue;
+            }
+
+            $username = trim($row[0] ?? '');
+            $email = trim($row[1] ?? '');
+
+            if (!$username || !$email) {
+                $skipped++;
+                continue;
+            }
+
+            // Skip if user already exists
+            $existing = $this->userRepository->findOneBy(['email' => $email]);
+            if ($existing) {
+                $skipped++;
+                continue;
+            }
+
+            $user = new User();
+            $user->setUsername($username);
+            $user->setEmail($email);
+
+            // Parse roles if provided
+            $rolesStr = trim($row[2] ?? '');
+            if ($rolesStr && $rolesStr !== 'Utilisateur') {
+                $roles = array_map('trim', explode(',', $rolesStr));
+                $user->setRoles($roles);
+            }
+
+            // Generate a random password (user will need to reset it)
+            $randomPassword = bin2hex(random_bytes(16));
+            $user->setPassword($this->passwordHasher->hashPassword($user, $randomPassword));
+
+            $this->entityManager->persist($user);
+            $created++;
+        }
+
+        fclose($handle);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', $created . ' utilisateur(s) importé(s), ' . $skipped . ' ignoré(s).');
 
         return $this->redirectToRoute('app_admin_user_index');
     }
