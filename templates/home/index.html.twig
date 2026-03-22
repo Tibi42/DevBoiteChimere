@@ -170,9 +170,24 @@
 					<article class="bg-custom-primary p-5 rounded-xl border border-custom relative shadow-2xl glass-card">
 						{# Navigation mois #}
 						<div class="flex items-center justify-between mb-4">
-							<a href="{{ path('app_home', { month: prevMonth, year: prevYear }) }}#calendar" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">&larr; {{ prevMonthName }}</a>
+							<a href="{{ path('app_home', { month: prevMonth, year: prevYear, type: filterType }) }}#calendar" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">&larr; {{ prevMonthName }}</a>
 							<span class="text-[10px] font-bold uppercase tracking-wider text-text-primary">{{ calendarMonthName }} {{ calendarYear }}</span>
-							<a href="{{ path('app_home', { month: nextMonth, year: nextYear }) }}#calendar" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">{{ nextMonthName }} &rarr;</a>
+							<a href="{{ path('app_home', { month: nextMonth, year: nextYear, type: filterType }) }}#calendar" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">{{ nextMonthName }} &rarr;</a>
+						</div>
+						{# Filtres par type #}
+						<div class="flex flex-wrap gap-1.5 mb-4">
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear }) }}#calendar"
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-white' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar"
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDS' ? 'bg-emerald-500 text-white' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40' }}">JDS</a>
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar"
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDR' ? 'bg-violet-500 text-white' : 'bg-violet-500/20 text-violet-400 hover:bg-violet-500/40' }}">JDR</a>
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'GN' }) }}#calendar"
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'GN' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 hover:bg-red-500/40' }}">GN</a>
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDF' }) }}#calendar"
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDF' ? 'bg-sky-500 text-white' : 'bg-sky-500/20 text-sky-400 hover:bg-sky-500/40' }}">JDF</a>
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'AG' }) }}#calendar"
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'AG' ? 'bg-amber-500 text-white' : 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/40' }}">AG</a>
 						</div>
 						<div class="flex gap-4 mb-6">
 							<div class="flex-1">
@@ -193,7 +208,7 @@
 											{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
 											{% set isPast = not isFuture and not isToday %}
 											{% if day in daysWithActivities %}
-												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day, type: filterType }) }}#calendar" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 													<span>{{ day }}</span>
 													{% if (activitiesCountByDay[day] ?? 1) > 1 %}
 														<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
@@ -383,9 +398,24 @@
 							<article class="bg-custom-primary p-5 lg:p-6 rounded-xl border border-custom relative shadow-2xl glass-card">
 								{# Navigation mois #}
 								<div class="flex items-center justify-between mb-4">
-									<a href="{{ path('app_home', { month: prevMonth, year: prevYear }) }}#calendar-desktop" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">&larr; {{ prevMonthName }}</a>
+									<a href="{{ path('app_home', { month: prevMonth, year: prevYear, type: filterType }) }}#calendar-desktop" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">&larr; {{ prevMonthName }}</a>
 									<span class="text-[10px] font-bold uppercase tracking-wider text-text-primary">{{ calendarMonthName }} {{ calendarYear }}</span>
-									<a href="{{ path('app_home', { month: nextMonth, year: nextYear }) }}#calendar-desktop" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">{{ nextMonthName }} &rarr;</a>
+									<a href="{{ path('app_home', { month: nextMonth, year: nextYear, type: filterType }) }}#calendar-desktop" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors">{{ nextMonthName }} &rarr;</a>
+								</div>
+								{# Filtres par type #}
+								<div class="flex flex-wrap gap-1.5 mb-4">
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear }) }}#calendar-desktop"
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-white' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar-desktop"
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDS' ? 'bg-emerald-500 text-white' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40' }}">JDS</a>
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar-desktop"
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDR' ? 'bg-violet-500 text-white' : 'bg-violet-500/20 text-violet-400 hover:bg-violet-500/40' }}">JDR</a>
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'GN' }) }}#calendar-desktop"
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'GN' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 hover:bg-red-500/40' }}">GN</a>
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDF' }) }}#calendar-desktop"
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDF' ? 'bg-sky-500 text-white' : 'bg-sky-500/20 text-sky-400 hover:bg-sky-500/40' }}">JDF</a>
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'AG' }) }}#calendar-desktop"
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'AG' ? 'bg-amber-500 text-white' : 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/40' }}">AG</a>
 								</div>
 								<div class="flex gap-4 mb-6">
 									<div class="flex-1">
@@ -406,7 +436,7 @@
 													{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
 													{% set isPast = not isFuture and not isToday %}
 													{% if day in daysWithActivities %}
-														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day }) }}#calendar-desktop" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : ''  }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day, type: filterType }) }}#calendar-desktop" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : ''  }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 															<span>{{ day }}</span>
 															{% if (activitiesCountByDay[day] ?? 1) > 1 %}
 																<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>

@@ -28,6 +28,13 @@ class HomeController extends AbstractController
         $month = (int) $request->query->get('month', $currentMonth);
         $year = (int) $request->query->get('year', $currentYear);
 
+        // Filtre par type d'activité
+        $allowedTypes = ['JDS', 'JDR', 'GN', 'JDF', 'AG', 'Play Test'];
+        $filterType = $request->query->get('type');
+        if ($filterType !== null && !\in_array($filterType, $allowedTypes, true)) {
+            $filterType = null;
+        }
+
         // Pré-sélectionner le jour courant si on est sur le mois en cours et qu'aucun jour n'est explicitement demandé
         $defaultDay = ($month === $currentMonth && $year === $currentYear) ? $today : 0;
         $selectedDay = (int) $request->query->get('day', $defaultDay);
@@ -40,7 +47,7 @@ class HomeController extends AbstractController
         $lastDay = $firstDay->modify('last day of this month')->setTime(23, 59, 59);
         $lastDayNum = (int) $lastDay->format('j');
 
-        $activities = $this->activityRepository->findBetween($firstDay, $lastDay);
+        $activities = $this->activityRepository->findBetween($firstDay, $lastDay, $filterType);
 
         // Jour sélectionné : filtrer les activités du jour (si jour valide)
         $activitiesForSelectedDay = [];
@@ -103,6 +110,7 @@ class HomeController extends AbstractController
             'daysWithActivities' => $daysWithActivities,
             'activitiesCountByDay' => $activitiesCountByDay,
             'activitiesTypesByDay' => $activitiesTypesByDay,
+            'filterType' => $filterType,
             'activities' => $activities,
             'selectedDay' => $selectedDay,
             'activitiesForSelectedDay' => $activitiesForSelectedDay,

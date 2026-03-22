@@ -21,18 +21,23 @@ class ActivityRepository extends ServiceEntityRepository
      *
      * @return Activity[]
      */
-    public function findBetween(\DateTimeInterface $start, \DateTimeInterface $end): array
+    public function findBetween(\DateTimeInterface $start, \DateTimeInterface $end, ?string $type = null): array
     {
-        return $this->createQueryBuilder('a')
+        $qb = $this->createQueryBuilder('a')
             ->andWhere('a.startAt >= :start')
             ->andWhere('a.startAt <= :end')
             ->andWhere('a.status = :status')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
             ->setParameter('status', Activity::STATUS_PUBLISHED)
-            ->orderBy('a.startAt', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('a.startAt', 'ASC');
+
+        if ($type !== null) {
+            $qb->andWhere('a.type = :type')
+               ->setParameter('type', $type);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -40,7 +45,7 @@ class ActivityRepository extends ServiceEntityRepository
      *
      * @return Activity[]
      */
-    public function findAllOrderByStartDesc(?string $status = null): array
+    public function findAllOrderByStartDesc(?string $status = null, ?string $type = null, ?string $location = null): array
     {
         $qb = $this->createQueryBuilder('a')
             ->leftJoin('a.proposedBy', 'u')
@@ -58,6 +63,16 @@ class ActivityRepository extends ServiceEntityRepository
             }
             $qb->andWhere('a.status = :status')
                ->setParameter('status', $status);
+        }
+
+        if ($type !== null) {
+            $qb->andWhere('a.type = :type')
+               ->setParameter('type', $type);
+        }
+
+        if ($location !== null) {
+            $qb->andWhere('a.location = :location')
+               ->setParameter('location', $location);
         }
 
         return $qb->getQuery()->getResult();
