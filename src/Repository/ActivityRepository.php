@@ -45,7 +45,11 @@ class ActivityRepository extends ServiceEntityRepository
      *
      * @return Activity[]
      */
-    public function findAllOrderByStartDesc(?string $status = null, ?string $type = null, ?string $location = null): array
+    /**
+     * Retourne un QueryBuilder pour les activités triées par date de début (desc).
+     * Utilisé par KnpPaginator pour paginer les résultats.
+     */
+    public function findAllOrderByStartDescQb(?string $status = null, ?string $type = null, ?string $location = null): \Doctrine\ORM\QueryBuilder
     {
         $qb = $this->createQueryBuilder('a')
             ->leftJoin('a.proposedBy', 'u')
@@ -75,7 +79,15 @@ class ActivityRepository extends ServiceEntityRepository
                ->setParameter('location', $location);
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb;
+    }
+
+    /**
+     * @return Activity[]
+     */
+    public function findAllOrderByStartDesc(?string $status = null, ?string $type = null, ?string $location = null): array
+    {
+        return $this->findAllOrderByStartDescQb($status, $type, $location)->getQuery()->getResult();
     }
 
     /**

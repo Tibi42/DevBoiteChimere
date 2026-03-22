@@ -98,10 +98,10 @@
 			</div>
 		</div>
 
-		{% if activities|length > 0 %}
+		{% if pagination.totalItemCount > 0 %}
 			{# Vue mobile : cartes empilées #}
 			<div class="lg:hidden space-y-3">
-				{% for activity in activities %}
+				{% for activity in pagination %}
 					{% set isPast = activity.startAt <= date() %}
 					<div class="rounded-xl border border-custom bg-custom-secondary p-4 shadow-lg glass-card {{ activity.status == 'pending' ? 'border-custom-orange/30 bg-custom-orange/5' : '' }} {{ isPast ? 'opacity-50' : '' }}">
 						<div class="flex items-start justify-between gap-3 mb-2">
@@ -175,7 +175,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for activity in activities %}
+							{% for activity in pagination %}
 								{% set isPast = activity.startAt <= date() %}
 								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ activity.status == 'pending' ? 'bg-custom-orange/5' : '' }} {{ isPast ? 'opacity-50' : '' }}">
 									<td class="px-4 py-3 text-sm text-text-primary whitespace-nowrap">
@@ -234,6 +234,39 @@
 					</table>
 				</div>
 			</div>
+
+			{# Pagination #}
+			{% if pagination.pageCount > 1 %}
+				<div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+					<p class="text-xs text-text-secondary">
+						{{ pagination.totalItemCount }} activité{{ pagination.totalItemCount > 1 ? 's' : '' }}
+						— page {{ pagination.currentPageNumber }} / {{ pagination.pageCount }}
+					</p>
+					<nav class="flex items-center gap-1">
+						{% if pagination.currentPageNumber > 1 %}
+							<a href="{{ path('app_activity_index', app.request.query.all|merge({page: pagination.currentPageNumber - 1})) }}"
+							   class="px-3 py-2 rounded-lg text-xs font-bold text-text-secondary hover:text-text-primary border border-custom hover:border-custom-orange transition-colors">&larr; Préc.</a>
+						{% endif %}
+
+						{% for page in 1..pagination.pageCount %}
+							{% if page == pagination.currentPageNumber %}
+								<span class="px-3 py-2 rounded-lg text-xs font-bold bg-custom-orange text-text-primary">{{ page }}</span>
+							{% elseif page == 1 or page == pagination.pageCount or (page >= pagination.currentPageNumber - 2 and page <= pagination.currentPageNumber + 2) %}
+								<a href="{{ path('app_activity_index', app.request.query.all|merge({page: page})) }}"
+								   class="px-3 py-2 rounded-lg text-xs font-bold text-text-secondary hover:text-text-primary border border-custom hover:border-custom-orange transition-colors">{{ page }}</a>
+							{% elseif page == 2 or page == pagination.pageCount - 1 %}
+								<span class="px-1 text-text-secondary">…</span>
+							{% endif %}
+						{% endfor %}
+
+						{% if pagination.currentPageNumber < pagination.pageCount %}
+							<a href="{{ path('app_activity_index', app.request.query.all|merge({page: pagination.currentPageNumber + 1})) }}"
+							   class="px-3 py-2 rounded-lg text-xs font-bold text-text-secondary hover:text-text-primary border border-custom hover:border-custom-orange transition-colors">Suiv. &rarr;</a>
+						{% endif %}
+					</nav>
+				</div>
+			{% endif %}
+
 		{% else %}
 			<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card px-6 py-12 text-center">
 				<p class="text-text-secondary mb-4">Aucune activité pour le moment.</p>

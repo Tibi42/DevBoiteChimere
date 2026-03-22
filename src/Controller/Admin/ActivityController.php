@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/activites', name: 'app_activity_')]
@@ -25,7 +26,7 @@ class ActivityController extends AbstractController
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $status = $request->query->get('status');
         if ($status !== null && !in_array($status, [Activity::STATUS_PUBLISHED, Activity::STATUS_PENDING], true)) {
@@ -44,11 +45,18 @@ class ActivityController extends AbstractController
             $filterLocation = null;
         }
 
-        $activities = $this->activityRepository->findAllOrderByStartDesc($status, $filterType, $filterLocation);
+        $qb = $this->activityRepository->findAllOrderByStartDescQb($status, $filterType, $filterLocation);
+
+        $pagination = $paginator->paginate(
+            $qb,
+            $request->query->getInt('page', 1),
+            15
+        );
+
         $inscriptionCounts = $this->inscriptionRepository->countByActivity();
 
         return $this->render('admin/activity/index.html.twig', [
-            'activities' => $activities,
+            'pagination' => $pagination,
             'inscriptionCounts' => $inscriptionCounts,
             'currentStatus' => $status,
             'currentType' => $filterType,

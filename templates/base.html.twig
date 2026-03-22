@@ -12,6 +12,33 @@
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
+        <script>
+            // Thème : appliquer immédiatement + définir le toggle (inline = fonctionne toujours)
+            (function(){
+                var h=document.documentElement;
+                var s=localStorage.getItem('theme');
+                if(s==='light'||(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)){
+                    h.classList.add('light-mode');
+                }
+                function sync(){
+                    var isLight=h.classList.contains('light-mode');
+                    document.querySelectorAll('.theme-toggle-btn').forEach(function(btn){
+                        var sun=btn.querySelector('.sun-icon');
+                        var moon=btn.querySelector('.moon-icon');
+                        if(sun)sun.classList.toggle('hidden',isLight);
+                        if(moon)moon.classList.toggle('hidden',!isLight);
+                    });
+                }
+                window.__toggleTheme=function(){
+                    h.classList.toggle('light-mode');
+                    localStorage.setItem('theme',h.classList.contains('light-mode')?'light':'dark');
+                    sync();
+                };
+                document.addEventListener('DOMContentLoaded',sync);
+                document.addEventListener('turbo:load',sync);
+                document.addEventListener('turbo:render',sync);
+            })();
+        </script>
     </head>
     <body class="bg-custom-primary text-white">
         {% for label, messages in app.flashes(['success', 'warning', 'error']) %}

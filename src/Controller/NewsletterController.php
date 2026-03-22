@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -27,7 +27,7 @@ final class NewsletterController extends AbstractController
     public function subscribe(
         Request $request,
         MailerInterface $mailer,
-        RateLimiterFactory $newsletterSubscribeLimiter,
+        RateLimiterFactoryInterface $newsletterSubscribeLimiter,
     ): Response
     {
         // CSRF protection

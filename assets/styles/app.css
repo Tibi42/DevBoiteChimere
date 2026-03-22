@@ -33,7 +33,7 @@
 }
 
 /* Thème Lumineux */
-.light-mode {
+html.light-mode {
     --bg-primary: #f8fafc;
     --bg-secondary: #ffffff;
     --bg-tertiary: #f1f5f9;
@@ -307,33 +307,33 @@ input,
 }
 
 /* Thème Lumineux - Overrides spécifiques */
-.light-mode #home .absolute.inset-0.bg-gradient-to-b {
+html.light-mode #home .absolute.inset-0.bg-gradient-to-b {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, var(--bg-primary) 100%) !important;
 }
 
-.light-mode .image-overlay {
+html.light-mode .image-overlay {
     background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%) !important;
 }
 
-.light-mode .glass-card {
+html.light-mode .glass-card {
     box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.05);
 }
 
-.light-mode .card-premium:hover {
+html.light-mode .card-premium:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.light-mode .text-cyan-400 {
+html.light-mode .text-cyan-400 {
     color: #0891b2 !important;
     /* Cyan 600 for better contrast */
 }
 
-.light-mode .text-purple-400 {
+html.light-mode .text-purple-400 {
     color: #7c3aed !important;
     /* Purple 600 */
 }
 
-.light-mode .bg-black\/80 {
+html.light-mode .bg-black\/80 {
     background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
