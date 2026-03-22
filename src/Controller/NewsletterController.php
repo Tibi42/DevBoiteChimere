@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -23,8 +24,25 @@ final class NewsletterController extends AbstractController
     }
 
     #[Route('/subscribe', name: 'app_newsletter_subscribe', methods: ['POST'])]
-    public function subscribe(Request $request, MailerInterface $mailer): Response
+    public function subscribe(
+        Request $request,
+        MailerInterface $mailer,
+        RateLimiterFactory $newsletterSubscribeLimiter,
+    ): Response
     {
+        // CSRF protection
+        if (!$this->isCsrfTokenValid('newsletter_subscribe', $request->request->get('_token'))) {
+            $this->addFlash('newsletter_error', 'Jeton de sécurité invalide, veuillez réessayer.');
+            return $this->redirectToReferer($request);
+        }
+
+        // Rate limiting by IP
+        $limiter = $newsletterSubscribeLimiter->create($request->getClientIp());
+        if (!$limiter->consume()->isAccepted()) {
+            $this->addFlash('newsletter_error', 'Trop de tentatives. Veuillez réessayer dans quelques minutes.');
+            return $this->redirectToReferer($request);
+        }
+
         $email = trim((string) $request->request->get('email'));
 
         if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {

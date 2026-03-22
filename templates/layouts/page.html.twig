@@ -218,6 +218,7 @@
 					{% endif %}
 				{% endfor %}
 				<form class="flex gap-2" action="{{ path('app_newsletter_subscribe') }}" method="post" data-turbo="false">
+					<input type="hidden" name="_token" value="{{ csrf_token('newsletter_subscribe') }}">
 					<input type="email" name="email" placeholder="Pour s'inscrire..." required class="w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-sm text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange transition-all">
 					<button type="submit" class="rounded-lg bg-custom-orange px-4 py-3 text-xs font-bold text-text-primary hover:bg-orange-600 transition-all" aria-label="S'inscrire">
 						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>

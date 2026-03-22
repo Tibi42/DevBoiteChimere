@@ -4,3 +4,7 @@ framework:
             policy: 'fixed_window'
             limit: 3
             interval: '15 minutes'
+        newsletter_subscribe:
+            policy: 'fixed_window'
+            limit: 3
+            interval: '15 minutes'
