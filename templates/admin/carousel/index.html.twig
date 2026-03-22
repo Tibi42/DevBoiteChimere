@@ -17,8 +17,34 @@
 			</a>
 		</div>
 
-		<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card">
-			{% if slides|length > 0 %}
+		{% if slides|length > 0 %}
+			{# Vue mobile : cartes #}
+			<div class="lg:hidden space-y-3">
+				{% for slide in slides %}
+					<div class="rounded-xl border border-custom bg-custom-secondary p-4 shadow-lg glass-card">
+						<div class="flex items-start justify-between gap-3 mb-2">
+							<span class="font-medium text-text-primary text-sm">{{ slide.title }}</span>
+							<span class="text-[9px] font-bold uppercase tracking-widest {{ slide.tagColor }} px-2 py-0.5 rounded shrink-0">{{ slide.tag }}</span>
+						</div>
+						<div class="flex flex-col gap-1 text-xs text-text-secondary mb-3">
+							<span>Position : {{ slide.position }}</span>
+							{% if slide.btnText %}
+								<span>Bouton : {{ slide.btnText }}</span>
+							{% endif %}
+						</div>
+						<div class="flex flex-wrap items-center gap-3 pt-2 border-t border-custom/50">
+							<a href="{{ path('app_admin_carousel_edit', { id: slide.id }) }}" class="text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors">Modifier</a>
+							<form method="post" action="{{ path('app_admin_carousel_delete', { id: slide.id }) }}" class="contents" onsubmit="return confirm('Supprimer cette slide ?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ slide.id) }}">
+								<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
+							</form>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			{# Vue desktop : tableau #}
+			<div class="hidden lg:block rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card">
 				<div class="overflow-x-auto">
 					<table class="w-full text-left">
 						<thead class="bg-custom-tertiary/50 border-b border-custom">
@@ -53,15 +79,15 @@
 						</tbody>
 					</table>
 				</div>
-			{% else %}
-				<div class="px-6 py-12 text-center">
-					<p class="text-text-secondary mb-4">Aucune slide. Le carousel de la page d'accueil affichera les slides par défaut jusqu'à ce que vous en ajoutiez.</p>
-					<a href="{{ path('app_admin_carousel_new') }}" class="inline-flex items-center gap-2 rounded-lg bg-custom-orange py-2.5 px-4 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all">
-						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-						Ajouter une slide
-					</a>
-				</div>
-			{% endif %}
-		</div>
+			</div>
+		{% else %}
+			<div class="rounded-2xl border border-custom bg-custom-secondary overflow-hidden shadow-xl glass-card px-6 py-12 text-center">
+				<p class="text-text-secondary mb-4">Aucune slide. Le carousel de la page d'accueil affichera les slides par défaut jusqu'à ce que vous en ajoutiez.</p>
+				<a href="{{ path('app_admin_carousel_new') }}" class="inline-flex items-center gap-2 rounded-lg bg-custom-orange py-2.5 px-4 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all">
+					<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+					Ajouter une slide
+				</a>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}
