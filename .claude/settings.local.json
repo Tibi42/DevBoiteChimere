@@ -92,7 +92,10 @@
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click",
       "Bash(find C:laragonwwwDevBoiteChimere/src/Controller -name *Registration* -o -name *Register*)",
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__fill",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__resize_page"
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__resize_page",
+      "Bash(cat /c/laragon/etc/apache2/sites-enabled/*.conf)",
+      "Bash(rm -rf var/cache/dev/importmap*)",
+      "Bash(rm -rf var/cache/dev/url_*)"
     ]
   }
 }
