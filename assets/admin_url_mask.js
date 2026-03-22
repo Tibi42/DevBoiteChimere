@@ -8,6 +8,7 @@ const PUBLIC_MASKED = [
     '/nos/soiree/heb', '/nos/soiree/biheb', '/nos/soiree/mensuelle',
     '/evenements', '/contact', '/mentions-legales',
     '/qui-sommes-nous', '/nouvelles', '/societes',
+    '/mon-espace',
 ];
 
 function maskUrl() {

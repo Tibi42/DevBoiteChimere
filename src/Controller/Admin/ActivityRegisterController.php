@@ -36,6 +36,13 @@ class ActivityRegisterController extends AbstractController
         $inscription = new Inscription();
         $inscription->setActivity($activity);
 
+        // Pré-remplir avec les infos de l'utilisateur connecté
+        $currentUser = $this->getUser();
+        if ($currentUser) {
+            $inscription->setParticipantName($currentUser->getUsername());
+            $inscription->setParticipantEmail($currentUser->getEmail());
+        }
+
         $form = $this->createForm(InscriptionType::class, $inscription);
         $form->handleRequest($request);
 
