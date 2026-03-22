@@ -83,7 +83,7 @@
 						<a href="{{ path('app_jdr') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jdr' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">JDR</a>
 						<a href="{{ path('app_gn') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_gn' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">GN</a>
 						<a href="{{ path('app_association') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_association' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">ASSOCIATION</a>
-						<a href="#forum" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
+						<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
 						{% if is_granted('ROLE_ADMIN') %}
 							<a href="{{ path('admin') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
 						{% endif %}
@@ -158,7 +158,7 @@
 				<a href="{{ path('app_jdr') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest {{ app.request.attributes.get('_route') == 'app_jdr' ? 'text-custom-orange' : 'text-text-primary/70 hover:text-custom-orange' }} transition-colors">JDR</a>
 				<a href="{{ path('app_gn') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest {{ app.request.attributes.get('_route') == 'app_gn' ? 'text-custom-orange' : 'text-text-primary/70 hover:text-custom-orange' }} transition-colors">GN</a>
 				<a href="{{ path('app_association') }}" class="mobile-nav-link text-lg font-bold uppercase tracking-widest {{ app.request.attributes.get('_route') == 'app_association' ? 'text-custom-orange' : 'text-text-primary/70 hover:text-custom-orange' }} transition-colors">ASSOCIATION</a>
-				<a href="#forum" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
+				<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
 				{% endif %}

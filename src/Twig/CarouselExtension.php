@@ -25,7 +25,7 @@ class CarouselExtension extends AbstractExtension
      */
     public function getCarouselSlides(): array
     {
-        $entities = $this->carouselSlideRepository->findAllOrderByPosition();
+        $entities = $this->carouselSlideRepository->findActiveOrderByPosition();
         if (\count($entities) > 0) {
             $slides = [];
             foreach ($entities as $s) {

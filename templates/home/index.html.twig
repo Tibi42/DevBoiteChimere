@@ -97,7 +97,7 @@
 						<a href="{{ path('app_jdr') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDR</a>
 						<a href="{{ path('app_gn') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">GN</a>
 						<a href="{{ path('app_association') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">ASSOCIATION</a>
-						<a href="#forum" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
+						<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
 					{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{ path('admin') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
 					{% endif %}
@@ -346,7 +346,7 @@
 				<a href="{{ path('app_jdr') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
 				<a href="{{ path('app_gn') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">GN</a>
 				<a href="{{ path('app_association') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">ASSOCIATION</a>
-				<a href="#forum" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
+				<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-secondary hover:text-custom-orange transition-colors">FORUM</a>
 				{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{ path('admin') }}" class="text-lg font-bold uppercase tracking-widest text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
 				{% endif %}
@@ -640,7 +640,7 @@
 		<div class="mx-auto max-w-[1240px]">
 			<div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
 				<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary">VIE DU FORUM</h2>
-				<a href="#" class="shrink-0 rounded bg-custom-orange px-6 py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">VOIR LE FORUM</a>
+				<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" class="shrink-0 rounded bg-custom-orange px-6 py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">VOIR LE FORUM</a>
 			</div>
 			<div class="grid gap-4 md:grid-cols-3">
 				{% set posts = [

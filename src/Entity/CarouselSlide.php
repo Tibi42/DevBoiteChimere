@@ -45,6 +45,9 @@ class CarouselSlide
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $btnUrl = null;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
+    private bool $active = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,7 +102,7 @@ class CarouselSlide
         return $this->date;
     }
 
-    public function setDate(string $date): static
+    public function setDate(?string $date): static
     {
         $this->date = $date;
         return $this;
@@ -135,6 +138,17 @@ class CarouselSlide
     public function setBtnUrl(?string $btnUrl): static
     {
         $this->btnUrl = $btnUrl;
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
         return $this;
     }
 }

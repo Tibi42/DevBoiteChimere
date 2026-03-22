@@ -75,6 +75,24 @@ class CarouselController extends AbstractController
         ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 
+    #[Route('/{id}/toggle', name: 'toggle', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function toggle(Request $request, CarouselSlide $slide): Response
+    {
+        $token = $request->request->get('_token');
+        if (!$this->isCsrfTokenValid('toggle' . $slide->getId(), $token)) {
+            $this->addFlash('error', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('app_admin_carousel_index');
+        }
+
+        $slide->setActive(!$slide->isActive());
+        $this->entityManager->flush();
+
+        $status = $slide->isActive() ? 'activée' : 'suspendue';
+        $this->addFlash('success', 'La slide « ' . $slide->getTitle() . ' » a été ' . $status . '.');
+
+        return $this->redirectToRoute('app_admin_carousel_index');
+    }
+
     #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, CarouselSlide $slide): Response
     {
