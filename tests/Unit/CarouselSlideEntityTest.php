@@ -35,5 +35,44 @@ class CarouselSlideEntityTest extends TestCase
         $this->assertSame('bg-custom-orange group-hover:bg-orange-600', $slide->getBtnClass());
         $this->assertSame('/inscription/gn', $slide->getBtnUrl());
     }
+
+    public function testDefaultActiveIsTrue(): void
+    {
+        $slide = new CarouselSlide();
+
+        $this->assertTrue($slide->isActive());
+    }
+
+    public function testSetActiveFalse(): void
+    {
+        $slide = new CarouselSlide();
+        $slide->setActive(false);
+
+        $this->assertFalse($slide->isActive());
+    }
+
+    public function testSetActiveReturnsSelf(): void
+    {
+        $slide = new CarouselSlide();
+        $result = $slide->setActive(true);
+
+        $this->assertSame($slide, $result);
+    }
+
+    public function testSetDateAcceptsNull(): void
+    {
+        $slide = new CarouselSlide();
+        $slide->setDate('20/03');
+        $slide->setDate(null);
+
+        $this->assertNull($slide->getDate());
+    }
+
+    public function testBtnUrlIsNullByDefault(): void
+    {
+        $slide = new CarouselSlide();
+
+        $this->assertNull($slide->getBtnUrl());
+    }
 }
 
