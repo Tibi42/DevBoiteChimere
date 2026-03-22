@@ -91,6 +91,9 @@
 							<span class="text-base font-extrabold uppercase tracking-tight text-text-primary leading-none">À CHIMÈRE</span>
 						</div>
 					</a>
+					{% if app.user %}
+						<span class="hidden lg:block text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary">Bienvenue <span class="text-custom-orange">{{ app.user.username }}</span></span>
+					{% endif %}
 
 					<nav class="hidden lg:flex items-center gap-10">
 						<a href="{{ path('app_jds') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">JDS</a>
@@ -113,7 +116,6 @@
 							</svg>
 						</button>
 						{% if app.user %}
-							<span class="hidden lg:block text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary">Bienvenue, <span class="text-custom-orange">{{ app.user.username }}</span></span>
 							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
 								DÉCONNEXION
 							</a>
@@ -343,6 +345,9 @@
 	<div id="mobile-menu-drawer" class="fixed inset-0 z-[95] lg:hidden pointer-events-none">
 		<div id="mobile-menu-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
 		<div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 w-[280px] bg-custom-secondary border-l border-custom shadow-2xl pt-20 px-8">
+			{% if app.user %}
+				<p class="text-xs font-bold uppercase tracking-wider text-text-secondary text-center mb-6">Bienvenue <span class="text-custom-orange">{{ app.user.username }}</span></p>
+			{% endif %}
 			<nav class="flex flex-col gap-6">
 				<a href="{{ path('app_jds') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDS</a>
 				<a href="{{ path('app_jdr') }}" data-turbo="false" class="mobile-nav-link text-lg font-bold uppercase tracking-widest text-text-primary/70 hover:text-custom-orange transition-colors">JDR</a>
@@ -354,7 +359,6 @@
 				{% endif %}
 				<hr class="border-custom my-4">
 				{% if app.user %}
-					<p class="text-xs font-bold uppercase tracking-wider text-text-secondary text-center">Bienvenue, <span class="text-custom-orange">{{ app.user.username }}</span></p>
 					<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
 						DÉCONNEXION
 					</a>
