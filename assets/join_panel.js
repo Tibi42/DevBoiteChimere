@@ -157,11 +157,64 @@ function initRegisterModal() {
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (overlay) overlay.addEventListener('click', closeModal);
 
+    // Open modal via [data-open-register] buttons
+    document.querySelectorAll('[data-open-register]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    });
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
             closeModal();
         }
     });
+
+    // Toggle password visibility
+    modal.querySelectorAll('[data-toggle-password]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const input = document.getElementById(btn.dataset.togglePassword);
+            if (!input) return;
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            btn.querySelector('.eye-closed').classList.toggle('hidden', isPassword);
+            btn.querySelector('.eye-open').classList.toggle('hidden', !isPassword);
+        });
+    });
+
+    // Password confirmation validation
+    const form = modal.querySelector('form');
+    const pwd = document.getElementById('register-password');
+    const confirm = document.getElementById('register-password-confirm');
+    const error = document.getElementById('register-password-error');
+
+    if (form && pwd && confirm && error) {
+        function checkMatch() {
+            if (confirm.value && pwd.value !== confirm.value) {
+                error.classList.remove('hidden');
+                confirm.classList.add('border-red-500');
+                confirm.classList.remove('border-custom');
+            } else {
+                error.classList.add('hidden');
+                confirm.classList.remove('border-red-500');
+                confirm.classList.add('border-custom');
+            }
+        }
+
+        pwd.addEventListener('input', checkMatch);
+        confirm.addEventListener('input', checkMatch);
+
+        form.addEventListener('submit', (e) => {
+            if (pwd.value !== confirm.value) {
+                e.preventDefault();
+                error.classList.remove('hidden');
+                confirm.classList.add('border-red-500');
+                confirm.classList.remove('border-custom');
+                confirm.focus();
+            }
+        });
+    }
 
     // Auto-open if ?open=register
     if (new URLSearchParams(window.location.search).get('open') === 'register') {
