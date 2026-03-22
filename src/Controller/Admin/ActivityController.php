@@ -197,6 +197,11 @@ class ActivityController extends AbstractController
     #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Activity $activity): Response
     {
+        if ($activity->getStartAt() <= new \DateTimeImmutable()) {
+            $this->addFlash('error', 'Impossible de supprimer une activité passée.');
+            return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         $token = $request->request->get('_token');
         if (!$this->isCsrfTokenValid('delete' . $activity->getId(), $token)) {
             $this->addFlash('error', 'Jeton de sécurité invalide.');

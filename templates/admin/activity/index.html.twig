@@ -102,7 +102,8 @@
 			{# Vue mobile : cartes empilées #}
 			<div class="lg:hidden space-y-3">
 				{% for activity in activities %}
-					<div class="rounded-xl border border-custom bg-custom-secondary p-4 shadow-lg glass-card {{ activity.status == 'pending' ? 'border-custom-orange/30 bg-custom-orange/5' : '' }}">
+					{% set isPast = activity.startAt <= date() %}
+					<div class="rounded-xl border border-custom bg-custom-secondary p-4 shadow-lg glass-card {{ activity.status == 'pending' ? 'border-custom-orange/30 bg-custom-orange/5' : '' }} {{ isPast ? 'opacity-50' : '' }}">
 						<div class="flex items-start justify-between gap-3 mb-2">
 							<div class="flex items-center gap-2 flex-wrap">
 								{{ activity_badge(activity.type|default('—')) }}
@@ -131,13 +132,13 @@
 								{{ inscriptionCounts[activity.id]|default(0) }} inscrit{{ inscriptionCounts[activity.id]|default(0) > 1 ? 's' : '' }}{% if activity.maxParticipants %} / {{ activity.maxParticipants }}{% endif %}
 							</span>
 						</div>
-						<div class="flex flex-wrap gap-2 pt-2 border-t border-custom/50">
+						<div class="flex flex-wrap items-center gap-3 pt-2 border-t border-custom/50">
 							{% if activity.status == 'pending' %}
-								<form method="post" action="{{ path('app_activity_approve', { id: activity.id }) }}">
+								<form method="post" action="{{ path('app_activity_approve', { id: activity.id }) }}" class="contents">
 									<input type="hidden" name="_token" value="{{ csrf_token('approve' ~ activity.id) }}">
 									<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-green-400 hover:text-green-300 transition-colors">Approuver</button>
 								</form>
-								<form method="post" action="{{ path('app_activity_reject', { id: activity.id }) }}"
+								<form method="post" action="{{ path('app_activity_reject', { id: activity.id }) }}" class="contents"
 									  onsubmit="return confirm('Rejeter et supprimer cette proposition ?')">
 									<input type="hidden" name="_token" value="{{ csrf_token('reject' ~ activity.id) }}">
 									<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Rejeter</button>
@@ -146,11 +147,13 @@
 								<a href="{{ path('app_activity_edit', { id: activity.id }) }}" class="text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors">Modifier</a>
 								<a href="{{ path('app_activity_inscrits', { id: activity.id }) }}" class="text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors">Voir les inscrits</a>
 							{% endif %}
-							<form method="post" action="{{ path('app_activity_delete', { id: activity.id }) }}"
-								  onsubmit="return confirm('Supprimer cette activité ? Les inscriptions associées seront aussi supprimées.')">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">
-								<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
-							</form>
+							{% if activity.startAt > date() %}
+								<form method="post" action="{{ path('app_activity_delete', { id: activity.id }) }}" class="contents"
+									  onsubmit="return confirm('Supprimer cette activité ? Les inscriptions associées seront aussi supprimées.')">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">
+									<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
+								</form>
+							{% endif %}
 						</div>
 					</div>
 				{% endfor %}
@@ -173,7 +176,8 @@
 						</thead>
 						<tbody>
 							{% for activity in activities %}
-								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ activity.status == 'pending' ? 'bg-custom-orange/5' : '' }}">
+								{% set isPast = activity.startAt <= date() %}
+								<tr class="border-b border-custom/50 hover:bg-white/5 transition-colors {{ activity.status == 'pending' ? 'bg-custom-orange/5' : '' }} {{ isPast ? 'opacity-50' : '' }}">
 									<td class="px-4 py-3 text-sm text-text-primary whitespace-nowrap">
 										{{ activity.startAt|date('d/m/Y') }}
 									</td>
@@ -216,11 +220,13 @@
 											<a href="{{ path('app_activity_edit', { id: activity.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors mr-3">Modifier</a>
 											<a href="{{ path('app_activity_inscrits', { id: activity.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors mr-3">Voir les inscrits</a>
 										{% endif %}
-										<form method="post" action="{{ path('app_activity_delete', { id: activity.id }) }}" class="inline"
-											  onsubmit="return confirm('Supprimer cette activité ? Les inscriptions associées seront aussi supprimées.')">
-											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">
-											<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
-										</form>
+										{% if activity.startAt > date() %}
+											<form method="post" action="{{ path('app_activity_delete', { id: activity.id }) }}" class="inline"
+												  onsubmit="return confirm('Supprimer cette activité ? Les inscriptions associées seront aussi supprimées.')">
+												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">
+												<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
+											</form>
+										{% endif %}
 									</td>
 								</tr>
 							{% endfor %}
