@@ -131,7 +131,7 @@ input,
 
 /* Header container style */
 .header-container {
-    transition: all 0.3s ease;
+    transition: background-color, border-color, box-shadow, opacity 0.3s ease;
 }
 
 @media (min-width: 1024px) {
@@ -247,7 +247,7 @@ input,
 .reveal {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .reveal.active {
@@ -292,7 +292,7 @@ input,
 
 /* Amélioration des cartes au survol - Effet Premium */
 .card-premium {
-    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .card-premium:hover {
