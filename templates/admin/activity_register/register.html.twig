@@ -20,20 +20,37 @@
 			{% endif %}
 		</div>
 
-		{{ form_start(form, { attr: { class: 'space-y-4' } }) }}
-			<div>
-				{{ form_label(form.participantName) }}
-				{{ form_widget(form.participantName) }}
-				<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantName) }}</div>
+		{% if success|default(false) %}
+			<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-center">
+				<svg class="h-10 w-10 mx-auto mb-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+				<p class="text-sm font-bold text-emerald-400 mb-1">Inscription confirmée !</p>
+				<p class="text-xs text-text-secondary">Votre inscription a bien été enregistrée. À bientôt !</p>
+				<button type="button" data-modal-close class="mt-4 rounded-lg border border-custom px-5 py-2 text-xs font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-custom-orange transition-all">
+					Fermer
+				</button>
 			</div>
-			<div>
-				{{ form_label(form.participantEmail) }}
-				{{ form_widget(form.participantEmail) }}
-				<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantEmail) }}</div>
-			</div>
-			<button type="submit" class="w-full rounded-lg bg-custom-orange py-3 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
-				Confirmer mon inscription
-			</button>
-		{{ form_end(form) }}
+		{% else %}
+			{% if alreadyRegistered|default(false) %}
+				<div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 mb-4">
+					<p class="text-sm font-bold text-amber-400">Vous êtes déjà inscrit à cet événement avec cette adresse email.</p>
+				</div>
+			{% endif %}
+
+			{{ form_start(form, { attr: { class: 'space-y-4 modal-inscription-form', 'data-turbo': 'false' } }) }}
+				<div>
+					{{ form_label(form.participantName) }}
+					{{ form_widget(form.participantName) }}
+					<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantName) }}</div>
+				</div>
+				<div>
+					{{ form_label(form.participantEmail) }}
+					{{ form_widget(form.participantEmail) }}
+					<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantEmail) }}</div>
+				</div>
+				<button type="submit" class="w-full rounded-lg bg-custom-orange py-3 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
+					Confirmer mon inscription
+				</button>
+			{{ form_end(form) }}
+		{% endif %}
 	</turbo-frame>
 {% endblock %}

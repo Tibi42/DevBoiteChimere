@@ -43,25 +43,41 @@ class ActivityRegisterController extends AbstractController
             $inscription->setParticipantEmail($currentUser->getEmail());
         }
 
-        $form = $this->createForm(InscriptionType::class, $inscription, ['is_logged_in' => $currentUser !== null]);
+        $isLoggedIn = $currentUser !== null;
+        $form = $this->createForm(InscriptionType::class, $inscription, [
+            'is_logged_in' => $isLoggedIn,
+            'action' => $this->generateUrl('app_activity_register', ['id' => $id]),
+        ]);
         $form->handleRequest($request);
+
+        // Forcer les valeurs de l'utilisateur connecté (disabled fields ne sont pas soumis)
+        if ($isLoggedIn) {
+            $inscription->setParticipantName($currentUser->getUsername());
+            $inscription->setParticipantEmail($currentUser->getEmail());
+        }
+
+        $alreadyRegistered = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($inscriptionRepository->hasAlreadyRegistered($activity->getId(), $inscription->getParticipantEmail())) {
-                $this->addFlash('warning', 'Vous êtes déjà inscrit à cet événement avec cette adresse email.');
-                return $this->redirectToRoute('app_activity_register', ['id' => $id]);
+                $alreadyRegistered = true;
+            } else {
+                $entityManager->persist($inscription);
+                $entityManager->flush();
+
+                return $this->render('admin/activity_register/register.html.twig', [
+                    'activity' => $activity,
+                    'form' => $form,
+                    'alreadyRegistered' => false,
+                    'success' => true,
+                ]);
             }
-
-            $entityManager->persist($inscription);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Votre inscription a bien été enregistrée. À bientôt !');
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/activity_register/register.html.twig', [
             'activity' => $activity,
             'form' => $form,
+            'alreadyRegistered' => $alreadyRegistered,
         ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 }
