@@ -6,6 +6,7 @@ use App\Entity\NewsletterSubscriber;
 use App\Repository\ActivityRepository;
 use App\Repository\InscriptionRepository;
 use App\Repository\NewsletterSubscriberRepository;
+use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -19,6 +20,7 @@ class DashboardController extends AbstractDashboardController
         private readonly InscriptionRepository $inscriptionRepository,
         private readonly ActivityRepository $activityRepository,
         private readonly NewsletterSubscriberRepository $newsletterRepository,
+        private readonly UserRepository $userRepository,
     ) {
     }
 
@@ -36,9 +38,12 @@ class DashboardController extends AbstractDashboardController
         $newsletterConfirmed = $this->newsletterRepository->countByStatus(NewsletterSubscriber::STATUS_CONFIRMED);
         $newsletterPending = $this->newsletterRepository->countByStatus(NewsletterSubscriber::STATUS_PENDING);
 
+        $latestUsers = $this->userRepository->findLatest(5);
+
         return $this->render('admin/dashboard.html.twig', [
             'inscriptionsTotal' => $inscriptionsTotal,
             'latestInscriptions' => $latestInscriptions,
+            'latestUsers' => $latestUsers,
             'topProposers' => $topProposers,
             'pendingActivitiesCount' => $pendingActivitiesCount,
             'newsletterConfirmed' => $newsletterConfirmed,
