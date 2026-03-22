@@ -54,6 +54,25 @@ class InscriptionRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return array<int, int> [activityId => count]
+     */
+    public function countByActivity(): array
+    {
+        $rows = $this->createQueryBuilder('i')
+            ->select('IDENTITY(i.activity) AS activityId, COUNT(i.id) AS cnt')
+            ->groupBy('i.activity')
+            ->getQuery()
+            ->getArrayResult();
+
+        $counts = [];
+        foreach ($rows as $row) {
+            $counts[(int) $row['activityId']] = (int) $row['cnt'];
+        }
+
+        return $counts;
+    }
+
+    /**
      * @return Inscription[] Liste triée des inscriptions les plus récentes, avec la relation Activity.
      */
     public function findLatestWithActivity(int $limit = 1): array

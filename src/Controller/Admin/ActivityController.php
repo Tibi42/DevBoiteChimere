@@ -45,9 +45,11 @@ class ActivityController extends AbstractController
         }
 
         $activities = $this->activityRepository->findAllOrderByStartDesc($status, $filterType, $filterLocation);
+        $inscriptionCounts = $this->inscriptionRepository->countByActivity();
 
         return $this->render('admin/activity/index.html.twig', [
             'activities' => $activities,
+            'inscriptionCounts' => $inscriptionCounts,
             'currentStatus' => $status,
             'currentType' => $filterType,
             'currentLocation' => $filterLocation,
