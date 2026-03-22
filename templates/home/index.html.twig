@@ -5,6 +5,34 @@
 
 {% block meta_description %}<meta name="description" content="La Boîte à Chimère est une association parisienne dédiée aux jeux de rôle, jeux de société, GN et figurines. Rejoignez notre communauté et participez à nos soirées hebdomadaires !">{% endblock %}
 {% block og_description %}La Boîte à Chimère est une association parisienne dédiée aux jeux de rôle, jeux de société, GN et figurines. Rejoignez notre communauté et participez à nos soirées hebdomadaires !{% endblock %}
+{% block jsonld %}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "La Boîte à Chimère",
+    "url": "{{ app.request.schemeAndHttpHost }}",
+    "logo": "{{ absolute_url(asset('images/hero/hero.jpg')) }}",
+    "description": "Association parisienne de jeux de rôle, jeux de société, grandeur nature et jeux de figurines.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Paris",
+      "addressCountry": "FR"
+    },
+    "email": "contact@laboiteachimere.fr",
+    "foundingDate": "2020",
+    "sameAs": []
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "La Boîte à Chimère",
+    "url": "{{ app.request.schemeAndHttpHost }}"
+  }
+]
+</script>
+{% endblock %}
 
 {% block importmap %}{{ importmap(['app', 'carousel.js']) }}{% endblock %}
 
