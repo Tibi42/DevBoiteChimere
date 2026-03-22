@@ -23,10 +23,22 @@ class UserController extends AbstractController
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $from = $request->query->get('from');
+        $to = $request->query->get('to');
+        $role = $request->query->get('role');
+        $search = $request->query->get('q');
+
+        $fromDate = $from ? new \DateTimeImmutable($from) : null;
+        $toDate = $to ? new \DateTimeImmutable($to) : null;
+
         return $this->render('admin/user/index.html.twig', [
-            'users' => $this->userRepository->findBy([], ['email' => 'ASC']),
+            'users' => $this->userRepository->findAllFiltered($fromDate, $toDate, $role, $search),
+            'from' => $from,
+            'to' => $to,
+            'role' => $role,
+            'search' => $search,
         ]);
     }
 

@@ -42,6 +42,40 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+    /**
+     * @return User[]
+     */
+    public function findAllFiltered(?\DateTimeImmutable $from = null, ?\DateTimeImmutable $to = null, ?string $role = null, ?string $search = null): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->orderBy('u.createdAt', 'DESC')
+            ->addOrderBy('u.id', 'DESC');
+
+        if ($from !== null) {
+            $qb->andWhere('u.createdAt >= :from')
+                ->setParameter('from', $from);
+        }
+        if ($to !== null) {
+            $qb->andWhere('u.createdAt <= :to')
+                ->setParameter('to', $to->setTime(23, 59, 59));
+        }
+        if ($role === 'admin') {
+            $qb->andWhere('u.roles LIKE :admin OR u.roles LIKE :superadmin')
+                ->setParameter('admin', '%ROLE_ADMIN%')
+                ->setParameter('superadmin', '%ROLE_SUPER_ADMIN%');
+        } elseif ($role === 'user') {
+            $qb->andWhere('u.roles NOT LIKE :admin AND u.roles NOT LIKE :superadmin')
+                ->setParameter('admin', '%ROLE_ADMIN%')
+                ->setParameter('superadmin', '%ROLE_SUPER_ADMIN%');
+        }
+        if ($search) {
+            $qb->andWhere('u.email LIKE :search OR u.username LIKE :search')
+                ->setParameter('search', '%' . $search . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
