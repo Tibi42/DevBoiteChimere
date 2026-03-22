@@ -109,6 +109,51 @@
             {% endif %}
         </div>
 
+        {# Activités — visible uniquement sur mobile (la sidebar prend le relais sur desktop) #}
+        <a href="{{ path('app_activity_index') }}"
+           class="flex flex-col gap-3 p-5 rounded-2xl border border-custom bg-custom-secondary shadow-lg glass-card hover:border-custom-orange transition-colors lg:hidden">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🎲</span>
+                <div>
+                    <div class="font-bold text-text-primary">Activités</div>
+                    <div class="text-xs text-text-secondary">Gestion du calendrier</div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg bg-custom-orange text-text-primary">Gérer →</span>
+            </div>
+        </a>
+
+        {# Carousel — visible uniquement sur mobile #}
+        <a href="{{ path('app_admin_carousel_index') }}"
+           class="flex flex-col gap-3 p-5 rounded-2xl border border-custom bg-custom-secondary shadow-lg glass-card hover:border-custom-orange transition-colors lg:hidden">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🖼️</span>
+                <div>
+                    <div class="font-bold text-text-primary">Carousel</div>
+                    <div class="text-xs text-text-secondary">Slides de la page d'accueil</div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg bg-custom-orange text-text-primary">Gérer →</span>
+            </div>
+        </a>
+
+        {# Utilisateurs — visible uniquement sur mobile #}
+        <a href="{{ path('app_admin_user_index') }}"
+           class="flex flex-col gap-3 p-5 rounded-2xl border border-custom bg-custom-secondary shadow-lg glass-card hover:border-custom-orange transition-colors lg:hidden">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">👤</span>
+                <div>
+                    <div class="font-bold text-text-primary">Utilisateurs</div>
+                    <div class="text-xs text-text-secondary">Gestion des membres</div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg bg-custom-orange text-text-primary">Gérer →</span>
+            </div>
+        </a>
+
         {# Newsletter #}
         <a href="{{ path('app_admin_newsletter_index') }}"
            class="flex flex-col gap-3 p-5 rounded-2xl border border-custom bg-custom-secondary shadow-lg glass-card hover:border-custom-orange transition-colors">
