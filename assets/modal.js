@@ -1,31 +1,14 @@
 // assets/modal.js
 // Gestion de la modal d'ajout d'événement depuis le calendrier.
-// Mobile : carte inline au-dessus du calendrier.
-// Desktop (lg+) : overlay fixe centré — la modal est déplacée dans <body>
-// pour échapper au stacking context du hero.
-
-const LG_BREAKPOINT = 1024;
-
-// Sauvegarde la position d'origine pour le mode mobile
-let originalParent = null;
-let originalNext = null;
+// La modal est en overlay fixe (z-[9999]) défini dans base.html.twig.
+// Le JS toglle simplement la classe "hidden".
 
 function openModal() {
     const modal = document.getElementById('activity-modal');
     if (!modal) return;
 
-    if (window.innerWidth >= LG_BREAKPOINT) {
-        // Desktop : déplacer dans <body> et afficher en overlay fixe
-        originalParent = modal.parentNode;
-        originalNext = modal.nextSibling;
-        document.body.appendChild(modal);
-        modal.className = 'fixed inset-0 z-[9999] bg-black/70 flex items-start justify-center p-4 overflow-y-auto';
-        document.body.style.overflow = 'hidden';
-    } else {
-        // Mobile : afficher inline au-dessus du calendrier
-        modal.classList.remove('hidden');
-        modal.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
@@ -33,15 +16,7 @@ function closeModal() {
     const frame = document.getElementById('activity-modal-frame');
     if (!modal) return;
 
-    if (window.innerWidth >= LG_BREAKPOINT && originalParent) {
-        // Desktop : remettre à sa place d'origine
-        originalParent.insertBefore(modal, originalNext);
-        originalParent = null;
-        originalNext = null;
-    }
-
-    // Réinitialiser les classes
-    modal.className = 'hidden px-8 mb-6';
+    modal.classList.add('hidden');
     document.body.style.overflow = '';
 
     if (frame) {
@@ -93,6 +68,7 @@ document.addEventListener('submit', async (e) => {
     try {
         const response = await fetch(form.action, {
             method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
             body: new FormData(form),
             credentials: 'same-origin',
         });
@@ -103,23 +79,12 @@ document.addEventListener('submit', async (e) => {
         const doc = parser.parseFromString(html, 'text/html');
         const remoteFrame = doc.querySelector('turbo-frame#activity-modal-frame');
         frame.innerHTML = remoteFrame ? remoteFrame.innerHTML : html;
-
-        // S'assurer que l'overlay reste visible après la mise à jour du contenu
-        const modal = document.getElementById('activity-modal');
-        if (modal && window.innerWidth >= LG_BREAKPOINT) {
-            if (!modal.classList.contains('fixed')) {
-                modal.className = 'fixed inset-0 z-[9999] bg-black/70 flex items-start justify-center p-4 overflow-y-auto';
-                document.body.style.overflow = 'hidden';
-            }
-        } else if (modal && !modal.classList.contains('fixed')) {
-            modal.classList.remove('hidden');
-        }
     } catch (err) {
         form.submit();
     }
 }, true);
 
-// Fermer au clic sur le backdrop (desktop)
+// Fermer au clic sur le backdrop
 document.addEventListener('click', (e) => {
     const modal = document.getElementById('activity-modal');
     if (modal && e.target === modal) {

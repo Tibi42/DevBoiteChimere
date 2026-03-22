@@ -142,6 +142,10 @@ class ActivityController extends AbstractController
     #[Route('/{id}/modifier', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Activity $activity): Response
     {
+        $returnUrl = $request->request->get('return')
+            ?: $request->query->get('return')
+            ?: $request->headers->get('referer');
+
         $form = $this->createForm(ActivityType::class, $activity, ['is_admin' => true]);
         $form->handleRequest($request);
 
@@ -149,12 +153,17 @@ class ActivityController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', 'L\'activité « ' . $activity->getTitle() . ' » a été mise à jour.');
 
+            if ($returnUrl) {
+                return $this->redirect($returnUrl, Response::HTTP_SEE_OTHER);
+            }
+
             return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/activity/edit.html.twig', [
             'activity' => $activity,
             'form' => $form,
+            'returnUrl' => $returnUrl,
         ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 

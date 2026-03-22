@@ -1,4 +1,7 @@
 {{ form_start(form, { attr: { class: 'space-y-4' } }) }}
+	{% if returnUrl is defined and returnUrl %}
+		<input type="hidden" name="return" value="{{ returnUrl }}">
+	{% endif %}
 	<div>
 		{{ form_label(form.title) }}
 		{{ form_widget(form.title) }}
@@ -33,7 +36,7 @@
 		<button type="submit" class="rounded-lg bg-custom-orange py-3 px-6 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
 			{{ button_label|default('Enregistrer') }}
 		</button>
-		<a href="{{ path('app_activity_index') }}" class="rounded-lg border border-custom bg-custom-secondary py-3 px-6 text-sm font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-custom-orange transition-all">
+		<a href="{{ returnUrl|default(path('app_activity_index')) }}" class="rounded-lg border border-custom bg-custom-secondary py-3 px-6 text-sm font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-custom-orange transition-all">
 			Annuler
 		</a>
 	</div>

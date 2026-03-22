@@ -65,7 +65,11 @@ class ActivityRegisterController extends AbstractController
                 $entityManager->persist($inscription);
                 $entityManager->flush();
 
-                return $this->render('admin/activity_register/register.html.twig', [
+                $template = $request->isXmlHttpRequest()
+                    ? 'admin/activity_register/_register_frame.html.twig'
+                    : 'admin/activity_register/register.html.twig';
+
+                return $this->render($template, [
                     'activity' => $activity,
                     'form' => $form,
                     'alreadyRegistered' => false,
@@ -74,7 +78,11 @@ class ActivityRegisterController extends AbstractController
             }
         }
 
-        return $this->render('admin/activity_register/register.html.twig', [
+        $template = $request->isXmlHttpRequest()
+            ? 'admin/activity_register/_register_frame.html.twig'
+            : 'admin/activity_register/register.html.twig';
+
+        return $this->render($template, [
             'activity' => $activity,
             'form' => $form,
             'alreadyRegistered' => $alreadyRegistered,
