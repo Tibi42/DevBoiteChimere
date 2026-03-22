@@ -29,6 +29,10 @@ function installEscapeHandlerOnce() {
         if (desktopOpen) {
             panel.style.maxHeight = '0';
             joinBtn.classList.remove('ring-2', 'ring-white/30');
+            const headerBar = joinBtn.closest('header')?.querySelector('.header-container');
+            if (headerBar) {
+                headerBar.classList.remove('rounded-b-none', 'border-b-0');
+            }
         }
 
         const mobileOpen =
@@ -56,10 +60,15 @@ function initJoinPanel() {
 
         let open = false;
 
+        const headerBar = btn.closest('header')?.querySelector('.header-container');
+
         function openPanel() {
             open = true;
             panel.style.maxHeight = panel.scrollHeight + 'px';
             btn.classList.add('ring-2', 'ring-white/30');
+            if (headerBar) {
+                headerBar.classList.add('rounded-b-none', 'border-b-0');
+            }
             setTimeout(() => panel.querySelector('input')?.focus(), 300);
         }
 
@@ -67,6 +76,9 @@ function initJoinPanel() {
             open = false;
             panel.style.maxHeight = '0';
             btn.classList.remove('ring-2', 'ring-white/30');
+            if (headerBar) {
+                headerBar.classList.remove('rounded-b-none', 'border-b-0');
+            }
         }
 
         btn.addEventListener('click', (e) => {
@@ -170,6 +182,10 @@ function bootJoinPanel() {
         if (panel && btn) {
             panel.style.maxHeight = panel.scrollHeight + 'px';
             btn.classList.add('ring-2', 'ring-white/30');
+            const headerBar = btn.closest('header')?.querySelector('.header-container');
+            if (headerBar) {
+                headerBar.classList.add('rounded-b-none', 'border-b-0');
+            }
         }
     }
 }
