@@ -13,6 +13,7 @@ import './theme_toggle.js';
 import './join_panel.js';
 import './modal.js';
 import './cookie_consent.js';
+import './admin_url_mask.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
