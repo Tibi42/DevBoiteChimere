@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Activity;
+use App\Enum\ActivityKind;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,17 +18,12 @@ class ActivityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $choices = [
-            '-- Choisir --' => '',
-            'Play Test' => 'Play Test',
-            'JDS (Jeux de Société)' => 'JDS',
-            'JDR (Jeux de Rôle)' => 'JDR',
-            'GN (Grandeur Nature)' => 'GN',
-            'JDF (Jeux de Figurines)' => 'JDF',
-        ];
-
-        if ($options['is_admin']) {
-            $choices['AG (Assemblée Générale)'] = 'AG';
+        $choices = ['-- Choisir --' => ''];
+        foreach (ActivityKind::cases() as $kind) {
+            if ($kind === ActivityKind::AG && !$options['is_admin']) {
+                continue;
+            }
+            $choices[$kind->label()] = $kind->value;
         }
 
         $builder

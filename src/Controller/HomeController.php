@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Enum\ActivityKind;
 use App\Repository\ActivityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,7 @@ class HomeController extends AbstractController
         $year = (int) $request->query->get('year', $currentYear);
 
         // Filtre par type d'activité
-        $allowedTypes = ['JDS', 'JDR', 'GN', 'JDF', 'AG', 'Play Test'];
+        $allowedTypes = ActivityKind::values();
         $filterType = $request->query->get('type');
         if ($filterType !== null && !\in_array($filterType, $allowedTypes, true)) {
             $filterType = null;

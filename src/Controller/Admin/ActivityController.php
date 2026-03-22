@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Activity;
+use App\Enum\ActivityKind;
 use App\Entity\User;
 use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
@@ -33,7 +34,7 @@ class ActivityController extends AbstractController
             $status = null;
         }
 
-        $allowedTypes = ['JDS', 'JDR', 'GN', 'JDF', 'AG', 'Play Test'];
+        $allowedTypes = ActivityKind::values();
         $filterType = $request->query->get('type');
         if ($filterType !== null && !in_array($filterType, $allowedTypes, true)) {
             $filterType = null;
@@ -78,7 +79,7 @@ class ActivityController extends AbstractController
             $status = null;
         }
 
-        $allowedTypes = ['JDS', 'JDR', 'GN', 'JDF', 'AG', 'Play Test'];
+        $allowedTypes = ActivityKind::values();
         $filterType = $request->query->get('type');
         if ($filterType !== null && !in_array($filterType, $allowedTypes, true)) {
             $filterType = null;
