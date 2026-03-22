@@ -38,15 +38,24 @@
         {{ form_row(form.maxParticipants) }}
         {{ form_row(form.description) }}
 
-        <div class="flex gap-3 pt-2">
-            <button type="submit"
-                    class="flex-1 rounded-lg bg-custom-orange py-3 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg">
-                {% if is_granted('ROLE_ADMIN') %}
-                    Créer l'événement
-                {% else %}
+        <div class="flex flex-col gap-2 pt-2">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="flex gap-3">
+                    <button type="submit" name="publish_now" value="1"
+                            class="flex-1 rounded-lg bg-emerald-600 py-3 text-xs font-extrabold uppercase tracking-widest text-white hover:bg-emerald-500 transition-all shadow-lg">
+                        Créer immédiatement
+                    </button>
+                    <button type="submit"
+                            class="flex-1 rounded-lg bg-custom-orange/30 py-3 text-xs font-extrabold uppercase tracking-widest text-custom-orange hover:bg-custom-orange/50 transition-all">
+                        En attente
+                    </button>
+                </div>
+            {% else %}
+                <button type="submit"
+                        class="w-full rounded-lg bg-custom-orange py-3 text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg">
                     Envoyer la proposition
-                {% endif %}
-            </button>
+                </button>
+            {% endif %}
             <button type="button" data-modal-close
                     class="rounded-lg border border-custom px-4 py-3 text-xs font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors">
                 Annuler

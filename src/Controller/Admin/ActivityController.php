@@ -45,7 +45,12 @@ class ActivityController extends AbstractController
             $filterLocation = null;
         }
 
-        $qb = $this->activityRepository->findAllOrderByStartDescQb($status, $filterType, $filterLocation);
+        $filterPeriod = $request->query->get('period');
+        if ($filterPeriod !== null && !in_array($filterPeriod, ['past', 'future'], true)) {
+            $filterPeriod = null;
+        }
+
+        $qb = $this->activityRepository->findAllOrderByStartDescQb($status, $filterType, $filterLocation, $filterPeriod);
 
         $pagination = $paginator->paginate(
             $qb,
@@ -61,6 +66,7 @@ class ActivityController extends AbstractController
             'currentStatus' => $status,
             'currentType' => $filterType,
             'currentLocation' => $filterLocation,
+            'currentPeriod' => $filterPeriod,
         ]);
     }
 

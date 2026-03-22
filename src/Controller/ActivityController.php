@@ -38,9 +38,13 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $activity->setStatus(Activity::STATUS_PENDING);
+            $publishNow = $this->isGranted('ROLE_ADMIN') && $request->request->get('publish_now');
+            $activity->setStatus($publishNow ? Activity::STATUS_PUBLISHED : Activity::STATUS_PENDING);
             $activity->setProposedBy($this->getUser());
-            $this->addFlash('success', 'Votre proposition « ' . $activity->getTitle() . ' » a été envoyée et sera examinée par un administrateur.');
+            $this->addFlash('success', $publishNow
+                ? 'L\'événement « ' . $activity->getTitle() . ' » a été créé et publié.'
+                : 'Votre proposition « ' . $activity->getTitle() . ' » a été envoyée et sera examinée par un administrateur.'
+            );
 
             $this->entityManager->persist($activity);
             $this->entityManager->flush();
