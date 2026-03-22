@@ -3,39 +3,37 @@
 {% block title %}S'inscrire - {{ activity.title }} - La Boîte à Chimère{% endblock %}
 
 {% block body %}
-	<div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
-		<div class="w-full max-w-md rounded-2xl border border-custom bg-custom-secondary p-6 lg:p-8 shadow-2xl glass-card">
-			<a href="{{ path('app_home') }}#calendar" class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-text-secondary hover:text-custom-orange transition-colors mb-6">
-				<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-				Retour au calendrier
-			</a>
-
-			<div class="mb-6 p-4 rounded-xl bg-custom-tertiary/50 border border-custom">
-				<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange">{{ activity.type|default('Événement') }}</span>
-				<h1 class="text-xl font-bold text-text-primary mt-1">{{ activity.title }}</h1>
-				<p class="text-sm text-text-secondary mt-1">{{ activity.startAt|date('l d F Y') }}</p>
-				{% if activity.location %}
-					<p class="text-xs text-text-secondary mt-1">{{ activity.location }}</p>
-				{% endif %}
-			</div>
-
-			<h2 class="text-sm font-bold uppercase tracking-[0.15em] text-text-primary mb-4">Inscription</h2>
-
-			{{ form_start(form, { attr: { class: 'space-y-4' } }) }}
-				<div>
-					{{ form_label(form.participantName) }}
-					{{ form_widget(form.participantName) }}
-					<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantName) }}</div>
-				</div>
-				<div>
-					{{ form_label(form.participantEmail) }}
-					{{ form_widget(form.participantEmail) }}
-					<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantEmail) }}</div>
-				</div>
-				<button type="submit" class="w-full rounded-lg bg-custom-orange py-3 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
-					Confirmer mon inscription
-				</button>
-			{{ form_end(form) }}
+	<turbo-frame id="activity-modal-frame">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-sm font-bold uppercase tracking-[0.15em] text-text-primary">Inscription</h2>
+			<button type="button" data-modal-close class="text-text-secondary hover:text-text-primary transition-colors p-1">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+			</button>
 		</div>
-	</div>
+
+		<div class="mb-5 p-4 rounded-xl bg-custom-tertiary/50 border border-custom">
+			<span class="text-[9px] font-bold uppercase tracking-widest text-custom-orange">{{ activity.type|default('Événement') }}</span>
+			<h3 class="text-lg font-bold text-text-primary mt-1">{{ activity.title }}</h3>
+			<p class="text-sm text-text-secondary mt-1">{{ activity.startAt|date('l d F Y') }}</p>
+			{% if activity.location %}
+				<p class="text-xs text-text-secondary mt-1">{{ activity.location }}</p>
+			{% endif %}
+		</div>
+
+		{{ form_start(form, { attr: { class: 'space-y-4' } }) }}
+			<div>
+				{{ form_label(form.participantName) }}
+				{{ form_widget(form.participantName) }}
+				<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantName) }}</div>
+			</div>
+			<div>
+				{{ form_label(form.participantEmail) }}
+				{{ form_widget(form.participantEmail) }}
+				<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.participantEmail) }}</div>
+			</div>
+			<button type="submit" class="w-full rounded-lg bg-custom-orange py-3 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
+				Confirmer mon inscription
+			</button>
+		{{ form_end(form) }}
+	</turbo-frame>
 {% endblock %}

@@ -255,7 +255,7 @@
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
 								{% if activity.startAt > date() %}
-									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}
@@ -284,7 +284,7 @@
 								</div>
 								<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
 								{% if activity.startAt > date() %}
-									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}
@@ -490,7 +490,7 @@
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
 										{% if activity.startAt > date() %}
-									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}
@@ -519,7 +519,7 @@
 										</div>
 										<h4 class="font-bold text-text-primary text-xs mb-3 leading-snug">{{ activity.title }}</h4>
 										{% if activity.startAt > date() %}
-									<a href="{{ path('app_activity_register', { id: activity.id }) }}" data-turbo-frame="_top" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">S'INSCRIRE</a>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}

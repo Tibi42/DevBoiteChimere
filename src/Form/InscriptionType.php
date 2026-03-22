@@ -15,17 +15,23 @@ class InscriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $readonly = $options['is_logged_in'];
+        $inputClass = 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange';
+        if ($readonly) {
+            $inputClass .= ' opacity-60 cursor-not-allowed';
+        }
+
         $builder
             ->add('participantName', TextType::class, [
                 'label' => 'Votre nom',
                 'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
-                'attr' => ['placeholder' => 'Jean Dupont', 'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+                'attr' => ['placeholder' => 'Jean Dupont', 'class' => $inputClass, 'readonly' => $readonly],
                 'constraints' => [new NotBlank(message: 'Merci de renseigner votre nom.')],
             ])
             ->add('participantEmail', EmailType::class, [
                 'label' => 'Votre email',
                 'label_attr' => ['class' => 'block text-xs font-bold uppercase tracking-wider text-text-primary mb-1'],
-                'attr' => ['placeholder' => 'jean@exemple.fr', 'class' => 'w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange'],
+                'attr' => ['placeholder' => 'jean@exemple.fr', 'class' => $inputClass, 'readonly' => $readonly],
                 'constraints' => [
                     new NotBlank(message: 'Merci de renseigner votre email.'),
                     new Email(message: 'Merci de saisir une adresse email valide.'),
@@ -37,6 +43,7 @@ class InscriptionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Inscription::class,
+            'is_logged_in' => false,
         ]);
     }
 }

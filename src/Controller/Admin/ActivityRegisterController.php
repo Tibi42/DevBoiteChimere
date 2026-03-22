@@ -43,7 +43,7 @@ class ActivityRegisterController extends AbstractController
             $inscription->setParticipantEmail($currentUser->getEmail());
         }
 
-        $form = $this->createForm(InscriptionType::class, $inscription);
+        $form = $this->createForm(InscriptionType::class, $inscription, ['is_logged_in' => $currentUser !== null]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
