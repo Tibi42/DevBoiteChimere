@@ -50,6 +50,18 @@ services:
       - "8025:8025" # ← Interface web pour voir les emails
     restart: unless-stopped
 
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "8081:80" # ← localhost:8081
+    environment:
+      PMA_HOST: database
+      PMA_USER: app
+      PMA_PASSWORD: secret
+    depends_on:
+      - database
+    restart: unless-stopped
+
 volumes:
   db_data:
   vendor_data:
