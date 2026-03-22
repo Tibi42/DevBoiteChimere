@@ -6,6 +6,7 @@ use App\Entity\Activity;
 use App\Entity\User;
 use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
+use App\Repository\InscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ class ActivityController extends AbstractController
 {
     public function __construct(
         private readonly ActivityRepository $activityRepository,
+        private readonly InscriptionRepository $inscriptionRepository,
         private readonly EntityManagerInterface $entityManager
     ) {
     }
@@ -144,6 +146,17 @@ class ActivityController extends AbstractController
             'activity' => $activity,
             'form' => $form,
         ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
+    }
+
+    #[Route('/{id}/inscrits', name: 'inscrits', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function inscrits(Activity $activity): Response
+    {
+        $inscriptions = $this->inscriptionRepository->findByActivity($activity);
+
+        return $this->render('admin/activity/inscrits.html.twig', [
+            'activity' => $activity,
+            'inscriptions' => $inscriptions,
+        ]);
     }
 
     #[Route('/{id}/approuver', name: 'approve', requirements: ['id' => '\d+'], methods: ['POST'])]

@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Inscription
 {
     #[ORM\Id]

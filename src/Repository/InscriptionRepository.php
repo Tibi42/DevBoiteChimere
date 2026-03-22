@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Activity;
 use App\Entity\Inscription;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -34,6 +35,22 @@ class InscriptionRepository extends ServiceEntityRepository
             ->select('COUNT(i.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    /**
+     * @return Inscription[] Liste triée des inscriptions les plus récentes, avec la relation Activity.
+     */
+    /**
+     * @return Inscription[]
+     */
+    public function findByActivity(Activity $activity): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.activity = :activity')
+            ->setParameter('activity', $activity)
+            ->orderBy('i.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     /**
