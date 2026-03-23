@@ -32,6 +32,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(options: ['default' => false])]
     private bool $suspended = false;
 
+    #[ORM\Column(options: ['default' => true])]
+    private bool $newsletterOptIn = true;
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -119,6 +122,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->createdAt === null) {
             $this->createdAt = new \DateTimeImmutable();
         }
+    }
+
+    public function isNewsletterOptIn(): bool
+    {
+        return $this->newsletterOptIn;
+    }
+
+    public function setNewsletterOptIn(bool $newsletterOptIn): static
+    {
+        $this->newsletterOptIn = $newsletterOptIn;
+        return $this;
     }
 
     public function eraseCredentials(): void {}

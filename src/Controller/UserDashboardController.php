@@ -188,6 +188,23 @@ class UserDashboardController extends AbstractController
         return $this->redirectToRoute('app_user_dashboard');
     }
 
+    #[Route('/mon-espace/newsletter', name: 'app_user_newsletter', methods: ['POST'])]
+    public function newsletter(Request $request, EntityManagerInterface $em): Response
+    {
+        if (!$this->isCsrfTokenValid('newsletter_toggle', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('app_user_dashboard');
+        }
+
+        $user = $this->getUser();
+        $user->setNewsletterOptIn(false);
+        $em->flush();
+
+        $this->addFlash('success', 'Vous avez été désabonné de la newsletter.');
+
+        return $this->redirectToRoute('app_user_dashboard');
+    }
+
     #[Route('/mon-espace/supprimer', name: 'app_user_delete_account', methods: ['POST'])]
     public function deleteAccount(Request $request, EntityManagerInterface $em): Response
     {

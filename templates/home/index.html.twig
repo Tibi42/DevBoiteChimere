@@ -181,7 +181,13 @@
 								</div>
 								<div class="flex-1">
 									<label for="join-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
-									<input type="password" id="join-password" name="_password" required autocomplete="current-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········">
+									<div class="relative">
+										<input type="password" id="join-password" name="_password" required autocomplete="current-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 pr-10 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········">
+										<button type="button" data-toggle-password="join-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition-colors" tabindex="-1" aria-label="Afficher le mot de passe">
+											<svg class="h-4 w-4 eye-closed" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.5 6.5m3.378 3.378L6.5 6.5m0 0L3 3m3.5 3.5l10 10M17.5 17.5L21 21m-3.5-3.5l-10-10m13.043 4.51A9.953 9.953 0 0121 12c-1.275 4.057-5.065 7-9.543 7"/></svg>
+											<svg class="h-4 w-4 eye-open hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+										</button>
+									</div>
 								</div>
 								<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[130px] text-center">SE CONNECTER</button>
 								<button type="button" data-open-register class="shrink-0 rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-gray-900 transition-all min-w-[130px] text-center">S'INSCRIRE</button>
@@ -415,7 +421,13 @@
 						</div>
 						<div>
 							<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
-							<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
+							<div class="relative">
+								<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 pr-10 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
+								<button type="button" data-toggle-password="mobile-join-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition-colors" tabindex="-1" aria-label="Afficher le mot de passe">
+									<svg class="h-4 w-4 eye-closed" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.5 6.5m3.378 3.378L6.5 6.5m0 0L3 3m3.5 3.5l10 10M17.5 17.5L21 21m-3.5-3.5l-10-10m13.043 4.51A9.953 9.953 0 0121 12c-1.275 4.057-5.065 7-9.543 7"/></svg>
+									<svg class="h-4 w-4 eye-open hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+								</button>
+							</div>
 						</div>
 						<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
 						<button type="button" data-open-register class="w-full rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-gray-900 transition-all">S'INSCRIRE</button>
@@ -837,5 +849,23 @@
 	</div>
 {% endif %}
 
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			document.querySelectorAll('[data-toggle-password]').forEach(function (btn) {
+				btn.addEventListener('click', function () {
+					var input = document.getElementById(btn.dataset.togglePassword);
+					if (!input) return;
+					var isHidden = input.type === 'password';
+					input.type = isHidden ? 'text' : 'password';
+					btn.querySelectorAll('.eye-closed').forEach(function (el) { el.classList.toggle('hidden', isHidden); });
+					btn.querySelectorAll('.eye-open').forEach(function (el) { el.classList.toggle('hidden', !isHidden); });
+				});
+			});
+		});
+	</script>
 {% endblock %}
 
