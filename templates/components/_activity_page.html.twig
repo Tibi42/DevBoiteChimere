@@ -1,0 +1,73 @@
+{#
+  Composant partagé pour les pages JDS / JDR / GN.
+  Variables attendues :
+    color            string  classe Tailwind ex: "text-emerald-400"
+    icon_path        string  attribut d (SVG path)
+    heading          string  titre de la section principale
+    description_paragraphs  string[]
+    infos            array   [{label, title, subtitle}, ...]
+    other_activities array   [{label, route, color, icon_path}, ...]
+#}
+<div class="grid gap-12 lg:gap-16 lg:grid-cols-3">
+	{# ── Carte principale ── #}
+	<div class="lg:col-span-2 space-y-12">
+		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
+			<div class="flex items-center gap-3 mb-6">
+				<div class="glass h-10 w-10 flex items-center justify-center rounded-lg {{ color }}">
+					<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24">
+						<path d="{{ icon_path }}"/>
+					</svg>
+				</div>
+				<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary">{{ heading }}</h2>
+			</div>
+			<div class="space-y-4 text-text-secondary leading-relaxed">
+				{% for paragraph in description_paragraphs %}
+					<p>{{ paragraph }}</p>
+				{% endfor %}
+			</div>
+		</section>
+
+		{# ── Infos pratiques ── #}
+		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
+			<h2 class="text-xl font-bold uppercase tracking-wider text-text-primary mb-6">Infos pratiques</h2>
+			<div class="grid gap-6 sm:grid-cols-2">
+				{% for info in infos %}
+					<div class="rounded-xl bg-custom-tertiary border border-custom p-5">
+						<span class="text-[9px] font-bold uppercase tracking-widest {{ color }} mb-2 block">{{ info.label }}</span>
+						<p class="text-sm font-bold text-text-primary">{{ info.title }}</p>
+						{% if info.subtitle is defined and info.subtitle %}
+							<p class="text-xs text-text-secondary mt-1">{{ info.subtitle }}</p>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	</div>
+
+	{# ── Sidebar ── #}
+	<aside class="space-y-8">
+		<div class="rounded-2xl border border-custom glass-card p-6 shadow-xl">
+			<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-text-primary/60 mb-4">PROCHAIN ÉVÉNEMENT</h3>
+			<div class="rounded-xl bg-custom-tertiary border border-custom p-5 text-center">
+				<p class="text-xs text-text-secondary">Consultez le calendrier sur la page d'accueil pour voir les prochaines dates.</p>
+				<a href="{{ path('app_home') }}" class="inline-block mt-4 rounded-lg bg-custom-orange px-5 py-2.5 text-[10px] font-extrabold uppercase tracking-wider text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+					VOIR LE CALENDRIER
+				</a>
+			</div>
+		</div>
+
+		<div class="rounded-2xl border border-custom glass-card p-6 shadow-xl">
+			<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-text-primary/60 mb-4">NOS AUTRES ACTIVITÉS</h3>
+			<div class="space-y-3">
+				{% for activity in other_activities %}
+					<a href="{{ path(activity.route) }}" class="flex items-center gap-3 p-3 rounded-lg bg-custom-tertiary border border-custom hover:border-custom-orange transition-all group">
+						<div class="glass h-8 w-8 flex items-center justify-center rounded-lg {{ activity.color }} shrink-0">
+							<svg class="h-4 w-4" fill="currentColor" viewbox="0 0 24 24"><path d="{{ activity.icon_path }}"/></svg>
+						</div>
+						<span class="text-xs font-medium text-text-primary/70 group-hover:text-text-primary">{{ activity.label }}</span>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	</aside>
+</div>
