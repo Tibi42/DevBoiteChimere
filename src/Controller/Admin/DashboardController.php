@@ -39,6 +39,7 @@ class DashboardController extends AbstractDashboardController
         $newsletterPending = $this->newsletterRepository->countByStatus(NewsletterSubscriber::STATUS_PENDING);
 
         $latestUsers = $this->userRepository->findLatest(5);
+        $totalUsers = $this->userRepository->countAll();
 
         return $this->render('admin/dashboard.html.twig', [
             'inscriptionsTotal' => $inscriptionsTotal,
@@ -48,6 +49,7 @@ class DashboardController extends AbstractDashboardController
             'pendingActivitiesCount' => $pendingActivitiesCount,
             'newsletterConfirmed' => $newsletterConfirmed,
             'newsletterPending' => $newsletterPending,
+            'totalUsers' => $totalUsers,
         ]);
     }
 

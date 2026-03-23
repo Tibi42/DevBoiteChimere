@@ -206,7 +206,7 @@
 						{# Filtres par type #}
 						<div class="flex flex-wrap gap-1.5 mb-4">
 							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear }) }}#calendar"
-							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-white' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-gray-900' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
 							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar"
 							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDS' ? 'bg-emerald-500 text-white' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40' }}">JDS</a>
 							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar"
@@ -237,7 +237,7 @@
 											{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
 											{% set isPast = not isFuture and not isToday %}
 											{% if day in daysWithActivities %}
-												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day, type: filterType }) }}#calendar" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+												<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day, type: filterType }) }}#calendar" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-gray-900 shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : '' }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 													<span>{{ day }}</span>
 													{% if (activitiesCountByDay[day] ?? 1) > 1 %}
 														<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
@@ -451,7 +451,7 @@
 								{# Filtres par type #}
 								<div class="flex flex-wrap gap-1.5 mb-4">
 									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear }) }}#calendar-desktop"
-									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-white' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-gray-900' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
 									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar-desktop"
 									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDS' ? 'bg-emerald-500 text-white' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40' }}">JDS</a>
 									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar-desktop"
@@ -482,7 +482,7 @@
 													{% set isClickable = is_granted('ROLE_USER') and (isToday or isFuture) %}
 													{% set isPast = not isFuture and not isToday %}
 													{% if day in daysWithActivities %}
-														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day, type: filterType }) }}#calendar-desktop" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-text-primary shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : ''  }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
+														<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, day: day, type: filterType }) }}#calendar-desktop" class="block py-2 rounded {{ day_classes(activitiesTypesByDay[day]|default(''), isPast) }} text-gray-900 shadow-lg hover:ring-2 hover:ring-white transition-all {{ isPast ? 'opacity-60' : '' }} {{ selectedDay == day ? 'ring-2 ring-white' : ''  }}" title="{{ activitiesCountByDay[day] ?? 1 }} événement(s)">
 															<span>{{ day }}</span>
 															{% if (activitiesCountByDay[day] ?? 1) > 1 %}
 																<span class="block text-[8px] opacity-90">{{ activitiesCountByDay[day] }}</span>
@@ -648,7 +648,7 @@
 								<div class="group relative overflow-hidden rounded-xl bg-custom-tertiary shadow-lg block card-premium" style="min-height: 220px;">
 									<img src="{{ asset('images/articles/' ~ article.image) }}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700">
 									<div class="absolute inset-0 image-overlay"></div>
-									<span class="absolute right-3 top-3 bg-custom-orange px-2 py-1 rounded text-[9px] font-bold text-text-primary uppercase tracking-widest shadow-lg">{{ article.tag }}</span>
+									<span class="absolute right-3 top-3 bg-custom-orange px-2 py-1 rounded text-[9px] font-bold text-gray-900 uppercase tracking-widest shadow-lg">{{ article.tag }}</span>
 									<div class="absolute bottom-4 left-4 right-4 z-10">
 										<h3 class="text-sm font-bold leading-tight text-text-primary uppercase">{{ article.title }}</h3>
 									</div>
@@ -735,10 +735,10 @@
 					<a href="https://www.facebook.com/laboiteachimere" target="_blank" rel="noopener noreferrer" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/60 transition-all hover:bg-blue-600 hover:text-text-primary hover:scale-110" aria-label="Facebook">
 						<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
 					</a>
-					<span class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/30 cursor-not-allowed" aria-label="Instagram (bientôt disponible)" title="Instagram (bientôt disponible)">
+					<span role="img" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/30 cursor-not-allowed" aria-label="Instagram (bientôt disponible)" title="Instagram (bientôt disponible)">
 						<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
 					</span>
-					<span class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/30 cursor-not-allowed" aria-label="YouTube (bientôt disponible)" title="YouTube (bientôt disponible)">
+					<span role="img" class="flex h-10 w-10 items-center justify-center rounded-full bg-custom-secondary text-text-primary/30 cursor-not-allowed" aria-label="YouTube (bientôt disponible)" title="YouTube (bientôt disponible)">
 						<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
 					</span>
 				</div>
