@@ -31,7 +31,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bacbdd
-      MYSQL_USER: app
+      MYSQL_USER: root
       MYSQL_PASSWORD: Rapupyxe112358134&
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
@@ -56,7 +56,7 @@ services:
       - "8081:80" # ← localhost:8081
     environment:
       PMA_HOST: database
-      PMA_USER: app
+      PMA_USER: root
       PMA_PASSWORD: Rapupyxe112358134&
     depends_on:
       - database

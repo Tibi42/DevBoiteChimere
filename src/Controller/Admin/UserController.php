@@ -76,20 +76,44 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $plain = $form->get('plainPassword')->getData();
-            if ($plain) {
-                $user->setPassword($this->passwordHasher->hashPassword($user, $plain));
-            }
             $this->entityManager->flush();
-            $this->addFlash('success', 'Utilisateur « ' . $user->getEmail() . ' » mis à jour.');
+            $this->addFlash('success', 'Utilisateur mis à jour.');
 
-            return $this->redirectToRoute('app_admin_user_index');
+            return $this->redirectToRoute('app_admin_user_edit', ['id' => $user->getId()]);
         }
 
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
+    }
+
+    #[Route('/{id}/changer-mot-de-passe', name: 'change_password', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function changePassword(Request $request, User $user): Response
+    {
+        if (!$this->isCsrfTokenValid('change_password' . $user->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('app_admin_user_edit', ['id' => $user->getId()]);
+        }
+
+        $password = $request->request->get('new_password', '');
+        $confirm  = $request->request->get('confirm_password', '');
+
+        if (mb_strlen($password) < 6) {
+            $this->addFlash('error', 'Le mot de passe doit faire au moins 6 caractères.');
+            return $this->redirectToRoute('app_admin_user_edit', ['id' => $user->getId()]);
+        }
+
+        if ($password !== $confirm) {
+            $this->addFlash('error', 'Les mots de passe ne correspondent pas.');
+            return $this->redirectToRoute('app_admin_user_edit', ['id' => $user->getId()]);
+        }
+
+        $user->setPassword($this->passwordHasher->hashPassword($user, $password));
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Mot de passe modifié avec succès.');
+        return $this->redirectToRoute('app_admin_user_edit', ['id' => $user->getId()]);
     }
 
     #[Route('/{id}/suspendre', name: 'suspend', requirements: ['id' => '\d+'], methods: ['POST'])]

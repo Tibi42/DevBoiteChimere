@@ -39,19 +39,23 @@ class UserType extends AbstractType
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
             ])
-            ->add('plainPassword', PasswordType::class, [
-                'label' => $isEdit ? 'Nouveau mot de passe (laisser vide pour ne pas changer)' : 'Mot de passe',
+        ;
+
+        if (!$isEdit) {
+            $builder->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de passe',
                 'mapped' => false,
-                'required' => !$isEdit,
-                'constraints' => $isEdit ? [new Length(min: 6, minMessage: 'Le mot de passe doit faire au moins {{ limit }} caractères.')] : [
+                'required' => true,
+                'constraints' => [
                     new NotBlank(message: 'Le mot de passe est obligatoire.'),
                     new Length(min: 6, minMessage: 'Le mot de passe doit faire au moins {{ limit }} caractères.'),
                 ],
-                'attr' => ['placeholder' => $isEdit ? '••••••••' : 'Minimum 6 caractères'],
-            ])
-        ;
+                'attr' => ['placeholder' => 'Minimum 6 caractères'],
+            ]);
+        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
