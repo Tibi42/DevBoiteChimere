@@ -102,7 +102,10 @@
       "mcp__plugin_playwright_playwright__browser_click",
       "Bash(cat /c/laragon/www/DevBoiteChimere/docker/nginx/default.conf 2>/dev/null || find /c/laragon/www/DevBoiteChimere -name \"*.conf\" -o -name \"nginx*\" 2>/dev/null | head -10)",
       "Bash(magick --version 2>/dev/null || echo \"magick not found\")",
-      "Bash(npx lighthouse:*)"
+      "Bash(npx lighthouse:*)",
+      "Bash(find C:/laragon/www/DevBoiteChimere -maxdepth 1 -name *.yml -o -name *.yaml)",
+      "mcp__plugin_playwright_playwright__browser_network_requests",
+      "mcp__plugin_playwright_playwright__browser_evaluate"
     ]
   }
 }

@@ -4,11 +4,17 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements FixtureGroupInterface
 {
+    public static function getGroups(): array
+    {
+        return ['user'];
+    }
+
     public function __construct(
         private readonly UserPasswordHasherInterface $hasher
     ) {}
@@ -17,10 +23,10 @@ class UserFixtures extends Fixture
     {
         $users = [
             [
-                'email'    => 'superadmin@boitechimere.fr',
-                'username' => 'superadmin',
+                'email'    => 'guillaume.pecquet@gmail.com',
+                'username' => 'Dyonisos',
                 'roles'    => ['ROLE_SUPER_ADMIN'],
-                'password' => 'superadmin123',
+                'password' => '112358134AaBb&',
             ],
             [
                 'email'    => 'admin@boitechimere.fr',

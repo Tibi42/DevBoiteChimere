@@ -105,11 +105,11 @@
 							</svg>
 						</button>
 						{% if app.user %}
-							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
 								DÉCONNEXION
 							</a>
 						{% else %}
-							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
 								NOUS REJOINDRE
 							</button>
 						{% endif %}
@@ -137,8 +137,8 @@
 										<label for="join-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
 										<input type="password" id="join-password" name="_password" required autocomplete="current-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········">
 									</div>
-									<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[130px] text-center">SE CONNECTER</button>
-									<button type="button" data-open-register class="shrink-0 rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-text-primary transition-all min-w-[130px] text-center">S'INSCRIRE</button>
+									<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[130px] text-center">SE CONNECTER</button>
+									<button type="button" data-open-register class="shrink-0 rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-gray-900 transition-all min-w-[130px] text-center">S'INSCRIRE</button>
 								</div>
 								<a href="{{ path('app_forgot_password_request') }}" class="text-xs text-text-secondary hover:text-custom-orange transition-colors text-center">Mot de passe oublié ?</a>
 							</form>
@@ -177,11 +177,11 @@
 				{% endif %}
 				<hr class="border-custom my-4">
 				{% if app.user %}
-					<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
+					<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-gray-900 shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
 						DÉCONNEXION
 					</a>
 				{% else %}
-					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
+					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-gray-900 shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
 						NOUS REJOINDRE
 					</button>
 				{% endif %}
@@ -198,15 +198,15 @@
 								<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
 								<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
 							</div>
-							<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
-							<button type="button" data-open-register class="w-full rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-text-primary transition-all">S'INSCRIRE</button>
+							<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
+							<button type="button" data-open-register class="w-full rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-gray-900 transition-all">S'INSCRIRE</button>
 							<a href="{{ path('app_forgot_password_request') }}" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
 						</form>
 					</div>
 				{% endif %}
 			</nav>
 			<div class="absolute bottom-10 left-8 right-8 text-center">
-				<p class="text-[10px] uppercase tracking-widest text-text-secondary/30 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
+				<p class="text-[10px] uppercase tracking-widest text-text-secondary/60 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
 			</div>
 		</div>
 	</div>
@@ -234,7 +234,7 @@
 				<form class="flex gap-2" action="{{ path('app_newsletter_subscribe') }}" method="post" data-turbo="false">
 					<input type="hidden" name="_token" value="{{ csrf_token('newsletter_subscribe') }}">
 					<input type="email" name="email" placeholder="Pour s'inscrire..." required class="w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-sm text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange transition-all">
-					<button type="submit" class="rounded-lg bg-custom-orange px-4 py-3 text-xs font-bold text-text-primary hover:bg-orange-600 transition-all" aria-label="S'inscrire">
+					<button type="submit" class="rounded-lg bg-custom-orange px-4 py-3 text-xs font-bold text-gray-900 hover:bg-orange-600 transition-all" aria-label="S'inscrire">
 						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
 					</button>
 				</form>
@@ -324,7 +324,7 @@
 						</div>
 					</div>
 					<p id="register-password-error" class="hidden text-xs text-red-400">Les mots de passe ne correspondent pas.</p>
-					<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-[1.02] transition-all shadow-lg shadow-custom-orange/20">S'INSCRIRE</button>
+					<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 hover:scale-[1.02] transition-all shadow-lg shadow-custom-orange/20">S'INSCRIRE</button>
 				</form>
 			</div>
 		</div>

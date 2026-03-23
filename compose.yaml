@@ -11,7 +11,7 @@ services:
       database:
         condition: service_healthy # ← Attend que MySQL soit prêt
     environment:
-      DATABASE_URL: "mysql://app:secret@database:3306/app?serverVersion=8.0&charset=utf8mb4"
+      DATABASE_URL: "mysql://app:Rapupyxe112358134&@database:3306/bacbdd?serverVersion=8.0&charset=utf8mb4"
       MAILER_DSN: "smtp://mailer:1025"
       APP_ENV: prod
     restart: unless-stopped
@@ -30,9 +30,9 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: app
+      MYSQL_DATABASE: bacbdd
       MYSQL_USER: app
-      MYSQL_PASSWORD: secret
+      MYSQL_PASSWORD: Rapupyxe112358134&
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -57,7 +57,7 @@ services:
     environment:
       PMA_HOST: database
       PMA_USER: app
-      PMA_PASSWORD: secret
+      PMA_PASSWORD: Rapupyxe112358134&
     depends_on:
       - database
     restart: unless-stopped

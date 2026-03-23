@@ -151,11 +151,11 @@
 							</svg>
 						</button>
 						{% if app.user %}
-							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
 								DÉCONNEXION
 							</a>
 						{% else %}
-							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
 								NOUS REJOINDRE
 							</button>
 						{% endif %}
@@ -183,8 +183,8 @@
 									<label for="join-password" class="block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5">Mot de passe</label>
 									<input type="password" id="join-password" name="_password" required autocomplete="current-password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········">
 								</div>
-								<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[130px] text-center">SE CONNECTER</button>
-								<button type="button" data-open-register class="shrink-0 rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-text-primary transition-all min-w-[130px] text-center">S'INSCRIRE</button>
+								<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20 min-w-[130px] text-center">SE CONNECTER</button>
+								<button type="button" data-open-register class="shrink-0 rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-gray-900 transition-all min-w-[130px] text-center">S'INSCRIRE</button>
 							</div>
 							<a href="{{ path('app_forgot_password_request') }}" class="text-xs text-text-secondary hover:text-custom-orange transition-colors text-center">Mot de passe oublié ?</a>
 						</form>
@@ -206,16 +206,16 @@
 						{# Filtres par type #}
 						<div class="flex flex-wrap gap-1.5 mb-4">
 							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear }) }}#calendar"
-							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-gray-900' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
-							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar"
+							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-gray-900' : 'bg-custom-tertiary text-text-secondary hover:text-gray-900' }}">Tous</a>
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar" aria-label="Filtrer par JDS"
 							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDS' ? 'bg-emerald-500 text-white' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40' }}">JDS</a>
-							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar"
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar" aria-label="Filtrer par JDR"
 							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDR' ? 'bg-violet-500 text-white' : 'bg-violet-500/20 text-violet-400 hover:bg-violet-500/40' }}">JDR</a>
-							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'GN' }) }}#calendar"
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'GN' }) }}#calendar" aria-label="Filtrer par GN"
 							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'GN' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 hover:bg-red-500/40' }}">GN</a>
-							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDF' }) }}#calendar"
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDF' }) }}#calendar" aria-label="Filtrer par JDF"
 							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDF' ? 'bg-sky-500 text-white' : 'bg-sky-500/20 text-sky-400 hover:bg-sky-500/40' }}">JDF</a>
-							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'AG' }) }}#calendar"
+							<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'AG' }) }}#calendar" aria-label="Filtrer par AG"
 							   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'AG' ? 'bg-amber-500 text-white' : 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/40' }}">AG</a>
 						</div>
 						<div class="flex gap-4 mb-6">
@@ -282,7 +282,7 @@
 									<div class="mb-2"></div>
 								{% endif %}
 								{% if activity.startAt > date() %}
-									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-gray-900 transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}
@@ -316,7 +316,7 @@
 									<div class="mb-2"></div>
 								{% endif %}
 								{% if activity.startAt > date() %}
-									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-gray-900 transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}
@@ -397,11 +397,11 @@
 				{% endif %}
 				<hr class="border-custom my-4">
 				{% if app.user %}
-					<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
+					<a href="{{ path('app_logout') }}" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-gray-900 shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all block">
 						DÉCONNEXION
 					</a>
 				{% else %}
-					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-text-primary shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
+					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-gray-900 shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
 						NOUS REJOINDRE
 					</button>
 				{% endif %}
@@ -417,14 +417,14 @@
 							<label for="mobile-join-password" class="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">Mot de passe</label>
 							<input type="password" id="mobile-join-password" name="_password" class="w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange" placeholder="········" autocomplete="current-password">
 						</div>
-						<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
-						<button type="button" data-open-register class="w-full rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-text-primary transition-all">S'INSCRIRE</button>
+						<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
+						<button type="button" data-open-register class="w-full rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange hover:bg-custom-orange hover:text-gray-900 transition-all">S'INSCRIRE</button>
 						<a href="{{ path('app_forgot_password_request') }}" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
 					</form>
 				</div>
 			</nav>
 			<div class="absolute bottom-10 left-8 right-8 text-center">
-				<p class="text-[10px] uppercase tracking-widest text-text-secondary/30 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
+				<p class="text-[10px] uppercase tracking-widest text-text-secondary/60 font-bold">&copy; LA BOÎTE À CHIMÈRE</p>
 			</div>
 		</div>
 	</div>
@@ -451,16 +451,16 @@
 								{# Filtres par type #}
 								<div class="flex flex-wrap gap-1.5 mb-4">
 									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear }) }}#calendar-desktop"
-									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-gray-900' : 'bg-custom-tertiary text-text-secondary hover:text-text-primary' }}">Tous</a>
-									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar-desktop"
+									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType is null ? 'bg-custom-orange text-gray-900' : 'bg-custom-tertiary text-text-secondary hover:text-gray-900' }}">Tous</a>
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDS' }) }}#calendar-desktop" aria-label="Filtrer par JDS"
 									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDS' ? 'bg-emerald-500 text-white' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40' }}">JDS</a>
-									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar-desktop"
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDR' }) }}#calendar-desktop" aria-label="Filtrer par JDR"
 									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDR' ? 'bg-violet-500 text-white' : 'bg-violet-500/20 text-violet-400 hover:bg-violet-500/40' }}">JDR</a>
-									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'GN' }) }}#calendar-desktop"
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'GN' }) }}#calendar-desktop" aria-label="Filtrer par GN"
 									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'GN' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 hover:bg-red-500/40' }}">GN</a>
-									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDF' }) }}#calendar-desktop"
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'JDF' }) }}#calendar-desktop" aria-label="Filtrer par JDF"
 									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'JDF' ? 'bg-sky-500 text-white' : 'bg-sky-500/20 text-sky-400 hover:bg-sky-500/40' }}">JDF</a>
-									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'AG' }) }}#calendar-desktop"
+									<a href="{{ path('app_home', { month: calendarMonth, year: calendarYear, type: 'AG' }) }}#calendar-desktop" aria-label="Filtrer par AG"
 									   class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all {{ filterType == 'AG' ? 'bg-amber-500 text-white' : 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/40' }}">AG</a>
 								</div>
 								<div class="flex gap-4 mb-6">
@@ -527,7 +527,7 @@
 											<div class="mb-2"></div>
 										{% endif %}
 										{% if activity.startAt > date() %}
-									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-gray-900 transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}
@@ -561,7 +561,7 @@
 											<div class="mb-2"></div>
 										{% endif %}
 										{% if activity.startAt > date() %}
-									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded bg-custom-orange py-2 text-[10px] font-extrabold uppercase tracking-widest text-gray-900 transition-all hover:bg-orange-600 cursor-pointer">S'INSCRIRE</button>
 								{% else %}
 									<span class="inline-flex w-full justify-center rounded bg-custom-tertiary py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-secondary cursor-not-allowed">TERMINÉ</span>
 								{% endif %}
@@ -684,7 +684,7 @@
 		<div class="mx-auto max-w-[1240px]">
 			<div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
 				<h2 class="text-base font-bold uppercase tracking-[0.2em] text-text-primary">VIE DU FORUM</h2>
-				<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" class="shrink-0 rounded bg-custom-orange px-6 py-2 text-[10px] font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-orange-600">VOIR LE FORUM</a>
+				<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" class="shrink-0 rounded bg-custom-orange px-6 py-2 text-[10px] font-extrabold uppercase tracking-widest text-gray-900 transition-all hover:bg-orange-600">VOIR LE FORUM</a>
 			</div>
 			<div class="grid gap-4 md:grid-cols-3">
 				{% set posts = [
@@ -724,7 +724,7 @@
 				<form class="flex gap-2" action="{{ path('app_newsletter_subscribe') }}" method="post" data-turbo="false">
 					<input type="hidden" name="_token" value="{{ csrf_token('newsletter_subscribe') }}">
 					<input type="email" name="email" placeholder="Pour s'inscrire..." required class="w-full rounded-lg border border-custom bg-custom-secondary px-4 py-3 text-sm text-text-primary focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange transition-all">
-					<button type="submit" class="rounded-lg bg-custom-orange px-4 py-3 text-xs font-bold text-text-primary hover:bg-orange-600 transition-all" aria-label="S'inscrire">
+					<button type="submit" class="rounded-lg bg-custom-orange px-4 py-3 text-xs font-bold text-gray-900 hover:bg-orange-600 transition-all" aria-label="S'inscrire">
 						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
 					</button>
 				</form>
@@ -830,7 +830,7 @@
 						</div>
 					</div>
 					<p id="register-password-error" class="hidden text-xs text-red-400">Les mots de passe ne correspondent pas.</p>
-					<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-text-primary hover:bg-orange-600 hover:scale-[1.02] transition-all shadow-lg shadow-custom-orange/20">S'INSCRIRE</button>
+					<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 hover:scale-[1.02] transition-all shadow-lg shadow-custom-orange/20">S'INSCRIRE</button>
 				</form>
 			</div>
 		</div>

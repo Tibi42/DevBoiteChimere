@@ -1,5 +1,6 @@
 services:
   php:
+    user: root # Nécessaire pour que composer ait les droits d'écriture sur vendor_data
     environment:
       APP_DEBUG: 1
       XDEBUG_MODE: "off" # Changer en "debug" pour activer Xdebug

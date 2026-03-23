@@ -16,7 +16,7 @@
 				<p class="font-medium text-text-primary mt-1">{{ slide.title }}</p>
 				<p class="text-sm text-text-secondary mt-0.5">{{ slide.date }}</p>
 			</div>
-			{{ include('admin/carousel/_form.html.twig', { form: form, button_label: 'Enregistrer' }) }}
+			{{ include('admin/carousel/_form.html.twig', { form: form, button_label: 'Enregistrer', form_action: path('app_admin_carousel_edit', { id: slide.id }) }) }}
 		</div>
 	</div>
 {% endblock %}
