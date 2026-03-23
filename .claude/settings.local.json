@@ -105,7 +105,9 @@
       "Bash(npx lighthouse:*)",
       "Bash(find C:/laragon/www/DevBoiteChimere -maxdepth 1 -name *.yml -o -name *.yaml)",
       "mcp__plugin_playwright_playwright__browser_network_requests",
-      "mcp__plugin_playwright_playwright__browser_evaluate"
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "mcp__plugin_playwright_playwright__browser_console_messages"
     ]
   }
 }

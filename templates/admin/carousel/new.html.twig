@@ -9,9 +9,27 @@
 			Retour au carousel
 		</a>
 
-		<div class="max-w-2xl rounded-2xl border border-custom bg-custom-secondary p-6 lg:p-8 shadow-2xl glass-card">
-			<h1 class="text-xl font-bold text-text-primary uppercase tracking-wide mb-6">Nouvelle slide</h1>
-			{{ include('admin/carousel/_form.html.twig', { form: form, button_label: 'Créer la slide', form_action: path('app_admin_carousel_new') }) }}
+		<div data-controller="carousel-preview" class="flex flex-col xl:flex-row gap-8 items-start">
+			<div class="w-full xl:max-w-2xl rounded-2xl border border-custom bg-custom-secondary p-6 lg:p-8 shadow-2xl glass-card">
+				<h1 class="text-xl font-bold text-text-primary uppercase tracking-wide mb-6">Nouvelle slide</h1>
+				{{ include('admin/carousel/_form.html.twig', { form: form, button_label: 'Créer la slide', form_action: path('app_admin_carousel_new') }) }}
+			</div>
+
+			<div class="w-full xl:w-80 xl:sticky xl:top-8">
+				<div class="rounded-2xl border border-custom bg-custom-secondary p-5 shadow-xl glass-card">
+					<h2 class="text-[10px] font-bold uppercase tracking-widest text-text-secondary mb-4">Aperçu</h2>
+					<div class="rounded-xl border border-custom overflow-hidden">
+						<div class="group flex flex-col gap-3 p-4 hover:bg-white/5 transition-colors">
+							<div>
+								<span data-carousel-preview-target="previewTag" class="text-[9px] font-bold uppercase tracking-[0.2em] text-custom-orange">Étiquette</span>
+								<p data-carousel-preview-target="previewTitle" class="text-base font-bold text-text-primary mt-0.5 leading-tight">Titre de la slide</p>
+								<p data-carousel-preview-target="previewDate" class="text-xs text-text-secondary mt-1">Date</p>
+							</div>
+							<span data-carousel-preview-target="previewBtn" class="text-center rounded-lg bg-custom-orange px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-900 shadow-lg transition-all">Bouton</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

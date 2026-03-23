@@ -7,34 +7,34 @@
 		</div>
 		<div>
 			{{ form_label(form.tag) }}
-			{{ form_widget(form.tag) }}
+			{{ form_widget(form.tag, { attr: { 'data-carousel-preview-target': 'tag', 'data-action': 'input->carousel-preview#update' } }) }}
 			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.tag) }}</div>
 		</div>
 	</div>
 	<div>
 		{{ form_label(form.tagColor) }}
-		{{ form_widget(form.tagColor) }}
+		{{ form_widget(form.tagColor, { attr: { 'data-carousel-preview-target': 'tagColor', 'data-action': 'change->carousel-preview#update' } }) }}
 		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.tagColor) }}</div>
 	</div>
 	<div>
 		{{ form_label(form.title) }}
-		{{ form_widget(form.title) }}
+		{{ form_widget(form.title, { attr: { 'data-carousel-preview-target': 'title', 'data-action': 'input->carousel-preview#update' } }) }}
 		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.title) }}</div>
 	</div>
 	<div>
 		{{ form_label(form.date) }}
-		{{ form_widget(form.date) }}
+		{{ form_widget(form.date, { attr: { 'data-carousel-preview-target': 'date', 'data-action': 'input->carousel-preview#update' } }) }}
 		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.date) }}</div>
 	</div>
 	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 		<div>
 			{{ form_label(form.btnText) }}
-			{{ form_widget(form.btnText) }}
+			{{ form_widget(form.btnText, { attr: { 'data-carousel-preview-target': 'btnText', 'data-action': 'input->carousel-preview#update' } }) }}
 			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.btnText) }}</div>
 		</div>
 		<div>
 			{{ form_label(form.btnClass) }}
-			{{ form_widget(form.btnClass) }}
+			{{ form_widget(form.btnClass, { attr: { 'data-carousel-preview-target': 'btnClass', 'data-action': 'change->carousel-preview#update' } }) }}
 			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.btnClass) }}</div>
 		</div>
 	</div>
