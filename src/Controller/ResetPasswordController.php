@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 #[Route('/reset-password')]
@@ -153,17 +154,15 @@ class ResetPasswordController extends AbstractController
 
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
+        } catch (TooManyPasswordRequestsException $e) {
+            $availableAt = $e->getAvailableAt();
+            $waitMinutes = $availableAt ? (int) ceil((($availableAt->getTimestamp() - time()) / 60)) : 60;
+            $this->addFlash('reset_password_error', sprintf(
+                'Un email de réinitialisation a déjà été envoyé. Veuillez patienter encore %d minute(s) avant d\'en demander un nouveau.',
+                $waitMinutes
+            ));
+            return $this->redirectToRoute('app_forgot_password_request');
         } catch (ResetPasswordExceptionInterface $e) {
-            // If you want to tell the user why a reset email was not sent, uncomment
-            // the lines below and change the redirect to 'app_forgot_password_request'.
-            // Caution: This may reveal if a user is registered or not.
-            //
-            // $this->addFlash('reset_password_error', sprintf(
-            //     '%s - %s',
-            //     $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE, [], 'ResetPasswordBundle'),
-            //     $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
-            // ));
-
             return $this->redirectToRoute('app_check_email');
         }
 
