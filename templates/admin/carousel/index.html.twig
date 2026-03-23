@@ -41,13 +41,13 @@
 							<a href="{{ path('app_admin_carousel_edit', { id: slide.id }) }}" class="text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors">Modifier</a>
 							<form method="post" action="{{ path('app_admin_carousel_toggle', { id: slide.id }) }}" class="contents">
 								<input type="hidden" name="_token" value="{{ csrf_token('toggle' ~ slide.id) }}">
-								<button type="submit" class="text-[10px] font-bold uppercase tracking-wider {{ slide.active ? 'text-amber-400 hover:text-amber-300' : 'text-emerald-400 hover:text-emerald-300' }} transition-colors">
+								<button type="submit" class="cursor-pointer text-[10px] font-bold uppercase tracking-wider {{ slide.active ? 'text-amber-400 hover:text-amber-300' : 'text-emerald-400 hover:text-emerald-300' }} transition-colors">
 									{{ slide.active ? 'Suspendre' : 'Activer' }}
 								</button>
 							</form>
 							<form method="post" action="{{ path('app_admin_carousel_delete', { id: slide.id }) }}" class="contents" onsubmit="return confirm('Supprimer cette slide ?');">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ slide.id) }}">
-								<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
+								<button type="submit" class="cursor-pointer text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
 							</form>
 						</div>
 					</div>
@@ -90,13 +90,13 @@
 										<a href="{{ path('app_admin_carousel_edit', { id: slide.id }) }}" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-custom-orange hover:text-orange-400 transition-colors mr-3">Modifier</a>
 										<form method="post" action="{{ path('app_admin_carousel_toggle', { id: slide.id }) }}" class="inline">
 											<input type="hidden" name="_token" value="{{ csrf_token('toggle' ~ slide.id) }}">
-											<button type="submit" class="text-[10px] font-bold uppercase tracking-wider {{ slide.active ? 'text-amber-400 hover:text-amber-300' : 'text-emerald-400 hover:text-emerald-300' }} transition-colors mr-3">
+											<button type="submit" class="cursor-pointer text-[10px] font-bold uppercase tracking-wider {{ slide.active ? 'text-amber-400 hover:text-amber-300' : 'text-emerald-400 hover:text-emerald-300' }} transition-colors mr-3">
 												{{ slide.active ? 'Suspendre' : 'Activer' }}
 											</button>
 										</form>
 										<form method="post" action="{{ path('app_admin_carousel_delete', { id: slide.id }) }}" class="inline" onsubmit="return confirm('Supprimer cette slide ?');">
 											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ slide.id) }}">
-											<button type="submit" class="text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
+											<button type="submit" class="cursor-pointer text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-colors">Supprimer</button>
 										</form>
 									</td>
 								</tr>
