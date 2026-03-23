@@ -854,8 +854,10 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script>
-		document.addEventListener('DOMContentLoaded', function () {
+		function initTogglePassword() {
 			document.querySelectorAll('[data-toggle-password]').forEach(function (btn) {
+				if (btn._togglePasswordInit) return;
+				btn._togglePasswordInit = true;
 				btn.addEventListener('click', function () {
 					var input = document.getElementById(btn.dataset.togglePassword);
 					if (!input) return;
@@ -865,7 +867,9 @@
 					btn.querySelectorAll('.eye-open').forEach(function (el) { el.classList.toggle('hidden', !isHidden); });
 				});
 			});
-		});
+		}
+		document.addEventListener('DOMContentLoaded', initTogglePassword);
+		document.addEventListener('turbo:load', initTogglePassword);
 	</script>
 {% endblock %}
 
