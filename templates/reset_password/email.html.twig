@@ -1,11 +1,97 @@
-Bonjour,
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réinitialisation de mot de passe - La Boîte à Chimère</title>
+</head>
+<body style="margin:0;padding:0;background-color:#121214;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#121214;padding:40px 0;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
 
-Vous avez demandé une réinitialisation de mot de passe pour votre compte La Boîte à Chimère.
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="padding:30px 40px;background-color:#1c1c1f;border-radius:16px 16px 0 0;border-bottom:2px solid #f8742c;">
+                            <table role="presentation" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="padding-right:12px;vertical-align:middle;">
+                                        <div style="width:44px;height:44px;background:linear-gradient(135deg,#f8742c,#e85d04);border-radius:12px;display:inline-block;text-align:center;line-height:44px;font-size:20px;font-weight:bold;color:#f3f4f6;">&#x2B22;</div>
+                                    </td>
+                                    <td style="vertical-align:middle;">
+                                        <span style="font-size:18px;font-weight:800;color:#f3f4f6;letter-spacing:2px;text-transform:uppercase;">LA BOÎTE</span><br>
+                                        <span style="font-size:18px;font-weight:800;color:#f3f4f6;letter-spacing:2px;text-transform:uppercase;">À CHIMÈRE</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
 
-Cliquez sur le lien ci-dessous pour définir un nouveau mot de passe (valable 1 heure) :
+                    <!-- Body -->
+                    <tr>
+                        <td style="background-color:#1c1c1f;padding:40px;">
 
-{{ url('app_reset_password', {token: resetToken.token}) }}
+                            <!-- Badge -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                                <tr>
+                                    <td style="background-color:rgba(248,116,44,0.15);border-radius:6px;padding:4px 12px;">
+                                        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#f8742c;">Sécurité du compte</span>
+                                    </td>
+                                </tr>
+                            </table>
 
-Si vous n'avez pas fait cette demande, ignorez simplement cet email.
+                            <h1 style="margin:0 0 16px;font-size:22px;font-weight:800;color:#f3f4f6;text-transform:uppercase;letter-spacing:1px;">
+                                Réinitialisation de mot de passe
+                            </h1>
 
-— La Boîte à Chimère
+                            <p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#9ca3af;">
+                                Vous avez demandé à réinitialiser le mot de passe de votre compte.<br>
+                                Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe. Ce lien est valable <strong style="color:#f3f4f6;">1 heure</strong>.
+                            </p>
+
+                            <!-- CTA Button -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:32px 0;" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <a href="{{ url('app_reset_password', {token: resetToken.token}) }}" target="_blank" style="display:inline-block;background-color:#f8742c;color:#111;text-decoration:none;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:2px;padding:16px 40px;border-radius:10px;">
+                                            Réinitialiser mon mot de passe
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Fallback link -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 32px;border:1px solid #26262b;border-radius:12px;overflow:hidden;">
+                                <tr>
+                                    <td style="padding:16px 20px;background-color:#26262b;">
+                                        <p style="margin:0 0 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;">Si le bouton ne fonctionne pas, copiez ce lien :</p>
+                                        <p style="margin:0;font-size:12px;color:#9ca3af;word-break:break-all;">{{ url('app_reset_password', {token: resetToken.token}) }}</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <hr style="border:none;border-top:1px solid #26262b;margin:32px 0;">
+
+                            <p style="margin:0;font-size:12px;line-height:1.6;color:#6b7280;">
+                                Si vous n'avez pas demandé de réinitialisation, ignorez cet email. Votre mot de passe ne sera pas modifié.
+                            </p>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color:#26262b;padding:24px 40px;border-radius:0 0 16px 16px;">
+                            <p style="margin:16px 0 0;font-size:10px;color:#6b7280;text-align:center;text-transform:uppercase;letter-spacing:1px;">
+                                &copy; {{ "now"|date("Y") }} La Boîte à Chimère — Tous droits réservés
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

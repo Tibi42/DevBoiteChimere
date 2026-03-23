@@ -13,11 +13,16 @@
                 <div>
                     {{ form_label(resetForm.plainPassword.first, 'Nouveau mot de passe', { label_attr: { class: 'block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5' } }) }}
                     {{ form_widget(resetForm.plainPassword.first, { attr: { class: 'w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange', placeholder: '········' } }) }}
+                    {% for error in resetForm.plainPassword.first.vars.errors %}
+                        <p class="text-xs text-red-400 mt-1">{{ error.message }}</p>
+                    {% endfor %}
                 </div>
                 <div>
                     {{ form_label(resetForm.plainPassword.second, 'Confirmer le mot de passe', { label_attr: { class: 'block text-[10px] font-bold uppercase tracking-wider text-text-secondary mb-1.5' } }) }}
                     {{ form_widget(resetForm.plainPassword.second, { attr: { class: 'w-full rounded-lg border border-custom bg-custom-tertiary px-4 py-2.5 text-sm text-text-primary placeholder-text-secondary/60 focus:border-custom-orange focus:outline-none focus:ring-1 focus:ring-custom-orange', placeholder: '········' } }) }}
-                    {{ form_errors(resetForm.plainPassword) }}
+                    {% for error in resetForm.plainPassword.vars.errors %}
+                        <p class="text-xs text-red-400 mt-1">{{ error.message }}</p>
+                    {% endfor %}
                 </div>
                 <button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-custom-orange/20">
                     Réinitialiser le mot de passe
