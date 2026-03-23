@@ -103,14 +103,14 @@
 					{% endif %}
 
 					<nav class="hidden lg:flex items-center gap-10">
-						<a href="{{ path('app_home') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">ACCUEIL</a>
-						<a href="{{ path('app_jds') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jds' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">JDS</a>
-						<a href="{{ path('app_jdr') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jdr' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">JDR</a>
-						<a href="{{ path('app_gn') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_gn' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">GN</a>
-						<a href="{{ path('app_association') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_association' ? 'text-custom-orange' : 'text-text-secondary hover:text-text-primary' }} transition-colors">ASSOCIATION</a>
-						<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">FORUM</a>
+						<a href="{{ path('app_home') }}" class="text-[13px] font-bold uppercase tracking-[0.1em] text-text-primary hover:text-custom-orange transition-colors">ACCUEIL</a>
+						<a href="{{ path('app_jds') }}" class="text-[13px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jds' ? 'text-custom-orange' : 'text-text-primary hover:text-custom-orange' }} transition-colors">JDS</a>
+						<a href="{{ path('app_jdr') }}" class="text-[13px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_jdr' ? 'text-custom-orange' : 'text-text-primary hover:text-custom-orange' }} transition-colors">JDR</a>
+						<a href="{{ path('app_gn') }}" class="text-[13px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_gn' ? 'text-custom-orange' : 'text-text-primary hover:text-custom-orange' }} transition-colors">GN</a>
+						<a href="{{ path('app_association') }}" class="text-[13px] font-bold uppercase tracking-[0.1em] {{ app.request.attributes.get('_route') == 'app_association' ? 'text-custom-orange' : 'text-text-primary hover:text-custom-orange' }} transition-colors">ASSOCIATION</a>
+						<a href="https://laboiteachimere.com/forum/" target="_blank" rel="noopener noreferrer" class="text-[13px] font-bold uppercase tracking-[0.1em] text-text-primary hover:text-custom-orange transition-colors">FORUM</a>
 						{% if app.user %}
-							<a href="{{ path('app_user_dashboard') }}" data-turbo="false" class="text-[11px] font-bold uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors">MON ESPACE</a>
+							<a href="{{ path('app_user_dashboard') }}" data-turbo="false" class="text-[13px] font-bold uppercase tracking-[0.1em] text-text-primary hover:text-custom-orange transition-colors">MON ESPACE</a>
 						{% endif %}
 						{% if is_granted('ROLE_ADMIN') %}
 							<a href="{{ path('admin') }}" class="text-[11px] font-bold uppercase tracking-[0.1em] text-custom-orange hover:text-orange-400 transition-colors">DASHBOARD</a>
@@ -127,11 +127,11 @@
 							</svg>
 						</button>
 						{% if app.user %}
-							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							<a href="{{ path('app_logout') }}" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 cursor-pointer transition-all hover:bg-orange-600 hover:scale-105 hover:shadow-xl hover:shadow-custom-orange/40 shadow-lg shadow-custom-orange/20">
 								DÉCONNEXION
 							</a>
 						{% else %}
-							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 transition-all hover:bg-orange-600 hover:scale-105 shadow-lg shadow-custom-orange/20">
+							<button type="button" id="join-btn" class="hidden lg:block rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 cursor-pointer transition-all hover:bg-orange-600 hover:scale-105 hover:shadow-xl hover:shadow-custom-orange/40 shadow-lg shadow-custom-orange/20">
 								NOUS REJOINDRE
 							</button>
 						{% endif %}
@@ -166,7 +166,7 @@
 										</div>
 									</div>
 									<button type="submit" class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 cursor-pointer hover:bg-orange-600 hover:scale-105 hover:shadow-xl hover:shadow-custom-orange/40 transition-all shadow-lg shadow-custom-orange/20 min-w-[130px] text-center">SE CONNECTER</button>
-									<button type="button" data-open-register class="shrink-0 rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange cursor-pointer hover:bg-custom-orange hover:text-gray-900 hover:scale-105 hover:shadow-lg hover:shadow-custom-orange/40 transition-all min-w-[130px] text-center">S'INSCRIRE</button>
+									<button type="button" data-open-register class="shrink-0 rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 cursor-pointer hover:bg-orange-600 hover:scale-105 hover:shadow-xl hover:shadow-custom-orange/40 transition-all shadow-lg shadow-custom-orange/20 min-w-[130px] text-center">S'INSCRIRE</button>
 								</div>
 								<a href="{{ path('app_forgot_password_request') }}" class="text-xs text-text-secondary hover:text-custom-orange transition-colors text-center">Mot de passe oublié ?</a>
 							</form>
@@ -209,7 +209,7 @@
 						DÉCONNEXION
 					</a>
 				{% else %}
-					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-gray-900 shadow-lg shadow-custom-orange/20 hover:bg-orange-600 transition-all">
+					<button id="mobile-join-btn" type="button" class="mt-2 w-full rounded-lg bg-custom-orange px-6 py-4 text-center text-sm font-extrabold uppercase tracking-widest text-gray-900 cursor-pointer shadow-lg shadow-custom-orange/20 hover:bg-orange-600 hover:scale-105 hover:shadow-xl hover:shadow-custom-orange/40 transition-all">
 						NOUS REJOINDRE
 					</button>
 				{% endif %}
@@ -233,7 +233,7 @@
 								</div>
 							</div>
 							<button type="submit" class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 cursor-pointer hover:bg-orange-600 hover:scale-105 hover:shadow-xl hover:shadow-custom-orange/40 transition-all shadow-lg shadow-custom-orange/20">SE CONNECTER</button>
-							<button type="button" data-open-register class="w-full rounded-lg border border-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-custom-orange cursor-pointer hover:bg-custom-orange hover:text-gray-900 hover:scale-105 hover:shadow-lg hover:shadow-custom-orange/40 transition-all">S'INSCRIRE</button>
+							<button type="button" data-open-register class="w-full rounded-lg bg-custom-orange px-6 py-3 text-[11px] font-extrabold uppercase tracking-[0.05em] text-gray-900 cursor-pointer hover:bg-orange-600 hover:scale-105 hover:shadow-xl hover:shadow-custom-orange/40 transition-all shadow-lg shadow-custom-orange/20">S'INSCRIRE</button>
 							<a href="{{ path('app_forgot_password_request') }}" class="block text-center text-xs text-text-secondary hover:text-custom-orange transition-colors mt-1">Mot de passe oublié ?</a>
 						</form>
 					</div>
