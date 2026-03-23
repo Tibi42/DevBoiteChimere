@@ -6,10 +6,13 @@ use App\Entity\Inscription;
 use App\Repository\ActivityRepository;
 use App\Repository\InscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_USER')]
@@ -126,7 +129,7 @@ class UserDashboardController extends AbstractController
     }
 
     #[Route('/mon-espace/desinscription/{id}', name: 'app_user_unregister', requirements: ['id' => '\d+'], methods: ['POST'])]
-    public function unregister(Inscription $inscription, Request $request, EntityManagerInterface $em): Response
+    public function unregister(Inscription $inscription, Request $request, EntityManagerInterface $em, InscriptionRepository $inscriptionRepository, MailerInterface $mailer): Response
     {
         if (!$this->isCsrfTokenValid('unregister' . $inscription->getId(), $request->request->get('_token'))) {
             $this->addFlash('error', 'Jeton de sécurité invalide.');
@@ -140,11 +143,47 @@ class UserDashboardController extends AbstractController
             return $this->redirectToRoute('app_user_dashboard');
         }
 
-        $activityTitle = $inscription->getActivity()?->getTitle() ?? 'activité';
-        $em->remove($inscription);
-        $em->flush();
+        $activity = $inscription->getActivity();
+        $activityTitle = $activity?->getTitle() ?? 'activité';
 
-        $this->addFlash('success', 'Vous êtes désinscrit de « ' . $activityTitle . ' ».');
+        if ($activity && $activity->getProposedBy()?->getId() === $this->getUser()->getId()) {
+            // Récupérer tous les inscrits avant suppression pour leur envoyer un email
+            $inscriptions = $inscriptionRepository->findBy(['activity' => $activity]);
+            $siteUrl = $this->generateUrl('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            foreach ($inscriptions as $i) {
+                // Ne pas envoyer au créateur lui-même
+                if ($i->getParticipantEmail() === $this->getUser()->getEmail()) {
+                    continue;
+                }
+                try {
+                    $email = (new TemplatedEmail())
+                        ->from('noreply@laboiteachimere.fr')
+                        ->to($i->getParticipantEmail())
+                        ->subject('Événement annulé : ' . $activityTitle)
+                        ->htmlTemplate('emails/activity_cancelled.html.twig')
+                        ->context([
+                            'participantName' => $i->getParticipantName(),
+                            'activityTitle'   => $activityTitle,
+                            'activityType'    => $activity->getType() ?? 'Événement',
+                            'activityDate'    => $activity->getStartAt()?->format('d/m/Y') ?? '',
+                            'activityLocation' => $activity->getLocation(),
+                            'siteUrl'         => $siteUrl,
+                        ]);
+                    $mailer->send($email);
+                } catch (\Throwable) {
+                    // Ne pas bloquer la suppression si un email échoue
+                }
+            }
+
+            $em->remove($activity);
+            $em->flush();
+            $this->addFlash('success', 'L\'événement « ' . $activityTitle . ' » a été supprimé et les participants ont été notifiés.');
+        } else {
+            $em->remove($inscription);
+            $em->flush();
+            $this->addFlash('success', 'Vous êtes désinscrit de « ' . $activityTitle . ' ».');
+        }
 
         return $this->redirectToRoute('app_user_dashboard');
     }

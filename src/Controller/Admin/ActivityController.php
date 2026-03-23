@@ -9,12 +9,15 @@ use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
 use App\Repository\InscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/admin/activites', name: 'app_activity_')]
 class ActivityController extends AbstractController
@@ -22,7 +25,9 @@ class ActivityController extends AbstractController
     public function __construct(
         private readonly ActivityRepository $activityRepository,
         private readonly InscriptionRepository $inscriptionRepository,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
+        private readonly MailerInterface $mailer,
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -211,6 +216,9 @@ class ActivityController extends AbstractController
         }
 
         $title = $activity->getTitle();
+
+        $this->sendCancellationEmails($activity, $title);
+
         $this->entityManager->remove($activity);
         $this->entityManager->flush();
         $this->addFlash('success', 'La proposition « ' . $title . ' » a été rejetée et supprimée.');
@@ -233,10 +241,37 @@ class ActivityController extends AbstractController
         }
 
         $title = $activity->getTitle();
+
+        $this->sendCancellationEmails($activity, $title);
+
         $this->entityManager->remove($activity);
         $this->entityManager->flush();
         $this->addFlash('success', 'L\'activité « ' . $title . ' » a été supprimée.');
 
         return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function sendCancellationEmails(Activity $activity, string $title): void
+    {
+        $inscriptions = $this->inscriptionRepository->findBy(['activity' => $activity]);
+        $siteUrl = $this->urlGenerator->generate('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        foreach ($inscriptions as $i) {
+            try {
+                $email = (new TemplatedEmail())
+                    ->from('noreply@laboiteachimere.fr')
+                    ->to($i->getParticipantEmail())
+                    ->subject('Événement annulé : ' . $title)
+                    ->htmlTemplate('emails/activity_cancelled.html.twig')
+                    ->context([
+                        'participantName'  => $i->getParticipantName(),
+                        'activityTitle'    => $title,
+                        'activityType'     => $activity->getType() ?? 'Événement',
+                        'activityDate'     => $activity->getStartAt()?->format('d/m/Y') ?? '',
+                        'activityLocation' => $activity->getLocation(),
+                        'siteUrl'          => $siteUrl,
+                    ]);
+                $this->mailer->send($email);
+            } catch (\Throwable) {}
+        }
     }
 }

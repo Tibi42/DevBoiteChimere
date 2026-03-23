@@ -55,10 +55,9 @@
 								</div>
 								<div>
 									<h3 class="text-sm font-bold text-text-primary">{{ activity.title }}</h3>
-									<p class="text-xs text-text-secondary mt-0.5">
-										{{ activity.startAt|date('H:i') }}
-										{% if activity.location %} · {{ activity.location }}{% endif %}
-									</p>
+									{% if activity.location %}
+										<p class="text-xs text-text-secondary mt-0.5">{{ activity.location }}</p>
+									{% endif %}
 									{% if activity.type %}
 										<span class="inline-block mt-1 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-custom-orange/10 text-custom-orange">{{ activity.type }}</span>
 									{% endif %}
@@ -101,10 +100,9 @@
 								</div>
 								<div>
 									<h3 class="text-sm font-bold text-text-primary">{{ activity.title }}</h3>
-									<p class="text-xs text-text-secondary mt-0.5">
-										{{ activity.startAt|date('H:i') }}
-										{% if activity.location %} · {{ activity.location }}{% endif %}
-									</p>
+									{% if activity.location %}
+										<p class="text-xs text-text-secondary mt-0.5">{{ activity.location }}</p>
+									{% endif %}
 									{% if activity.type %}
 										<span class="inline-block mt-1 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 text-text-secondary">{{ activity.type }}</span>
 									{% endif %}

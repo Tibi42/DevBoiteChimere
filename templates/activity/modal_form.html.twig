@@ -42,11 +42,11 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <div class="flex gap-3">
                     <button type="submit" name="publish_now" value="1"
-                            class="flex-1 rounded-lg bg-emerald-600 py-3 text-xs font-extrabold uppercase tracking-widest text-white hover:bg-emerald-500 transition-all shadow-lg">
+                            class="flex-1 cursor-pointer rounded-lg bg-emerald-600 py-3 text-xs font-extrabold uppercase tracking-widest text-white hover:bg-emerald-500 transition-all shadow-lg">
                         Créer immédiatement
                     </button>
                     <button type="submit"
-                            class="flex-1 rounded-lg bg-custom-orange/30 py-3 text-xs font-extrabold uppercase tracking-widest text-custom-orange hover:bg-custom-orange/50 transition-all">
+                            class="flex-1 cursor-pointer rounded-lg bg-custom-orange/30 py-3 text-xs font-extrabold uppercase tracking-widest text-custom-orange hover:bg-custom-orange/50 transition-all">
                         En attente
                     </button>
                 </div>
@@ -57,7 +57,7 @@
                 </button>
             {% endif %}
             <button type="button" data-modal-close
-                    class="rounded-lg border border-custom px-4 py-3 text-xs font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors">
+                    class="cursor-pointer rounded-lg border border-custom px-4 py-3 text-xs font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors">
                 Annuler
             </button>
         </div>

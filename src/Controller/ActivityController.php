@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Entity\Inscription;
 use App\Form\ActivityType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,6 +48,14 @@ class ActivityController extends AbstractController
             );
 
             $this->entityManager->persist($activity);
+
+            $user = $this->getUser();
+            $inscription = new Inscription();
+            $inscription->setActivity($activity);
+            $inscription->setParticipantName($user->getUsername());
+            $inscription->setParticipantEmail($user->getEmail());
+            $this->entityManager->persist($inscription);
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
