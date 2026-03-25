@@ -31,8 +31,8 @@ class UserController extends AbstractController
         $role = $request->query->get('role');
         $search = $request->query->get('q');
 
-        $fromDate = $from ? new \DateTimeImmutable($from) : null;
-        $toDate = $to ? new \DateTimeImmutable($to) : null;
+        $fromDate = $from ? (\DateTimeImmutable::createFromFormat('Y-m-d', $from) ?: null) : null;
+        $toDate = $to ? (\DateTimeImmutable::createFromFormat('Y-m-d', $to) ?: null) : null;
 
         return $this->render('admin/user/index.html.twig', [
             'users' => $this->userRepository->findAllFiltered($fromDate, $toDate, $role, $search),
@@ -99,8 +99,8 @@ class UserController extends AbstractController
         $password = $request->request->get('new_password', '');
         $confirm  = $request->request->get('confirm_password', '');
 
-        if (mb_strlen($password) < 6) {
-            $this->addFlash('error', 'Le mot de passe doit faire au moins 6 caractères.');
+        if (mb_strlen($password) < 12) {
+            $this->addFlash('error', 'Le mot de passe doit faire au moins 12 caractères.');
             return $this->redirectToRoute('app_admin_user_edit', ['id' => $user->getId()]);
         }
 
@@ -151,8 +151,8 @@ class UserController extends AbstractController
         $role = $request->query->get('role');
         $search = $request->query->get('q');
 
-        $fromDate = $from ? new \DateTimeImmutable($from) : null;
-        $toDate = $to ? new \DateTimeImmutable($to) : null;
+        $fromDate = $from ? (\DateTimeImmutable::createFromFormat('Y-m-d', $from) ?: null) : null;
+        $toDate = $to ? (\DateTimeImmutable::createFromFormat('Y-m-d', $to) ?: null) : null;
 
         $users = $this->userRepository->findAllFiltered($fromDate, $toDate, $role, $search);
 
@@ -240,10 +240,16 @@ class UserController extends AbstractController
             $user->setUsername($username);
             $user->setEmail($email);
 
-            // Parse roles if provided
+            // Parse roles if provided — only whitelist safe roles
             $rolesStr = trim($row[2] ?? '');
             if ($rolesStr && $rolesStr !== 'Utilisateur') {
-                $roles = array_map('trim', explode(',', $rolesStr));
+                $allowedRoles = $this->isGranted('ROLE_SUPER_ADMIN')
+                    ? ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPER_ADMIN']
+                    : ['ROLE_ADMIN', 'ROLE_USER'];
+                $roles = array_values(array_filter(
+                    array_map('trim', explode(',', $rolesStr)),
+                    fn(string $r) => in_array($r, $allowedRoles, true)
+                ));
                 $user->setRoles($roles);
             }
 

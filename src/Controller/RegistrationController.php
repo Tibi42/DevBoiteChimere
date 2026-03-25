@@ -42,11 +42,11 @@ final class RegistrationController extends AbstractController
         if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Veuillez entrer une adresse email valide.';
         }
-        if (!$username || mb_strlen($username) < 3) {
-            $errors[] = 'Le nom d\'utilisateur doit faire au moins 3 caractères.';
+        if (!$username || mb_strlen($username) < 3 || !preg_match('/^[\w\-.\ ]+$/u', $username)) {
+            $errors[] = 'Le nom d\'utilisateur doit faire au moins 3 caractères et ne contenir que des lettres, chiffres, espaces, tirets, points et underscores.';
         }
-        if (mb_strlen($password) < 6) {
-            $errors[] = 'Le mot de passe doit faire au moins 6 caractères.';
+        if (mb_strlen($password) < 12) {
+            $errors[] = 'Le mot de passe doit faire au moins 12 caractères.';
         }
 
         if ($errors) {

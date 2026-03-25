@@ -161,7 +161,10 @@ final class NewsletterController extends AbstractController
 
     private function redirectToReferer(Request $request): Response
     {
-        $referer = $request->headers->get('referer', $this->generateUrl('app_home'));
-        return $this->redirect($referer);
+        $referer = $request->headers->get('referer', '');
+        if ($referer && str_starts_with($referer, $request->getSchemeAndHttpHost())) {
+            return $this->redirect($referer);
+        }
+        return $this->redirectToRoute('app_home');
     }
 }

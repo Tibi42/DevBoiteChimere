@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle proposition d'activité</title>
+</head>
+<body style="margin:0;padding:0;background-color:#121214;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#121214;padding:40px 0;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="padding:30px 40px;background-color:#1c1c1f;border-radius:16px 16px 0 0;border-bottom:2px solid #f8742c;">
+                            <table role="presentation" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="padding-right:12px;vertical-align:middle;">
+                                        <div style="width:44px;height:44px;background:linear-gradient(135deg,#f8742c,#e85d04);border-radius:12px;display:inline-block;text-align:center;line-height:44px;font-size:20px;font-weight:bold;color:#f3f4f6;">&#x2B22;</div>
+                                    </td>
+                                    <td style="vertical-align:middle;">
+                                        <span style="font-size:18px;font-weight:800;color:#f3f4f6;letter-spacing:2px;text-transform:uppercase;">LA BOÎTE</span><br>
+                                        <span style="font-size:18px;font-weight:800;color:#f3f4f6;letter-spacing:2px;text-transform:uppercase;">À CHIMÈRE</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="background-color:#1c1c1f;padding:40px;">
+
+                            <!-- Badge -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                                <tr>
+                                    <td style="background-color:rgba(251,191,36,0.15);border-radius:6px;padding:4px 12px;">
+                                        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#fbbf24;">En attente d'approbation</span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <h1 style="margin:0 0 16px;font-size:22px;font-weight:800;color:#f3f4f6;text-transform:uppercase;letter-spacing:1px;">
+                                Nouvelle proposition d'activité
+                            </h1>
+
+                            <p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#9ca3af;">
+                                Un membre vient de proposer une nouvelle activité. Elle est en attente de votre approbation.
+                            </p>
+
+                            <!-- Info card -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#26262b;border-radius:12px;margin-bottom:24px;">
+                                <tr>
+                                    <td style="padding:20px 24px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="padding-bottom:12px;">
+                                                    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#6b7280;">Titre</span><br>
+                                                    <span style="font-size:16px;font-weight:700;color:#f3f4f6;">{{ activity.title }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom:12px;">
+                                                    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#6b7280;">Type</span><br>
+                                                    <span style="font-size:14px;color:#9ca3af;">{{ activity.type ?? '—' }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom:12px;">
+                                                    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#6b7280;">Date</span><br>
+                                                    <span style="font-size:14px;color:#9ca3af;">{{ activity.startAt|date('d/m/Y à H:i') }}</span>
+                                                </td>
+                                            </tr>
+                                            {% if activity.location %}
+                                            <tr>
+                                                <td style="padding-bottom:12px;">
+                                                    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#6b7280;">Lieu</span><br>
+                                                    <span style="font-size:14px;color:#9ca3af;">{{ activity.location }}</span>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td>
+                                                    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#6b7280;">Proposé par</span><br>
+                                                    <span style="font-size:14px;color:#f8742c;">{{ activity.proposedBy ? activity.proposedBy.username ~ ' (' ~ activity.proposedBy.email ~ ')' : '—' }}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- CTA Button -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:16px 0;" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <a href="{{ reviewUrl }}" target="_blank" style="display:inline-block;background-color:#f8742c;color:#111;text-decoration:none;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:2px;padding:16px 40px;border-radius:10px;">
+                                            Approuver ou rejeter
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color:#26262b;padding:24px 40px;border-radius:0 0 16px 16px;">
+                            <p style="margin:0 0 8px;font-size:11px;color:#9ca3af;text-align:center;">
+                                Ce message est envoyé automatiquement aux administrateurs de La Boîte à Chimère.
+                            </p>
+                            <p style="margin:16px 0 0;font-size:10px;color:#6b7280;text-align:center;text-transform:uppercase;letter-spacing:1px;">
+                                &copy; {{ "now"|date("Y") }} La Boîte à Chimère — Tous droits réservés
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

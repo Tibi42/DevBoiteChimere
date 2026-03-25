@@ -154,9 +154,10 @@ class ActivityController extends AbstractController
     #[Route('/{id}/modifier', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Activity $activity): Response
     {
-        $returnUrl = $request->request->get('return')
-            ?: $request->query->get('return')
-            ?: $request->headers->get('referer');
+        $rawReturn = $request->request->get('return') ?: $request->query->get('return', '');
+        $returnUrl = (is_string($rawReturn) && str_starts_with($rawReturn, '/') && !str_starts_with($rawReturn, '//'))
+            ? $rawReturn
+            : null;
 
         $form = $this->createForm(ActivityType::class, $activity, ['is_admin' => true]);
         $form->handleRequest($request);

@@ -108,7 +108,10 @@
       "mcp__plugin_playwright_playwright__browser_evaluate",
       "mcp__plugin_playwright_playwright__browser_snapshot",
       "mcp__plugin_playwright_playwright__browser_console_messages",
-      "Bash(docker exec devboitechimere-php-1 php -r \":*)"
+      "Bash(docker exec devboitechimere-php-1 php -r \":*)",
+      "Bash(composer remove:*)",
+      "Bash(COMPOSER_DISABLE_TLS=1 /c/laragon/bin/php/php-8.4.12-nts-Win32-vs17-x64/php.exe /c/laragon/bin/composer/composer.phar update)",
+      "Bash(find /c/laragon/bin/php/php-8.4.12-nts-Win32-vs17-x64/ -name *.pem -o -name cacert*)"
     ]
   }
 }

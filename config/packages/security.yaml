@@ -34,6 +34,8 @@ security:
             logout:
                 path: app_logout
                 target: app_home
+                csrf_token_id: logout
+                csrf_parameter: _csrf_token
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true

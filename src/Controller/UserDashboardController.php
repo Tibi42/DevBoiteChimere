@@ -74,8 +74,8 @@ class UserDashboardController extends AbstractController
             return $this->redirectToRoute('app_user_dashboard');
         }
 
-        if (strlen($newPassword) < 6) {
-            $this->addFlash('error', 'Le nouveau mot de passe doit contenir au moins 6 caractères.');
+        if (strlen($newPassword) < 12) {
+            $this->addFlash('error', 'Le nouveau mot de passe doit contenir au moins 12 caractères.');
             return $this->redirectToRoute('app_user_dashboard');
         }
 

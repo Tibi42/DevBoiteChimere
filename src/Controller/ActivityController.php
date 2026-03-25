@@ -5,17 +5,25 @@ namespace App\Controller;
 use App\Entity\Activity;
 use App\Entity\Inscription;
 use App\Form\ActivityType;
+use App\Notification\NewActivityProposalNotification;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ActivityController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly NotifierInterface $notifier,
+        private readonly UserRepository $userRepository,
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -58,6 +66,10 @@ class ActivityController extends AbstractController
 
             $this->entityManager->flush();
 
+            if ($activity->getStatus() === Activity::STATUS_PENDING) {
+                $this->notifyAdminsOfNewProposal($activity);
+            }
+
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,5 +85,27 @@ class ActivityController extends AbstractController
         return $this->render('activity/modal_form_page.html.twig', [
             'form' => $form,
         ], new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY));
+    }
+
+    private function notifyAdminsOfNewProposal(Activity $activity): void
+    {
+        $admins = $this->userRepository->findAdmins();
+        if (!$admins) {
+            return;
+        }
+
+        $reviewUrl = $this->urlGenerator->generate(
+            'app_activity_index',
+            ['status' => Activity::STATUS_PENDING],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        $notification = new NewActivityProposalNotification($activity, $reviewUrl);
+
+        foreach ($admins as $admin) {
+            try {
+                $this->notifier->send($notification, new Recipient($admin->getEmail()));
+            } catch (\Throwable) {}
+        }
     }
 }
