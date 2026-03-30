@@ -6,6 +6,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+/**
+ * Event subscriber ajoutant les en-têtes de sécurité HTTP à chaque réponse principale.
+ *
+ * En-têtes définis :
+ *  - X-Content-Type-Options   : empêche le MIME-sniffing
+ *  - X-XSS-Protection         : active le filtre XSS des anciens navigateurs
+ *  - Content-Security-Policy  : restreint les sources de scripts, styles, images
+ *  - X-Frame-Options           : protection anti-clickjacking
+ *  - Referrer-Policy           : contrôle les informations de référent envoyées
+ *
+ * Note : HSTS (Strict-Transport-Security) est commenté et doit être activé en production HTTPS.
+ */
 final class SecurityHeadersSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array

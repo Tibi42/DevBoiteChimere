@@ -7,6 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Entité utilisateur du site.
+ *
+ * Sert à la fois d'identité d'authentification (email + mot de passe haché)
+ * et de profil public (nom d'utilisateur). Les rôles possibles sont :
+ *   - ROLE_USER        : membre standard (toujours présent)
+ *   - ROLE_ADMIN       : accès au back-office
+ *   - ROLE_SUPER_ADMIN : accès étendu (gestion des admins)
+ *
+ * Un compte peut être suspendu (suspended = true) sans être supprimé ;
+ * dans ce cas le UserChecker empêche la connexion.
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\HasLifecycleCallbacks]
@@ -65,11 +77,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Identifiant unique utilisé par le firewall Symfony (= email).
+     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
+    /**
+     * Retourne les rôles de l'utilisateur en garantissant la présence de ROLE_USER.
+     */
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -116,6 +134,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Lifecycle callback : initialise createdAt à la première persistance.
+     */
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {

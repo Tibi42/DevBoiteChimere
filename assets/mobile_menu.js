@@ -1,3 +1,13 @@
+/**
+ * Initialise le menu de navigation mobile (drawer / tiroir latéral).
+ *
+ * - Réinitialise toujours l'état fermé au chargement (Turbo peut restaurer
+ *   un état ouvert depuis son cache).
+ * - Garde anti-double-init via dataset.menuInit pour éviter l'empilement
+ *   de listeners sur DOMContentLoaded + turbo:load.
+ * - Bloque le scroll du body quand le menu est ouvert.
+ * - Ferme le menu au clic sur l'overlay ou sur un lien de navigation.
+ */
 function initMobileMenu() {
     const btn = document.getElementById('mobile-menu-btn');
     const drawer = document.getElementById('mobile-menu-drawer');

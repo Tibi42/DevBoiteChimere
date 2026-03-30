@@ -15,9 +15,25 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Espace personnel de l'utilisateur connecté.
+ *
+ * Regroupe : consultation des inscriptions (à venir / passées),
+ * changement de mot de passe, changement d'email, désinscription d'une
+ * activité, gestion de l'abonnement newsletter et suppression du compte.
+ *
+ * Toutes les routes nécessitent ROLE_USER (attribut de classe).
+ */
 #[IsGranted('ROLE_USER')]
 class UserDashboardController extends AbstractController
 {
+    /**
+     * Page principale de l'espace utilisateur.
+     *
+     * Récupère les inscriptions de l'utilisateur (par email ET par nom d'utilisateur
+     * pour couvrir les inscriptions manuelles admin), puis les sépare en deux listes :
+     * activités à venir et activités passées.
+     */
     #[Route('/mon-espace', name: 'app_user_dashboard')]
     public function index(InscriptionRepository $inscriptionRepository, ActivityRepository $activityRepository): Response
     {
@@ -56,6 +72,12 @@ class UserDashboardController extends AbstractController
         ]);
     }
 
+    /**
+     * Changement de mot de passe depuis l'espace utilisateur.
+     *
+     * Vérifie le mot de passe actuel, valide la longueur minimale (12 caractères)
+     * et la correspondance entre le nouveau mot de passe et sa confirmation.
+     */
     #[Route('/mon-espace/changer-mot-de-passe', name: 'app_user_change_password', methods: ['POST'])]
     public function changePassword(Request $request, EntityManagerInterface $em, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordHasher): Response
     {
@@ -92,6 +114,12 @@ class UserDashboardController extends AbstractController
         return $this->redirectToRoute('app_user_dashboard');
     }
 
+    /**
+     * Changement d'adresse email depuis l'espace utilisateur.
+     *
+     * Valide le format de la nouvelle adresse et s'assure qu'elle n'est pas
+     * déjà utilisée par un autre compte avant de l'enregistrer.
+     */
     #[Route('/mon-espace/changer-email', name: 'app_user_change_email', methods: ['POST'])]
     public function changeEmail(Request $request, EntityManagerInterface $em): Response
     {
@@ -128,6 +156,13 @@ class UserDashboardController extends AbstractController
         return $this->redirectToRoute('app_user_dashboard');
     }
 
+    /**
+     * Désinscription d'une activité (ou suppression si l'utilisateur en est le créateur).
+     *
+     * Si l'utilisateur est le créateur (proposedBy), l'activité entière est supprimée
+     * et tous les participants inscrits reçoivent un email de notification d'annulation.
+     * Sinon, seule l'inscription de l'utilisateur courant est supprimée.
+     */
     #[Route('/mon-espace/desinscription/{id}', name: 'app_user_unregister', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function unregister(Inscription $inscription, Request $request, EntityManagerInterface $em, InscriptionRepository $inscriptionRepository, MailerInterface $mailer): Response
     {
@@ -188,6 +223,11 @@ class UserDashboardController extends AbstractController
         return $this->redirectToRoute('app_user_dashboard');
     }
 
+    /**
+     * Désabonnement de la newsletter depuis l'espace utilisateur.
+     *
+     * Met le flag newsletterOptIn à false sur l'entité User.
+     */
     #[Route('/mon-espace/newsletter', name: 'app_user_newsletter', methods: ['POST'])]
     public function newsletter(Request $request, EntityManagerInterface $em): Response
     {
@@ -205,6 +245,13 @@ class UserDashboardController extends AbstractController
         return $this->redirectToRoute('app_user_dashboard');
     }
 
+    /**
+     * Suppression du compte utilisateur courant.
+     *
+     * Interdit aux administrateurs (ils doivent passer par le back-office).
+     * La session est invalidée et le token de sécurité effacé avant la suppression
+     * en base pour éviter tout accès résiduel.
+     */
     #[Route('/mon-espace/supprimer', name: 'app_user_delete_account', methods: ['POST'])]
     public function deleteAccount(Request $request, EntityManagerInterface $em): Response
     {

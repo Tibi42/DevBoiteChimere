@@ -10,6 +10,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
+ * Repository des utilisateurs.
+ *
+ * Implémente PasswordUpgraderInterface pour la mise à niveau automatique
+ * des hachages de mots de passe lors de la connexion.
+ *
  * @extends ServiceEntityRepository<User>
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
@@ -19,7 +24,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-    /** @return User[] */
+    /**
+     * Retourne tous les utilisateurs ayant ROLE_ADMIN ou ROLE_SUPER_ADMIN.
+     * Utilisé pour envoyer les notifications aux admins.
+     *
+     * @return User[]
+     */
     public function findAdmins(): array
     {
         return $this->createQueryBuilder('u')
@@ -43,6 +53,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * Retourne les utilisateurs filtrés par période d'inscription, rôle et recherche texte.
+     * Utilisé par la liste admin des utilisateurs.
+     *
      * @return User[]
      */
     public function findAllFiltered(?\DateTimeImmutable $from = null, ?\DateTimeImmutable $to = null, ?string $role = null, ?string $search = null): array
@@ -76,6 +89,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * Retourne le nombre total d'utilisateurs inscrits (utilisé dans le tableau de bord admin).
+     */
     public function countAll(): int
     {
         return (int) $this->createQueryBuilder('u')
@@ -84,6 +100,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getSingleScalarResult();
     }
 
+    /**
+     * Met à jour le mot de passe haché lors de la mise à niveau automatique
+     * de l'algorithme de hachage (requis par PasswordUpgraderInterface).
+     */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {

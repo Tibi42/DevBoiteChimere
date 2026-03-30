@@ -1,3 +1,15 @@
+/**
+ * Initialise le carrousel hero de la page d'accueil.
+ *
+ * Fonctionnement :
+ *  - Clone le premier et le dernier slide pour créer un effet de boucle infinie.
+ *  - Avance automatiquement toutes les 10 secondes (auto-play).
+ *  - Met en pause si la souris survole le carrousel ou s'il n'est plus visible
+ *    (IntersectionObserver → économise le CPU).
+ *  - Supporte les gestes de balayage (swipe) sur mobile.
+ *  - Nettoie les timers et observers avant chaque navigation Turbo (turbo:before-cache).
+ *  - Garde anti-double-init via dataset.carouselInit.
+ */
 function initCarousel() {
     const carousel = document.getElementById('carousel');
     const container = document.getElementById('carousel-container');
@@ -24,10 +36,12 @@ function initCarousel() {
     let autoPlayInterval;
     let safetyInterval;
 
+    /** Déplace instantanément le carrousel sur la slide à l'index donné (sans transition). */
     const setPosition = (index) => {
         carousel.style.transform = `translateX(-${index * 100}%)`;
     };
 
+    /** Déplace le carrousel vers l'index donné et met à jour les indicateurs (dots). */
     const updateCarousel = (index, useTransition = true) => {
         carousel.style.transition = useTransition ? 'transform 1000ms cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
         isTransitioning = useTransition;
@@ -44,6 +58,10 @@ function initCarousel() {
         });
     };
 
+    /**
+     * Vérifie si on se trouve sur un slide cloné et repositionne silencieusement
+     * sur le slide original correspondant pour créer l'effet de boucle infinie.
+     */
     const checkBoundaries = () => {
         if (currentIndex === 0) {
             currentIndex = totalOriginalSlides;

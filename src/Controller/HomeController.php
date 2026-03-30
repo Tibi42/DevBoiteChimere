@@ -11,6 +11,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Contrôleur de la page d'accueil publique.
+ *
+ * Affiche le calendrier des activités du mois, le carrousel hero et les
+ * modales de connexion/inscription. La navigation par mois/année et le
+ * filtrage par type d'activité se font via les paramètres GET.
+ */
 class HomeController extends AbstractController
 {
     public function __construct(
@@ -19,6 +26,16 @@ class HomeController extends AbstractController
     ) {
     }
 
+    /**
+     * Page d'accueil : calendrier + modales de connexion.
+     *
+     * Paramètres GET acceptés :
+     *   - month  (int)    : mois à afficher (1-12, défaut : mois courant)
+     *   - year   (int)    : année à afficher (2020-2100, défaut : année courante)
+     *   - day    (int)    : jour sélectionné pour voir le détail des activités
+     *   - type   (string) : filtre par type d'activité (valeurs de ActivityKind)
+     *   - open   (string) : "login" pour ouvrir la modale de connexion automatiquement
+     */
     #[Route('/', name: 'app_home')]
     public function index(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
@@ -124,6 +141,9 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * Retourne le nom du mois en français (1 = Janvier … 12 = Décembre).
+     */
     private function getMonthName(int $month): string
     {
         $months = [

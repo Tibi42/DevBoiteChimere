@@ -7,6 +7,11 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Repository des activités.
+ *
+ * Fournit des méthodes de requête spécialisées pour le calendrier public,
+ * le back-office admin (avec filtres, pagination) et le tableau de bord.
+ *
  * @extends ServiceEntityRepository<Activity>
  */
 class ActivityRepository extends ServiceEntityRepository
@@ -128,6 +133,9 @@ class ActivityRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+     * Retourne le nombre d'activités en attente de validation admin.
+     */
     public function countPendingApproval(): int
     {
         return $this->count(['status' => Activity::STATUS_PENDING]);

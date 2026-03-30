@@ -11,6 +11,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Tableau de bord de l'administration.
+ *
+ * Agrège les statistiques clés affichées sur la page d'accueil du back-office :
+ * total des inscriptions, activités en attente, top proposeurs du mois,
+ * statistiques newsletter et derniers utilisateurs inscrits.
+ *
+ * Utilise le pattern __invoke() (single action controller).
+ */
 #[Route('/admin', name: 'admin', methods: ['GET'])]
 class DashboardController extends AbstractController
 {

@@ -6,6 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Contrôleur de sécurité (connexion / déconnexion).
+ *
+ * La modale de connexion se trouve sur la page d'accueil ; ce contrôleur
+ * se contente de rediriger vers celle-ci. Le POST de connexion et la
+ * déconnexion sont entièrement gérés par le firewall Symfony.
+ */
 class SecurityController extends AbstractController
 {
     /**

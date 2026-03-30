@@ -6,6 +6,14 @@ use App\Repository\CarouselSlideRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+/**
+ * Extension Twig fournissant la fonction carousel_slides().
+ *
+ * Retourne la liste des slides du carrousel depuis la base de données.
+ * Si la table est vide, des slides de démonstration codées en dur sont
+ * utilisées en fallback pour éviter un carrousel vide lors du premier
+ * déploiement ou en développement.
+ */
 class CarouselExtension extends AbstractExtension
 {
     public function __construct(

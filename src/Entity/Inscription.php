@@ -6,6 +6,14 @@ use App\Repository\InscriptionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Entité représentant l'inscription d'un participant à une activité.
+ *
+ * Une inscription n'est pas forcément liée à un compte User : elle stocke
+ * simplement un nom et un email, ce qui permet les inscriptions manuelles
+ * faites par les admins. La suppression de l'activité parent (onDelete=CASCADE)
+ * entraîne la suppression en cascade de toutes ses inscriptions.
+ */
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Inscription
@@ -28,6 +36,9 @@ class Inscription
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /**
+     * Lifecycle callback : initialise createdAt à la première persistance.
+     */
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {

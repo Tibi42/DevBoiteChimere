@@ -6,11 +6,27 @@ use App\Repository\ActivityRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Entité représentant un événement / activité de l'association.
+ *
+ * Une activité a un statut :
+ *   - STATUS_PUBLISHED : visible sur le calendrier public
+ *   - STATUS_PENDING   : proposition en attente de validation admin
+ *
+ * Les champs createdAt et updatedAt sont automatiquement gérés via les
+ * lifecycle callbacks PrePersist / PreUpdate.
+ *
+ * Les relations proposedBy et createdBy sont nullables avec onDelete='SET NULL'
+ * pour conserver l'activité si l'utilisateur est supprimé.
+ */
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Activity
 {
+    /** Activité visible sur le calendrier public. */
     public const STATUS_PUBLISHED = 'published';
+
+    /** Proposition en attente de validation par un administrateur. */
     public const STATUS_PENDING   = 'pending';
 
     #[ORM\Id]
@@ -59,6 +75,9 @@ class Activity
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    /**
+     * Lifecycle callback : initialise createdAt et updatedAt à la création.
+     */
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
@@ -66,6 +85,9 @@ class Activity
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    /**
+     * Lifecycle callback : met à jour updatedAt à chaque modification.
+     */
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
@@ -104,6 +126,9 @@ class Activity
         return $this->startAt;
     }
 
+    /**
+     * Accepte DateTimeInterface et normalise en DateTimeImmutable.
+     */
     public function setStartAt(\DateTimeInterface $startAt): static
     {
         $this->startAt = $startAt instanceof \DateTimeImmutable
@@ -171,6 +196,9 @@ class Activity
         return $this->status;
     }
 
+    /**
+     * @throws \InvalidArgumentException si le statut n'est pas une valeur autorisée.
+     */
     public function setStatus(string $status): static
     {
         if (!in_array($status, [self::STATUS_PUBLISHED, self::STATUS_PENDING], true)) {

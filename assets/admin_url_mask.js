@@ -1,7 +1,14 @@
 /**
- * Masks route URLs in the browser address bar.
- * - Public pages → /
- * - Admin sub-pages (/admin/*) → /admin
+ * Masquage des URLs dans la barre d'adresse du navigateur.
+ *
+ * Pour des raisons de confidentialité et d'ergonomie :
+ *  - Les pages publiques listées dans PUBLIC_MASKED affichent "/" dans la barre d'adresse.
+ *  - Les sous-pages admin (/admin/*) affichent "/admin".
+ *
+ * Utilise history.replaceState() (sans recharger la page) ; fonctionne avec
+ * la navigation Turbo (turbo:load) et le chargement initial.
+ *
+ * Attention : ce masquage est purement cosmétique et ne sécurise pas les routes.
  */
 const PUBLIC_MASKED = [
     '/jds', '/jdr', '/gn', '/association',

@@ -15,8 +15,27 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * Contrôleur d'inscription des nouveaux utilisateurs.
+ *
+ * Traite uniquement les requêtes POST /register soumises depuis la modale
+ * d'inscription de la page d'accueil. Après validation et création du
+ * compte, un email de bienvenue est envoyé au nouvel utilisateur et une
+ * notification est adressée aux administrateurs.
+ */
 final class RegistrationController extends AbstractController
 {
+    /**
+     * Crée un nouveau compte utilisateur depuis le formulaire d'inscription.
+     *
+     * Étapes :
+     *  1. Validation du jeton CSRF
+     *  2. Validation des champs (email, nom d'utilisateur, mot de passe ≥ 12 caractères)
+     *  3. Vérification de l'unicité de l'email et du nom d'utilisateur
+     *  4. Création et persistance de l'entité User avec mot de passe haché
+     *  5. Envoi d'un email de bienvenue + notification admin
+     *  6. Connexion automatique du nouvel utilisateur
+     */
     #[Route('/register', name: 'app_register', methods: ['POST'])]
     public function register(
         Request $request,

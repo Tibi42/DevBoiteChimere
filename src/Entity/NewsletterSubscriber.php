@@ -6,12 +6,28 @@ use App\Repository\NewsletterSubscriberRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Entité représentant un abonné à la newsletter.
+ *
+ * Le processus d'abonnement est en double opt-in :
+ *  1. L'utilisateur soumet son email → statut STATUS_PENDING, token généré, email envoyé.
+ *  2. L'utilisateur clique le lien de confirmation → statut STATUS_CONFIRMED.
+ *  3. L'utilisateur peut se désabonner via le lien token → statut STATUS_UNSUBSCRIBED.
+ *
+ * Le token (64 caractères hex, généré via random_bytes) sert à la fois
+ * pour la confirmation et la désinscription.
+ */
 #[ORM\Entity(repositoryClass: NewsletterSubscriberRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class NewsletterSubscriber
 {
+    /** Email soumis, en attente de confirmation par clic sur le lien reçu. */
     public const STATUS_PENDING = 'pending';
+
+    /** Email confirmé, l'abonné reçoit la newsletter. */
     public const STATUS_CONFIRMED = 'confirmed';
+
+    /** Abonné désabonné volontairement via le lien de désinscription. */
     public const STATUS_UNSUBSCRIBED = 'unsubscribed';
 
     #[ORM\Id]
@@ -37,6 +53,10 @@ class NewsletterSubscriber
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $unsubscribedAt = null;
 
+    /**
+     * Lifecycle callback : initialise createdAt et génère le token de confirmation
+     * à la première persistance (token = 64 caractères hexadécimaux).
+     */
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
@@ -65,6 +85,9 @@ class NewsletterSubscriber
         return $this->token;
     }
 
+    /**
+     * Génère un nouveau token (utile quand on renvoie un email de confirmation).
+     */
     public function regenerateToken(): static
     {
         $this->token = bin2hex(random_bytes(32));
@@ -109,6 +132,9 @@ class NewsletterSubscriber
         return $this;
     }
 
+    /**
+     * Confirme l'abonnement : passe le statut à STATUS_CONFIRMED et enregistre la date.
+     */
     public function confirm(): static
     {
         $this->status = self::STATUS_CONFIRMED;
@@ -116,6 +142,9 @@ class NewsletterSubscriber
         return $this;
     }
 
+    /**
+     * Désinscrit l'abonné : passe le statut à STATUS_UNSUBSCRIBED et enregistre la date.
+     */
     public function unsubscribe(): static
     {
         $this->status = self::STATUS_UNSUBSCRIBED;

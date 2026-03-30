@@ -1,3 +1,12 @@
+/**
+ * Gestion de la bannière de consentement aux cookies.
+ *
+ * Stocke le choix de l'utilisateur (accepted / refused) dans localStorage.
+ * La bannière est masquée si un choix a déjà été enregistré.
+ * Un lien dans le footer avec l'attribut [data-cookie-settings] permet
+ * de rouvrir la bannière pour modifier son choix.
+ */
+
 const COOKIE_KEY = 'cookie_consent';
 
 function showBanner() {

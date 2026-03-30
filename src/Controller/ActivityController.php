@@ -17,6 +17,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Contrôleur public de création d'activités (propositions par les membres).
+ *
+ * Permet à tout utilisateur connecté de proposer une nouvelle activité depuis
+ * le calendrier. Les activités créées par un simple membre passent en statut
+ * "pending" et sont soumises à validation admin ; celles créées par un admin
+ * peuvent être publiées immédiatement.
+ */
 class ActivityController extends AbstractController
 {
     public function __construct(
@@ -27,6 +35,15 @@ class ActivityController extends AbstractController
     ) {
     }
 
+    /**
+     * Formulaire de création d'une activité (accessible depuis le calendrier).
+     *
+     * GET  : retourne un fragment HTML (Turbo Frame) contenant le formulaire
+     *        pré-rempli avec la date passée en paramètre (?date=Y-m-d).
+     * POST valide   : persiste l'activité, inscrit automatiquement le créateur,
+     *                 notifie les admins si la proposition est en attente, redirige.
+     * POST invalide : retourne le formulaire avec erreurs (422).
+     */
     #[Route('/activite/nouvelle', name: 'app_activity_new_public', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
     public function new(Request $request): Response
@@ -87,6 +104,12 @@ class ActivityController extends AbstractController
         ], new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY));
     }
 
+    /**
+     * Envoie une notification email à tous les admins pour une nouvelle proposition.
+     *
+     * Utilise le composant Notifier de Symfony avec NewActivityProposalNotification.
+     * Les échecs d'envoi individuels sont silencieux pour ne pas bloquer le flux.
+     */
     private function notifyAdminsOfNewProposal(Activity $activity): void
     {
         $admins = $this->userRepository->findAdmins();

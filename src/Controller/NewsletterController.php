@@ -15,6 +15,17 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/newsletter')]
+/**
+ * Contrôleur de gestion de la newsletter (double opt-in).
+ *
+ * Flux complet :
+ *  1. POST /newsletter/subscribe → validation, rate limiting, envoi du mail de confirmation.
+ *  2. GET  /newsletter/confirm/{token} → confirmation de l'abonnement.
+ *  3. GET  /newsletter/unsubscribe/{token} → désinscription via le lien dans les emails.
+ *
+ * Gère également les ré-abonnements (status UNSUBSCRIBED → PENDING) et le
+ * renvoi du mail de confirmation (status PENDING).
+ */
 final class NewsletterController extends AbstractController
 {
     public function __construct(
@@ -141,6 +152,9 @@ final class NewsletterController extends AbstractController
         ]);
     }
 
+    /**
+     * Envoie l'email de confirmation avec le lien unique contenant le token.
+     */
     private function sendConfirmationEmail(MailerInterface $mailer, NewsletterSubscriber $subscriber): void
     {
         $confirmUrl = $this->generateUrl('app_newsletter_confirm', [
@@ -159,6 +173,10 @@ final class NewsletterController extends AbstractController
         $mailer->send($email);
     }
 
+    /**
+     * Redirige vers la page précédente (Referer) si elle appartient au même domaine,
+     * sinon redirige vers la page d'accueil (sécurité anti-open-redirect).
+     */
     private function redirectToReferer(Request $request): Response
     {
         $referer = $request->headers->get('referer', '');

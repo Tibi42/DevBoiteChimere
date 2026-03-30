@@ -19,6 +19,14 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * CRUD admin des activités.
+ *
+ * Gère la liste paginée et filtrée, la création, l'édition, la suppression,
+ * la validation/rejet des propositions en attente, la liste des inscrits
+ * et l'export CSV. Lors de toute suppression ou rejet, un email de
+ * notification d'annulation est envoyé à tous les participants inscrits.
+ */
 #[Route('/admin/activites', name: 'app_activity_')]
 class ActivityController extends AbstractController
 {
@@ -31,6 +39,10 @@ class ActivityController extends AbstractController
     ) {
     }
 
+    /**
+     * Liste paginée des activités avec filtres (statut, type, lieu, période).
+     * Affiche également le nombre d'inscrits par activité.
+     */
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
@@ -76,6 +88,12 @@ class ActivityController extends AbstractController
         ]);
     }
 
+    /**
+     * Export CSV de la liste des activités (avec les mêmes filtres que la liste).
+     *
+     * Ajoute un BOM UTF-8 pour la compatibilité avec Excel et utilise ';'
+     * comme séparateur (standard français).
+     */
     #[Route('/export-csv', name: 'export_csv', methods: ['GET'])]
     public function exportCsv(Request $request): StreamedResponse
     {
@@ -180,6 +198,9 @@ class ActivityController extends AbstractController
         ], new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 
+    /**
+     * Affiche la liste des participants inscrits à une activité.
+     */
     #[Route('/{id}/inscrits', name: 'inscrits', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function inscrits(Activity $activity): Response
     {
@@ -191,6 +212,9 @@ class ActivityController extends AbstractController
         ]);
     }
 
+    /**
+     * Approuve une proposition d'activité en la passant au statut STATUS_PUBLISHED.
+     */
     #[Route('/{id}/approuver', name: 'approve', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function approve(Request $request, Activity $activity): Response
     {
@@ -207,6 +231,10 @@ class ActivityController extends AbstractController
         return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * Rejette et supprime une proposition d'activité en attente.
+     * Envoie des emails d'annulation aux participants déjà inscrits.
+     */
     #[Route('/{id}/rejeter', name: 'reject', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function reject(Request $request, Activity $activity): Response
     {
@@ -227,6 +255,10 @@ class ActivityController extends AbstractController
         return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * Supprime une activité publiée (interdite si l'activité est déjà passée).
+     * Envoie des emails d'annulation aux participants inscrits avant suppression.
+     */
     #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Activity $activity): Response
     {
@@ -252,6 +284,10 @@ class ActivityController extends AbstractController
         return $this->redirectToRoute('app_activity_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * Envoie un email d'annulation à chaque participant inscrit à l'activité.
+     * Les erreurs d'envoi individuelles sont silencieuses pour ne pas bloquer la suppression.
+     */
     private function sendCancellationEmails(Activity $activity, string $title): void
     {
         $inscriptions = $this->inscriptionRepository->findBy(['activity' => $activity]);

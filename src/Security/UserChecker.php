@@ -8,6 +8,13 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusExce
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Vérificateur de compte utilisateur avant authentification.
+ *
+ * Appelé par le firewall Symfony lors du processus de connexion.
+ * Empêche la connexion si le compte est suspendu (User::$suspended = true)
+ * et retourne un message explicite à l'utilisateur.
+ */
 class UserChecker implements UserCheckerInterface
 {
     public function checkPreAuth(UserInterface $user): void

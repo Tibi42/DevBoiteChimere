@@ -6,6 +6,16 @@ use App\Repository\CarouselSlideRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Entité représentant une diapositive du carrousel hero de la page d'accueil.
+ *
+ * Les slides sont affichées dans l'ordre du champ position (ASC).
+ * Si la table est vide, la Twig extension CarouselExtension utilise
+ * des slides codées en dur en guise de fallback.
+ *
+ * Les classes CSS (tagColor, btnClass) sont des classes Tailwind stockées
+ * directement en base pour permettre une personnalisation depuis l'admin.
+ */
 #[ORM\Entity(repositoryClass: CarouselSlideRepository::class)]
 #[ORM\Table(name: 'carousel_slide')]
 class CarouselSlide

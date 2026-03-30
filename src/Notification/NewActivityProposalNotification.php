@@ -10,6 +10,13 @@ use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
 
+/**
+ * Notification envoyée aux administrateurs quand un membre propose une nouvelle activité.
+ *
+ * Implémente EmailNotificationInterface pour être envoyée via le composant
+ * Notifier de Symfony. Le mail contient les détails de l'activité et un lien
+ * direct vers la liste admin pour l'approuver ou la rejeter.
+ */
 class NewActivityProposalNotification extends Notification implements EmailNotificationInterface
 {
     public function __construct(
