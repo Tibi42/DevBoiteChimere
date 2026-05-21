@@ -1,0 +1,52 @@
+{{ form_start(form, { action: form_action, attr: { class: 'space-y-4', 'data-turbo': 'false' } }) }}
+	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+		<div>
+			{{ form_label(form.position) }}
+			{{ form_widget(form.position) }}
+			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.position) }}</div>
+		</div>
+		<div>
+			{{ form_label(form.tag) }}
+			{{ form_widget(form.tag) }}
+			<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.tag) }}</div>
+		</div>
+	</div>
+	<div>
+		{{ form_label(form.title) }}
+		{{ form_widget(form.title) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.title) }}</div>
+	</div>
+	<div>
+		{{ form_label(form.imageFile) }}
+		{{ form_widget(form.imageFile) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.imageFile) }}</div>
+	</div>
+
+	<div>
+		{{ form_label(form.url) }}
+		{{ form_widget(form.url) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.url) }}</div>
+		{% if form.url.vars.help is defined and form.url.vars.help %}
+			{{ form_help(form.url) }}
+		{% endif %}
+	</div>
+	<div>
+		{{ form_label(form.content) }}
+		<div id="editor-container" class="rounded-lg border border-custom bg-custom-secondary text-text-primary min-h-[400px] mb-2">
+			{{ form.content.vars.value|raw }}
+		</div>
+		{{ form_widget(form.content) }}
+		<div class="text-amber-400 text-xs mt-1">{{ form_errors(form.content) }}</div>
+		{% if form.content.vars.help is defined and form.content.vars.help %}
+			{{ form_help(form.content) }}
+		{% endif %}
+	</div>
+	<div class="flex flex-wrap gap-3 pt-2">
+		<button type="submit" class="cursor-pointer rounded-lg bg-custom-orange py-3 px-6 text-sm font-extrabold uppercase tracking-widest text-text-primary hover:bg-orange-600 transition-all shadow-lg shadow-custom-orange/20">
+			{{ button_label|default('Enregistrer') }}
+		</button>
+		<a href="{{ path('app_admin_article_index') }}" class="rounded-lg border border-custom bg-custom-secondary py-3 px-6 text-sm font-bold uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-custom-orange transition-all">
+			Annuler
+		</a>
+	</div>
+{{ form_end(form) }}

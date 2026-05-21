@@ -1,0 +1,63 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% block title %}COMPTE-RENDU : L'ASSAUT DES DRAGONS — La Boîte à Chimère{% endblock %}
+
+{% block description %}Découvrez le compte-rendu épique de notre dernière soirée jeu de rôle sur le scénario L'Assaut des Dragons. Ambiance, tactiques et moments forts !{% endblock %}
+
+{% block page_title %}Compte-rendu{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">L'Assaut des Dragons — Une aventure épique vécue par nos membres</p>{% endblock %}
+
+{% block content %}
+<article class="max-w-3xl mx-auto rounded-2xl border border-custom glass-card p-6 lg:p-10 shadow-xl relative overflow-hidden">
+    <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block rounded-md bg-violet-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-violet-400">Jeu de Rôle</span>
+        <span class="text-xs text-text-secondary">20 Mai 2026</span>
+        <span class="text-xs text-text-secondary">• Lecture : 5 min</span>
+    </div>
+
+    <h2 class="text-2xl lg:text-3xl font-bold text-text-primary mb-6 leading-tight">
+        Compte-rendu de partie : L'Assaut des Dragons
+    </h2>
+
+    <div class="prose prose-invert text-text-secondary text-sm lg:text-base leading-relaxed space-y-6">
+        <p>
+            Mardi dernier, les tables de jeu de rôle de <strong>La Boîte à Chimère</strong> ont vibré au rythme d'une aventure hors du commun. Pas moins de trois tables complètes ont affronté en simultané le scénario spécial multi-tables : <em>L'Assaut des Dragons</em>.
+        </p>
+        
+        <h3 class="text-lg lg:text-xl font-bold text-text-primary mt-8 mb-4">Le Contexte de la Mission</h3>
+        <p>
+            Les aventuriers, répartis en trois escouades distinctes (l'unité d'infiltration <em>Faucon</em>, les éclaireurs <em>Loup</em> et le groupe d'assaut lourd <em>Ours</em>), avaient pour objectif de s'introduire dans la forteresse suspendue de Vol-d'Écorche afin de désactiver le rituel d'invocation draconique mené par le culte de Tiamat.
+        </p>
+
+        <h3 class="text-lg lg:text-xl font-bold text-text-primary mt-8 mb-4">Des moments d'anthologie</h3>
+        <p>
+            Chaque table a connu son lot d'exploits et de tragédies :
+        </p>
+        <ul class="list-disc pl-5 space-y-3">
+            <li>
+                <strong class="text-text-primary">Table 1 (Infiltration) :</strong> Grâce à une série de jets d'acrobatie et de discrétion impressionnants (dont deux 20 naturels d'affilée), les joueurs ont réussi à contourner la garde extérieure sans donner l'alarme, posant des explosifs magiques sur les pylônes de sustentation de la forteresse.
+            </li>
+            <li>
+                <strong class="text-text-primary">Table 2 (Éclaireurs) :</strong> Confrontée à un Dragon de Combat Jeune dans les couloirs étroits de la garnison, l'équipe a dû improviser. Le barde a courageusement (ou inconsciemment) provoqué la créature pour l'attirer dans une zone de pièges à effondrement préalablement préparée par le roublard.
+            </li>
+            <li>
+                <strong class="text-text-primary">Table 3 (Assaut principal) :</strong> L'affrontement final dans la chambre du rituel a été d'une intensité rare. Face au grand prêtre et à ses sbires, le paladin a sacrifié son bouclier magique pour parer un souffle de feu dévastateur, permettant au magicien de finaliser le contre-sort de bannissement juste à temps.
+            </li>
+        </ul>
+
+        <h3 class="text-lg lg:text-xl font-bold text-text-primary mt-8 mb-4">Conclusion et Victoire</h3>
+        <p>
+            La coordination inter-tables via les communicateurs de cristal (les MJ communiquant par signes et notes rapides) a parfaitement fonctionné. Les pylônes ont sauté à l'instant précis où le dragon s'apprêtait à consumer le groupe d'assaut, provoquant le crash contrôlé de la forteresse dans la mer de nuages et scellant la victoire des Chimères !
+        </p>
+
+        <p class="pt-6 border-t border-custom text-xs text-text-secondary">
+            Rédigé par <strong class="text-text-primary">MJ Sébastien</strong> et <strong class="text-text-primary">MJ Aurélie</strong>. Rejoignez-nous mardi prochain pour la suite de nos aventures hebdomadaires !
+        </p>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-custom flex justify-between">
+        <a href="{{ path('app_nouvelles') }}" class="text-xs text-text-secondary hover:text-custom-orange transition-colors">&larr; Retour aux actualités</a>
+        <button onclick="window.close();" class="text-xs text-custom-orange font-bold uppercase hover:underline">Fermer cet onglet</button>
+    </div>
+</article>
+{% endblock %}

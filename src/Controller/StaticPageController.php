@@ -25,6 +25,9 @@ final class StaticPageController extends AbstractController
     #[Route('/nouvelles', name: 'app_nouvelles')]
     public function nouvelles(): Response { return $this->render('nouvelles/index.html.twig'); }
 
+    #[Route('/nouvelles/compte-rendu-assaut-des-dragons', name: 'app_article_assaut_dragons')]
+    public function assautDragons(): Response { return $this->render('nouvelles/assaut_dragons.html.twig'); }
+
     #[Route('/qui-sommes-nous', name: 'app_qui_sommes_nous')]
     public function quiSommesNous(): Response { return $this->render('qui_sommes_nous/index.html.twig'); }
 

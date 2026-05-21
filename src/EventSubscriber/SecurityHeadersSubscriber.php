@@ -39,7 +39,7 @@ final class SecurityHeadersSubscriber implements EventSubscriberInterface
         // XSS protection
         $headers->set('X-Content-Type-Options', 'nosniff');
         $headers->set('X-XSS-Protection', '1; mode=block');
-        $headers->set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' data:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://www.helloasso.com");
+        $headers->set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' data: https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data:; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://www.helloasso.com");
 
         // Clickjacking protection
         $headers->set('X-Frame-Options', 'DENY');

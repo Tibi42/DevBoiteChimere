@@ -67,16 +67,28 @@ class HomeController extends AbstractController
 
         $activities = $this->activityRepository->findBetween($firstDay, $lastDay, $filterType);
 
-        // Jour sélectionné : filtrer les activités du jour (si jour valide)
+        $now = new \DateTimeImmutable();
+
+        // Jour sélectionné : filtrer les activités du jour non terminées (si jour valide)
         $activitiesForSelectedDay = [];
         if ($selectedDay >= 1 && $selectedDay <= $lastDayNum) {
             foreach ($activities as $activity) {
                 if ((int) $activity->getStartAt()->format('j') === $selectedDay) {
-                    $activitiesForSelectedDay[] = $activity;
+                    if ($activity->getStartAt() > $now) {
+                        $activitiesForSelectedDay[] = $activity;
+                    }
                 }
             }
         } else {
             $selectedDay = 0;
+        }
+
+        // Activités futures du mois pour la liste globale
+        $futureActivities = [];
+        foreach ($activities as $activity) {
+            if ($activity->getStartAt() > $now) {
+                $futureActivities[] = $activity;
+            }
         }
 
         // Jours du mois qui ont au moins une activité + nombre d'activités par jour + types par jour
@@ -129,7 +141,7 @@ class HomeController extends AbstractController
             'activitiesCountByDay' => $activitiesCountByDay,
             'activitiesTypesByDay' => $activitiesTypesByDay,
             'filterType' => $filterType,
-            'activities' => $activities,
+            'activities' => $futureActivities,
             'selectedDay' => $selectedDay,
             'activitiesForSelectedDay' => $activitiesForSelectedDay,
             'prevMonth' => (int) $prev->format('n'),
