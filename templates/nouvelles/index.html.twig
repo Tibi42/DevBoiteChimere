@@ -1,17 +1,116 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% block title %}Nouvelles - La Boîte à Chimère{% endblock %}
+{% block title %}Actualités & Nouvelles de l'Association — La Boîte à Chimère{% endblock %}
 
-{% block meta_description %}<meta name="description" content="Les dernières actualités de La Boîte à Chimère — événements, annonces et nouvelles de l'association ludique parisienne.">{% endblock %}
+{% block description %}Suivez les actualités de La Boîte à Chimère : lancements de campagnes de jeu de rôle, soirées thématiques jeux de société, événements spéciaux à Paris.{% endblock %}
 
-{% block page_title %}Nouvelles{% endblock %}
-{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Les dernières actualités de l'association</p>{% endblock %}
+{% block page_title %}Actualités{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Toutes les dernières nouvelles, annonces officielles et reportages de notre vie associative</p>{% endblock %}
 
 {% block content %}
-	<div class="space-y-8">
-		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
-			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-6">Actualités</h2>
-			<p class="text-text-secondary leading-relaxed">Contenu à venir.</p>
-		</section>
+	<div class="grid lg:grid-cols-3 gap-8">
+		<!-- Fil d'actualités principal (2/3 de large) -->
+		<div class="lg:col-span-2 space-y-8">
+			<!-- Article 1 -->
+			<article class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl relative overflow-hidden transition-all hover:border-custom-orange/30">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="inline-block rounded-md bg-rose-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-400">Vie Associative</span>
+					<span class="text-xs text-text-secondary">15 Mai 2026</span>
+					<span class="text-xs text-text-secondary">• Lecture : 3 min</span>
+				</div>
+				<h2 class="text-xl lg:text-2xl font-bold text-text-primary mb-3 hover:text-custom-orange transition-colors">
+					Lancement de la Saison de Jeu de Rôle 2026 : Inscrivez-vous aux campagnes !
+				</h2>
+				<p class="text-text-secondary text-sm leading-relaxed mb-6">
+					C'est le grand jour ! Les inscriptions pour les campagnes de jeu de rôle au long cours de la saison 2026 sont officiellement ouvertes. Cette année, nos meneurs de jeu (MJ) vous proposent un choix impressionnant de 12 campagnes réparties sur la semaine. Que vous aimiez l'investigation occulte dans <em>L'Appel de Cthulhu</em>, la survie post-apocalyptique dans <em>Fallout</em>, ou l'exploration spatiale, vous y trouverez votre compte. Une soirée d'initiation et de constitution des tables aura lieu le mardi 2 juin à l'Auberge de Jeunesse Yves Robert.
+				</p>
+				<div class="flex items-center justify-between border-t border-custom pt-4 text-xs text-text-secondary">
+					<span>Par <strong class="text-text-primary">Le Bureau</strong></span>
+					<a href="#" class="text-custom-orange font-bold uppercase hover:underline">Lire la suite →</a>
+				</div>
+			</article>
+
+			<!-- Article 2 -->
+			<article class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl relative overflow-hidden transition-all hover:border-custom-orange/30">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="inline-block rounded-md bg-sky-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-sky-400">Jeux de Société</span>
+					<span class="text-xs text-text-secondary">28 Avril 2026</span>
+					<span class="text-xs text-text-secondary">• Lecture : 2 min</span>
+				</div>
+				<h2 class="text-xl lg:text-2xl font-bold text-text-primary mb-3 hover:text-custom-orange transition-colors">
+					Soirée Spéciale "Jeux de Plateau Experts" : Préparez vos méninges
+				</h2>
+				<p class="text-text-secondary text-sm leading-relaxed mb-6">
+					Avis aux amateurs de réflexion intense et de stratégie ! Le vendredi 12 mai, nous organisons une soirée dédiée exclusivement aux jeux de société de niveau "expert". Au programme : <em>Ark Nova</em>, <em>Terraforming Mars</em>, <em>Dune: Imperium</em> et <em>Projet Gaia</em>. Des animateurs chevronnés seront présents dès 19h30 à l'Auberge Yves Robert pour expliquer les règles et lancer les parties rapidement. Il reste encore quelques places disponibles, n'oubliez pas de réserver votre soirée sur notre calendrier en ligne.
+				</p>
+				<div class="flex items-center justify-between border-t border-custom pt-4 text-xs text-text-secondary">
+					<span>Par <strong class="text-text-primary">Comité JDS</strong></span>
+					<a href="#" class="text-custom-orange font-bold uppercase hover:underline">Lire la suite →</a>
+				</div>
+			</article>
+
+			<!-- Article 3 -->
+			<article class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl relative overflow-hidden transition-all hover:border-custom-orange/30">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="inline-block rounded-md bg-purple-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-400">Événement Extérieur</span>
+					<span class="text-xs text-text-secondary">12 Avril 2026</span>
+					<span class="text-xs text-text-secondary">• Lecture : 4 min</span>
+				</div>
+				<h2 class="text-xl lg:text-2xl font-bold text-text-primary mb-3 hover:text-custom-orange transition-colors">
+					Retour sur notre week-end au Festival Paris est Ludique !
+				</h2>
+				<p class="text-text-secondary text-sm leading-relaxed mb-6">
+					Un immense merci à toutes les chimères qui sont venues prêter main-forte sur notre stand au festival Paris est Ludique le week-end dernier ! Grâce à votre énergie débordante, nous avons pu initier plus de 80 visiteurs à des scénarios de jeu de rôle flash et présenter nos jeux de société préférés à des dizaines de curieux. Ce fut un formidable moment de partage et de rires. Les photos souvenirs du festival sont disponibles sur notre galerie privée sur Discord. À l'année prochaine !
+				</p>
+				<div class="flex items-center justify-between border-t border-custom pt-4 text-xs text-text-secondary">
+					<span>Par <strong class="text-text-primary">L'Équipe d'Animation</strong></span>
+					<a href="#" class="text-custom-orange font-bold uppercase hover:underline">Lire la suite →</a>
+				</div>
+			</article>
+		</div>
+
+		<!-- Barre latérale / Widgets (1/3 de large) -->
+		<aside class="space-y-6">
+			<!-- Widget Newsletter -->
+			<div class="rounded-2xl border border-custom bg-custom-secondary/40 p-6 shadow-xl">
+				<h3 class="text-lg font-bold text-text-primary mb-3">Ne manquez rien !</h3>
+				<p class="text-text-secondary text-xs leading-relaxed mb-4">
+					Abonnez-vous à notre lettre d'information mensuelle pour recevoir directement par e-mail le récapitulatif des actualités et les ouvertures d'inscriptions aux événements.
+				</p>
+				<form action="{{ path('app_newsletter_subscribe') }}" method="post" data-turbo="false" class="space-y-2">
+					<input type="hidden" name="_token" value="{{ csrf_token('newsletter_subscribe') }}">
+					<input type="email" name="email" placeholder="Votre adresse email..." required class="w-full rounded-lg border border-custom bg-custom-secondary px-4 py-2.5 text-xs text-text-primary focus:border-custom-orange focus:outline-none transition-all">
+					<button type="submit" class="w-full rounded-lg bg-custom-orange py-2 text-xs font-bold text-gray-900 hover:bg-orange-600 transition-all">S'abonner</button>
+				</form>
+			</div>
+
+			<!-- Widget Calendrier Flash -->
+			<div class="rounded-2xl border border-custom bg-custom-secondary/40 p-6 shadow-xl">
+				<h3 class="text-lg font-bold text-text-primary mb-3">Prochains Rendez-vous</h3>
+				<ul class="space-y-3 text-xs">
+					<li class="flex items-start gap-2 border-b border-custom/50 pb-2">
+						<span class="bg-rose-500/10 text-rose-400 font-bold px-1.5 py-0.5 rounded text-[9px] shrink-0 uppercase mt-0.5">JDR</span>
+						<div>
+							<strong class="text-text-primary block">Mardi JDR d'Initiation</strong>
+							<span class="text-text-secondary">Chaque mardi dès 19h30, Yves Robert</span>
+						</div>
+					</li>
+					<li class="flex items-start gap-2 border-b border-custom/50 pb-2">
+						<span class="bg-sky-500/10 text-sky-400 font-bold px-1.5 py-0.5 rounded text-[9px] shrink-0 uppercase mt-0.5">JDS</span>
+						<div>
+							<strong class="text-text-primary block">Soirée Jeux de Plateau</strong>
+							<span class="text-text-secondary">Chaque vendredi dès 19h30, Yves Robert</span>
+						</div>
+					</li>
+					<li class="flex items-start gap-2">
+						<span class="bg-purple-500/10 text-purple-400 font-bold px-1.5 py-0.5 rounded text-[9px] shrink-0 uppercase mt-0.5">GN</span>
+						<div>
+							<strong class="text-text-primary block">Après-midi Murder Party</strong>
+							<span class="text-text-secondary">Un dimanche sur deux dès 14h, Natema</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</aside>
 	</div>
 {% endblock %}

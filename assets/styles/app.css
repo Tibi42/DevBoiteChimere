@@ -355,3 +355,8 @@ html.light-mode .bg-black\/80 {
 #mobile-menu-drawer.menu-open #mobile-menu-content {
     transform: translateX(0);
 }
+
+/* Force high contrast dark text color for accessibility */
+#cookie-accept, #mobile-join-btn, .text-gray-900 {
+    color: #111827 !important;
+}

@@ -1,17 +1,128 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% block title %}Qui sommes-nous - La Boîte à Chimère{% endblock %}
+{% block title %}Qui sommes-nous — Association de Jeux de Rôle et Jeux de Société à Paris{% endblock %}
 
-{% block meta_description %}<meta name="description" content="Découvrez l'histoire et les valeurs de La Boîte à Chimère, association ludique parisienne fondée en 2020 autour des jeux de rôle, jeux de société et GN.">{% endblock %}
+{% block description %}Découvrez l'histoire, les valeurs d'inclusivité et les activités de La Boîte à Chimère, association parisienne dynamique dédiée au jeu de rôle (JDR), jeu de société (JDS), grandeur nature (GN) et figurines.{% endblock %}
 
 {% block page_title %}Qui sommes-nous{% endblock %}
-{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Découvrez notre association ludique parisienne</p>{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">L'histoire, les valeurs et l'équipe derrière votre association ludique parisienne</p>{% endblock %}
 
 {% block content %}
-	<div class="space-y-8">
-		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
-			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-6">Notre histoire</h2>
-			<p class="text-text-secondary leading-relaxed">Contenu à venir.</p>
+	<div class="space-y-12">
+		<!-- Section Introduction / Notre Histoire -->
+		<section class="rounded-2xl border border-custom glass-card p-8 lg:p-10 shadow-xl relative overflow-hidden">
+			<div class="absolute -right-20 -top-20 w-80 h-80 bg-custom-orange/10 rounded-full blur-3xl pointer-events-none"></div>
+			<h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-text-primary mb-6 flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Notre Histoire
+			</h2>
+			<div class="grid md:grid-cols-3 gap-8 items-start">
+				<div class="md:col-span-2 space-y-4 text-text-secondary leading-relaxed text-base">
+					<p>
+						Fondée en <strong>2020</strong> au cœur de Paris, <strong class="text-text-primary">La Boîte à Chimère</strong> est une association loi 1901 née de la volonté d'une poignée de passionnés de démocratiser le jeu sous toutes ses formes. Notre objectif initial était simple : briser l'isolement en créant un lieu d'échange intergénérationnel et chaleureux où se retrouver autour d'une table de jeu.
+					</p>
+					<p>
+						Au fil des ans, l'association s'est développée pour devenir un acteur incontournable de la scène ludique d'Île-de-France. Nous rassemblons aujourd'hui des dizaines d'adhérents réguliers autour d'activités variées, allant du jeu de plateau expert aux campagnes de jeu de rôle au long cours, en passant par des scénarios de Grandeur Nature (GN) immersifs et des ateliers de modélisme.
+					</p>
+					<p>
+						Que vous soyez un joueur aguerri cherchant des partenaires pour un jeu de stratégie complexe de plusieurs heures, ou un parfait débutant curieux de découvrir le plaisir de l'interprétation théâtrale dans un jeu de rôle, vous trouverez toujours une place autour de nos tables conviviales.
+					</p>
+				</div>
+				<div class="rounded-xl border border-custom bg-custom-secondary/40 p-6 space-y-4">
+					<h3 class="text-lg font-bold text-text-primary">L'Association en quelques chiffres</h3>
+					<ul class="space-y-3 text-sm">
+						<li class="flex items-center justify-between border-b border-custom pb-2">
+							<span class="text-text-secondary">Création</span>
+							<strong class="text-custom-orange">Septembre 2020</strong>
+						</li>
+						<li class="flex items-center justify-between border-b border-custom pb-2">
+							<span class="text-text-secondary">Membres actifs</span>
+							<strong class="text-custom-orange">150+ adhérents</strong>
+						</li>
+						<li class="flex items-center justify-between border-b border-custom pb-2">
+							<span class="text-text-secondary">Sessions par semaine</span>
+							<strong class="text-custom-orange">3 à 4 rendez-vous</strong>
+						</li>
+						<li class="flex items-center justify-between">
+							<span class="text-text-secondary">Jeux en bibliothèque</span>
+							<strong class="text-custom-orange">300+ références</strong>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- Section Nos Valeurs -->
+		<section class="space-y-6">
+			<h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-text-primary flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Nos Valeurs
+			</h2>
+			<div class="grid md:grid-cols-3 gap-6">
+				<!-- Valeur 1 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg transition-transform hover:scale-[1.02]">
+					<div class="h-10 w-10 rounded-lg bg-custom-orange/20 flex items-center justify-center text-custom-orange mb-4 text-xl font-bold">1</div>
+					<h3 class="text-xl font-bold text-text-primary mb-3">Inclusivité & Bienveillance</h3>
+					<p class="text-text-secondary text-sm leading-relaxed">
+						Nous croyons fermement que le jeu doit être un espace sûr et accueillant pour tout le monde. Notre charte garantit le respect d'autrui, proscrit tout comportement toxique ou discriminant, et veille à ce que chacun se sente à l'aise, peu importe son genre, son origine ou son expérience.
+					</p>
+				</div>
+				<!-- Valeur 2 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg transition-transform hover:scale-[1.02]">
+					<div class="h-10 w-10 rounded-lg bg-custom-orange/20 flex items-center justify-center text-custom-orange mb-4 text-xl font-bold">2</div>
+					<h3 class="text-xl font-bold text-text-primary mb-3">Pédagogie & Initiation</h3>
+					<p class="text-text-secondary text-sm leading-relaxed">
+						Vous n'avez jamais joué à un jeu de rôle ou vous connaissez seulement le Monopoly ? Pas d'inquiétude ! Nos maîtres de jeu (MJ) et nos animateurs adorent initier les débutants. Nous expliquons les règles avec patience et adaptons nos sessions pour favoriser la découverte en douceur.
+					</p>
+				</div>
+				<!-- Valeur 3 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg transition-transform hover:scale-[1.02]">
+					<div class="h-10 w-10 rounded-lg bg-custom-orange/20 flex items-center justify-center text-custom-orange mb-4 text-xl font-bold">3</div>
+					<h3 class="text-xl font-bold text-text-primary mb-3">Partage & Passion</h3>
+					<p class="text-text-secondary text-sm leading-relaxed">
+						La Boîte à Chimère est gérée bénévolement par ses membres. L'enthousiasme, la transmission de notre passion commune et l'envie de passer un bon moment ensemble sont nos moteurs quotidiens. Venez partager vos coups de cœur ludiques et découvrir ceux des autres !
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Section Nos Activités -->
+		<section class="rounded-2xl border border-custom glass-card p-8 lg:p-10 shadow-xl">
+			<h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-text-primary mb-6 flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Nos Pôles de Jeux
+			</h2>
+			<div class="space-y-6">
+				<div class="flex flex-col md:flex-row gap-6 p-6 rounded-xl bg-custom-secondary/20 border border-custom/50">
+					<div class="md:w-1/4 shrink-0">
+						<span class="inline-block rounded-md bg-rose-500/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-rose-400 mb-2">Jeu de Rôle (JDR)</span>
+						<h3 class="text-lg font-bold text-text-primary">Des mondes imaginaires à portée de voix</h3>
+					</div>
+					<div class="flex-1 text-sm text-text-secondary leading-relaxed">
+						De Donjons & Dragons à l'Appel de Cthulhu, en passant par des jeux indépendants ou narratifs, nos meneurs de jeu vous proposent des one-shots d'initiation et des campagnes régulières. Incarnez un héros et construisez une histoire collaborative en groupe.
+					</div>
+				</div>
+
+				<div class="flex flex-col md:flex-row gap-6 p-6 rounded-xl bg-custom-secondary/20 border border-custom/50">
+					<div class="md:w-1/4 shrink-0">
+						<span class="inline-block rounded-md bg-sky-500/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-sky-400 mb-2">Jeu de Société (JDS)</span>
+						<h3 class="text-lg font-bold text-text-primary">Du rire aux stratégies complexes</h3>
+					</div>
+					<div class="flex-1 text-sm text-text-secondary leading-relaxed">
+						Que vous préfériez les petits jeux d'ambiance rapides et drôles ou les gros jeux de gestion "à l'allemande" nécessitant réflexion et planification, nos soirées jeux de société proposent un large catalogue de titres modernes accessibles à tous les profils de joueurs.
+					</div>
+				</div>
+
+				<div class="flex flex-col md:flex-row gap-6 p-6 rounded-xl bg-custom-secondary/20 border border-custom/50">
+					<div class="md:w-1/4 shrink-0">
+						<span class="inline-block rounded-md bg-amber-500/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-400 mb-2">GN & Modélisme</span>
+						<h3 class="text-lg font-bold text-text-primary">L'incarnation et la création plastique</h3>
+					</div>
+					<div class="flex-1 text-sm text-text-secondary leading-relaxed">
+						L'association organise également des activités de Grandeur Nature (GN, murder parties, soirées enquête), ainsi que des ateliers collaboratifs de peinture de figurines et de décors. Apprenez à peindre vos armées Warhammer ou incarnez physiquement un personnage historique ou fantastique.
+					</div>
+				</div>
+			</div>
 		</section>
 	</div>
 {% endblock %}

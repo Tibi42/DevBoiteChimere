@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Activity;
+use App\Repository\ActivityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -30,7 +32,14 @@ final class StaticPageController extends AbstractController
     public function societes(): Response { return $this->render('societes/index.html.twig'); }
 
     #[Route('/evenements', name: 'app_evenements')]
-    public function evenements(): Response { return $this->render('evenements/index.html.twig'); }
+    public function evenements(ActivityRepository $activityRepository): Response
+    {
+        $activities = $activityRepository->findAllOrderByStartDesc(Activity::STATUS_PUBLISHED, null, null, 'future');
+
+        return $this->render('evenements/index.html.twig', [
+            'activities' => $activities,
+        ]);
+    }
 
     #[Route('/mentions-legales', name: 'app_mentions_legales')]
     public function mentionsLegales(): Response { return $this->render('mentions_legales/index.html.twig'); }

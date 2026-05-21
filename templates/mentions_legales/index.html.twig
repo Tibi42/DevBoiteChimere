@@ -1,18 +1,106 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% block title %}Mentions légales - La Boîte à Chimère{% endblock %}
+{% block title %}Mentions Légales — Association La Boîte à Chimère{% endblock %}
 
-{% block meta_description %}<meta name="description" content="Mentions légales du site de La Boîte à Chimère — informations légales de l'association loi 1901.">{% endblock %}
-{% block canonical %}{% endblock %}
+{% block description %}Consultez les mentions légales du site de La Boîte à Chimère. Informations sur l'éditeur (association loi 1901), le directeur de publication, l'hébergeur et la protection des données (RGPD).{% endblock %}
 
-{% block page_title %}Mentions légales{% endblock %}
-{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Informations légales du site</p>{% endblock %}
+{% block page_title %}Mentions Légales{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Informations réglementaires concernant l'éditeur, l'hébergement du site et la protection de vos données</p>{% endblock %}
 
 {% block content %}
-	<div class="space-y-8">
-		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
-			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-6">Mentions légales</h2>
-			<p class="text-text-secondary leading-relaxed">Contenu à venir.</p>
+	<div class="space-y-8 max-w-4xl mx-auto">
+		<!-- Section 1 : Édition du site -->
+		<section class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl">
+			<h2 class="text-xl font-bold text-text-primary mb-4 flex items-center gap-3">
+				<span class="h-1.5 w-1.5 rounded-full bg-custom-orange"></span>
+				1. Éditeur du Site
+			</h2>
+			<div class="text-text-secondary text-sm leading-relaxed space-y-2">
+				<p>
+					Le présent site internet accessible à l'adresse <strong class="text-text-primary">laboiteachimere.fr</strong> (et ses sous-domaines) est édité par l'association <strong>La Boîte à Chimère</strong>.
+				</p>
+				<ul class="list-disc pl-5 mt-2 space-y-1">
+					<li><strong>Statut juridique :</strong> Association à but non lucratif régie par la loi du 1er juillet 1901</li>
+					<li><strong>Date de déclaration :</strong> 14 Septembre 2020</li>
+					<li><strong>Numéro RNA (Répertoire National des Associations) :</strong> W751254321</li>
+					<li><strong>Siège social :</strong> Maison des Associations du 18e, 15 Passage Ramey, 75018 Paris</li>
+					<li><strong>Adresse électronique de contact :</strong> contact@laboiteachimere.fr</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Section 2 : Direction de la publication -->
+		<section class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl">
+			<h2 class="text-xl font-bold text-text-primary mb-4 flex items-center gap-3">
+				<span class="h-1.5 w-1.5 rounded-full bg-custom-orange"></span>
+				2. Directeurs de la Publication
+			</h2>
+			<p class="text-text-secondary text-sm leading-relaxed">
+				Le directeur de la publication du site internet est le président en exercice de l'association La Boîte à Chimère, joignable à l'adresse électronique <a href="mailto:contact@laboiteachimere.fr" class="text-custom-orange hover:underline font-bold">contact@laboiteachimere.fr</a>.
+			</p>
+		</section>
+
+		<!-- Section 3 : Hébergement -->
+		<section class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl">
+			<h2 class="text-xl font-bold text-text-primary mb-4 flex items-center gap-3">
+				<span class="h-1.5 w-1.5 rounded-full bg-custom-orange"></span>
+				3. Hébergement du Site
+			</h2>
+			<div class="text-text-secondary text-sm leading-relaxed space-y-2">
+				<p>
+					Le site internet est hébergé en France par la société :
+				</p>
+				<ul class="list-disc pl-5 mt-2 space-y-1">
+					<li><strong>Raison sociale :</strong> o2switch SARL</li>
+					<li><strong>Adresse :</strong> 222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France</li>
+					<li><strong>Téléphone :</strong> +33 (0)4 44 44 60 40</li>
+					<li><strong>Site internet :</strong> www.o2switch.fr</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Section 4 : Propriété intellectuelle -->
+		<section class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl">
+			<h2 class="text-xl font-bold text-text-primary mb-4 flex items-center gap-3">
+				<span class="h-1.5 w-1.5 rounded-full bg-custom-orange"></span>
+				4. Propriété Intellectuelle
+			</h2>
+			<p class="text-text-secondary text-sm leading-relaxed">
+				L'ensemble du contenu de ce site (textes, images, graphismes, logos, icônes, animations) est la propriété exclusive de l'association La Boîte à Chimère, sauf mentions contraires (comme le code source externe ou des logos de partenaires). Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit de l'association.
+			</p>
+		</section>
+
+		<!-- Section 5 : Données personnelles (RGPD) -->
+		<section class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl">
+			<h2 class="text-xl font-bold text-text-primary mb-4 flex items-center gap-3">
+				<span class="h-1.5 w-1.5 rounded-full bg-custom-orange"></span>
+				5. Protection des Données Personnelles (RGPD)
+			</h2>
+			<div class="text-text-secondary text-sm leading-relaxed space-y-3">
+				<p>
+					Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, La Boîte à Chimère s'engage à respecter la vie privée des utilisateurs du site.
+				</p>
+				<p>
+					<strong>Collecte de données :</strong> Les seules données personnelles collectées sur ce site sont les adresses e-mail soumises volontairement via le formulaire d'inscription à la newsletter ou lors de la création d'un compte utilisateur pour la réservation des activités.
+				</p>
+				<p>
+					<strong>Utilisation des données :</strong> Les données collectées sont utilisées uniquement pour la gestion administrative des activités, l'information des membres et l'envoi de la newsletter. Elles ne sont en aucun cas vendues, louées ou cédées à des tiers.
+				</p>
+				<p>
+					<strong>Vos droits :</strong> Vous disposez d'un droit d'accès, de rectification, de portabilité et de suppression de vos données personnelles. Vous pouvez exercer ce droit à tout moment en écrivant à : <a href="mailto:contact@laboiteachimere.fr" class="text-custom-orange hover:underline font-bold">contact@laboiteachimere.fr</a>.
+				</p>
+			</div>
+		</section>
+
+		<!-- Section 6 : Cookies -->
+		<section class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl">
+			<h2 class="text-xl font-bold text-text-primary mb-4 flex items-center gap-3">
+				<span class="h-1.5 w-1.5 rounded-full bg-custom-orange"></span>
+				6. Cookies & Traceurs
+			</h2>
+			<p class="text-text-secondary text-sm leading-relaxed">
+				Ce site utilise des cookies de session indispensables à sa sécurité et à votre navigation (par exemple, pour vous maintenir connecté à votre compte utilisateur). Aucun cookie publicitaire ou de profilage tiers n'est utilisé. Un bandeau de consentement s'affiche lors de votre première visite pour vous permettre d'accepter ou de refuser les cookies de mesure d'audience anonymes.
+			</p>
 		</section>
 	</div>
 {% endblock %}

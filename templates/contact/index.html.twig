@@ -1,17 +1,149 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% block title %}Contact - La Boîte à Chimère{% endblock %}
+{% block title %}Contact & Accès — Rejoindre l'Association à Paris{% endblock %}
 
-{% block meta_description %}<meta name="description" content="Contactez La Boîte à Chimère pour toute question sur nos activités, adhésion ou événements. Association ludique parisienne — contact@laboiteachimere.fr.">{% endblock %}
+{% block description %}Contactez La Boîte à Chimère : posez vos questions sur nos adhésions, nos soirées jeux ou JDR. Retrouvez nos adresses à Paris (Yves Robert, Le Natema) et nos accès de transport.{% endblock %}
 
-{% block page_title %}Contact{% endblock %}
-{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Contactez-nous pour toute question</p>{% endblock %}
+{% block page_title %}Contact & Accès{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Toutes les informations pour nous contacter, échanger avec la communauté et nous rendre visite lors de nos soirées</p>{% endblock %}
 
 {% block content %}
-	<div class="space-y-8">
-		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
-			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-6">Nous contacter</h2>
-			<p class="text-text-secondary leading-relaxed">Contenu à venir.</p>
+	<div class="space-y-12">
+		<!-- Grille Contact Email & Réseaux sociaux -->
+		<div class="grid md:grid-cols-2 gap-8">
+			<!-- Carte Contact Direct -->
+			<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl relative overflow-hidden flex flex-col justify-between">
+				<div class="absolute -right-16 -top-16 w-60 h-60 bg-custom-orange/10 rounded-full blur-2xl pointer-events-none"></div>
+				<div>
+					<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-4 flex items-center gap-3">
+						<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+						Nous Contacter
+					</h2>
+					<p class="text-text-secondary text-sm leading-relaxed mb-6">
+						Une question sur les adhésions ? Vous souhaitez proposer une partie de jeu de rôle ou animer une table de jeu de société ? Notre équipe de bénévoles est à votre écoute.
+					</p>
+					<div class="space-y-4">
+						<div class="flex items-center gap-4 p-4 rounded-xl bg-custom-secondary/40 border border-custom">
+							<div class="h-10 w-10 rounded-lg bg-custom-orange/20 flex items-center justify-center text-custom-orange">
+								<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+							</div>
+							<div>
+								<span class="block text-xs text-text-secondary uppercase font-bold tracking-wider">Adresse Email</span>
+								<a href="mailto:contact@laboiteachimere.fr" class="text-text-primary font-bold hover:text-custom-orange transition-colors">contact@laboiteachimere.fr</a>
+							</div>
+						</div>
+						<div class="p-4 rounded-xl bg-custom-secondary/20 border border-custom/50 text-xs text-text-secondary leading-relaxed">
+							<strong class="text-text-primary">Délai de réponse :</strong> Nous sommes une association gérée par des bénévoles sur leur temps libre. Nous nous efforçons de répondre à vos e-mails sous 24 à 48 heures.
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Carte Réseaux Sociaux & Communauté -->
+			<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl flex flex-col justify-between">
+				<div>
+					<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-4 flex items-center gap-3">
+						<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+						Rejoindre la Communauté
+					</h2>
+					<p class="text-text-secondary text-sm leading-relaxed mb-6">
+						Le meilleur moyen d'échanger avec nos membres, de s'organiser pour des parties libres de jeu de rôle hors calendrier officiel, ou simplement de discuter de l'actualité ludique est de rejoindre notre serveur Discord et nos réseaux.
+					</p>
+					<div class="grid grid-cols-2 gap-4">
+						<a href="https://discord.gg/laboiteachimere" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30 hover:bg-indigo-500/20 transition-all text-center group">
+							<span class="text-2xl mb-1 group-hover:scale-110 transition-transform">💬</span>
+							<strong class="text-text-primary text-sm">Discord</strong>
+							<span class="text-[10px] text-text-secondary mt-0.5">Le cœur de nos échanges</span>
+						</a>
+						<a href="https://facebook.com/laboiteachimere" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 hover:bg-blue-500/20 transition-all text-center group">
+							<span class="text-2xl mb-1 group-hover:scale-110 transition-transform">👥</span>
+							<strong class="text-text-primary text-sm">Facebook</strong>
+							<span class="text-[10px] text-text-secondary mt-0.5">Événements & actus</span>
+						</a>
+						<a href="https://instagram.com/laboiteachimere" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-pink-500/10 border border-pink-500/30 hover:bg-pink-500/20 transition-all text-center group">
+							<span class="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</span>
+							<strong class="text-text-primary text-sm">Instagram</strong>
+							<span class="text-[10px] text-text-secondary mt-0.5">Photos de nos soirées</span>
+						</a>
+						<a href="https://github.com/Tibi42/DevBoiteChimere" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-500/10 border border-gray-500/30 hover:bg-gray-500/20 transition-all text-center group">
+							<span class="text-2xl mb-1 group-hover:scale-110 transition-transform">💻</span>
+							<strong class="text-text-primary text-sm">GitHub</strong>
+							<span class="text-[10px] text-text-secondary mt-0.5">Code source du site</span>
+						</a>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- Section Nos Lieux de Rencontre -->
+		<section class="space-y-6">
+			<h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-text-primary flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Nos Lieux de Rencontre à Paris
+			</h2>
+			<div class="grid md:grid-cols-2 gap-8">
+				<!-- Lieu 1 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl flex flex-col justify-between">
+					<div>
+						<div class="flex justify-between items-start mb-4">
+							<span class="inline-block rounded-md bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400">Lieu Principal</span>
+							<span class="text-sm font-bold text-text-secondary">Paris 18e</span>
+						</div>
+						<h3 class="text-xl font-bold text-text-primary mb-3">L'Auberge de Jeunesse Yves Robert</h3>
+						<p class="text-text-secondary text-sm leading-relaxed mb-6">
+							Située dans le quartier moderne de la Halle Pajol, l'Auberge Yves Robert nous accueille dans son espace spacieux et lumineux pour nos soirées hebdomadaires de jeux de société et de jeux de rôle. Un cadre éco-conçu exceptionnel.
+						</p>
+						<ul class="space-y-3 text-xs text-text-secondary mb-6">
+							<li class="flex items-start gap-2">
+								<strong class="text-text-primary shrink-0 w-16">Adresse :</strong>
+								<span>20 Esplanade Nathalie Sarraute, 75018 Paris</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<strong class="text-text-primary shrink-0 w-16">Accès :</strong>
+								<span>Métro Marx Dormoy (Ligne 12) ou La Chapelle (Ligne 2). Gare du Nord (RER / Métro) à 10 min à pied.</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<strong class="text-text-primary shrink-0 w-16">Vélib' :</strong>
+								<span>Station n° 18047 (Esplanade Nathalie Sarraute)</span>
+							</li>
+						</ul>
+					</div>
+					<a href="https://www.openstreetmap.org/?mlat=48.8911&mlon=2.3601#map=17/48.8911/2.3601" target="_blank" rel="noopener noreferrer" class="inline-flex w-full justify-center rounded-lg border border-custom bg-custom-secondary/40 py-2.5 text-xs font-bold text-text-primary hover:bg-custom-orange hover:text-gray-900 transition-all text-center">
+						Voir sur la carte OpenStreetMap
+					</a>
+				</div>
+
+				<!-- Lieu 2 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 lg:p-8 shadow-xl flex flex-col justify-between">
+					<div>
+						<div class="flex justify-between items-start mb-4">
+							<span class="inline-block rounded-md bg-purple-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-400">Lieu Secondaire</span>
+							<span class="text-sm font-bold text-text-secondary">Paris 19e</span>
+						</div>
+						<h3 class="text-xl font-bold text-text-primary mb-3">Le Café Coopératif Natema</h3>
+						<p class="text-text-secondary text-sm leading-relaxed mb-6">
+							Le Natema est un café associatif et familial qui nous ouvre ses portes pour des sessions conviviales de jeux de rôle en petit comité et des après-midis jeux de plateau. L'ambiance y est particulièrement intimiste et chaleureuse.
+						</p>
+						<ul class="space-y-3 text-xs text-text-secondary mb-6">
+							<li class="flex items-start gap-2">
+								<strong class="text-text-primary shrink-0 w-16">Adresse :</strong>
+								<span>39 Rue de l'Ourcq, 75019 Paris</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<strong class="text-text-primary shrink-0 w-16">Accès :</strong>
+								<span>Métro Ourcq ou Crimée (Ligne 7). Tramway T3b (Station Canal de l'Ourcq).</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<strong class="text-text-primary shrink-0 w-16">Vélib' :</strong>
+								<span>Station n° 19005 (Rue de l'Ourcq)</span>
+							</li>
+						</ul>
+					</div>
+					<a href="https://www.openstreetmap.org/?mlat=48.8918&mlon=2.3789#map=17/48.8918/2.3789" target="_blank" rel="noopener noreferrer" class="inline-flex w-full justify-center rounded-lg border border-custom bg-custom-secondary/40 py-2.5 text-xs font-bold text-text-primary hover:bg-custom-orange hover:text-gray-900 transition-all text-center">
+						Voir sur la carte OpenStreetMap
+					</a>
+				</div>
+			</div>
 		</section>
 	</div>
 {% endblock %}

@@ -28,7 +28,7 @@
 	{% set slides = carousel_slides() %}
 	{# ── Hero banner ─────────────────────────────────────────── #}
 	<section class="relative w-full min-h-[320px] lg:min-h-[400px] overflow-hidden">
-		<img src="{{ asset('images/hero/' ~ (block('hero_image') is defined ? block('hero_image') : 'hero.jpg')) }}" alt="" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover">
+		<img src="{{ asset('images/hero/' ~ (block('hero_image') is defined ? block('hero_image') : 'hero.webp')) }}" alt="Bannière de la page {{ block('page_title') is not empty ? block('page_title')|striptags|trim : 'La Boîte à Chimère' }}" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover">
 		<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
 
 		<div class="relative z-10">

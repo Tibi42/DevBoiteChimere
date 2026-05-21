@@ -4,21 +4,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block meta_description %}<meta name="description" content="La Boîte à Chimère — Association parisienne de jeux de rôle, jeux de société, GN et jeux de figurines.">{% endblock %}
+        {% block meta_description %}<meta name="description" content="{% block description %}La Boîte à Chimère — Association parisienne de jeux de rôle, jeux de société, GN et jeux de figurines.{% endblock %}">{% endblock %}
         {% block canonical %}<link rel="canonical" href="{{ app.request.schemeAndHttpHost ~ app.request.pathInfo }}">{% endblock %}
         {# ── Open Graph ── #}
         {% block og_tags %}
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="La Boîte à Chimère">
         <meta property="og:title" content="{{ block('title') }}">
-        <meta property="og:description" content="{% block og_description %}La Boîte à Chimère — Association parisienne de jeux de rôle, jeux de société, GN et jeux de figurines.{% endblock %}">
+        <meta property="og:description" content="{{ block('description') }}">
         <meta property="og:url" content="{{ app.request.uri }}">
-        <meta property="og:image" content="{{ absolute_url(asset('images/hero/hero.jpg')) }}">
+        <meta property="og:image" content="{% block og_image %}{{ absolute_url(asset('images/hero/hero.webp')) }}{% endblock %}">
         <meta property="og:locale" content="fr_FR">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ block('title') }}">
-        <meta name="twitter:description" content="{{ block('og_description') }}">
-        <meta name="twitter:image" content="{{ absolute_url(asset('images/hero/hero.jpg')) }}">
+        <meta name="twitter:description" content="{{ block('description') }}">
+        <meta name="twitter:image" content="{{ block('og_image')|default(absolute_url(asset('images/hero/hero.webp'))) }}">
         {% endblock %}
         {# ── JSON-LD Organisation ── #}
         {% block jsonld %}
@@ -28,7 +28,7 @@
           "@type": "Organization",
           "name": "La Boîte à Chimère",
           "url": "{{ app.request.schemeAndHttpHost }}",
-          "logo": "{{ absolute_url(asset('images/hero/hero.jpg')) }}",
+          "logo": "{{ absolute_url(asset('images/hero/hero.webp')) }}",
           "description": "Association parisienne de jeux de rôle, jeux de société, grandeur nature et jeux de figurines.",
           "address": {
             "@type": "PostalAddress",

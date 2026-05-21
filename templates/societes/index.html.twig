@@ -1,17 +1,162 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% block title %}Sociétés - La Boîte à Chimère{% endblock %}
+{% block title %}Partenaires & Sociétés Associées — La Boîte à Chimère{% endblock %}
 
-{% block meta_description %}<meta name="description" content="Partenaires et sociétés associées à La Boîte à Chimère — l'association ludique parisienne de jeux de rôle, jeux de société et grandeur nature.">{% endblock %}
+{% block description %}Découvrez les boutiques de jeux de société à Paris, les éditeurs de jeux de rôle et les tiers-lieux partenaires de La Boîte à Chimère. Avantages exclusifs pour les adhérents.{% endblock %}
 
-{% block page_title %}Sociétés{% endblock %}
-{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Nos partenaires et sociétés associées</p>{% endblock %}
+{% block page_title %}Nos Partenaires{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Les boutiques de jeux, éditeurs et espaces culturels qui soutiennent notre association et nos membres</p>{% endblock %}
 
 {% block content %}
-	<div class="space-y-8">
+	<div class="space-y-12">
+		<!-- Avantage Adhérent Banner -->
+		<section class="rounded-2xl border border-custom-orange/30 bg-custom-orange/5 p-6 lg:p-8 shadow-xl flex flex-col md:flex-row items-center gap-6 justify-between relative overflow-hidden">
+			<div class="absolute -left-10 -bottom-10 w-40 h-40 bg-custom-orange/10 rounded-full blur-2xl pointer-events-none"></div>
+			<div class="space-y-2">
+				<h2 class="text-xl font-bold text-text-primary flex items-center gap-2">
+					🎁 Avantage Membre : Réductions en Boutique !
+				</h2>
+				<p class="text-text-secondary text-sm max-w-2xl leading-relaxed">
+					En tant que membre adhérent de La Boîte à Chimère, vous bénéficiez de réductions exclusives (généralement <strong>-10%</strong> sur présentation de votre carte d'adhérent) auprès de nos boutiques de jeux partenaires à Paris.
+				</p>
+			</div>
+			<a href="{{ path('app_qui_sommes_nous') }}" class="shrink-0 rounded-lg bg-custom-orange px-5 py-3 text-xs font-bold text-gray-900 hover:bg-orange-600 transition-all text-center">
+				Comment adhérer ?
+			</a>
+		</section>
+
+		<!-- Boutiques Partenaires -->
+		<section class="space-y-6">
+			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Boutiques Spécialisées à Paris
+			</h2>
+			<div class="grid md:grid-cols-3 gap-6">
+				<!-- Boutique 1 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg flex flex-col justify-between hover:border-custom-orange/45 transition-all">
+					<div>
+						<div class="flex justify-between items-center mb-4">
+							<span class="text-xs font-bold text-custom-orange uppercase tracking-wider">Réduction -10%</span>
+							<span class="text-xs text-text-secondary">Paris 13e</span>
+						</div>
+						<h3 class="text-lg font-bold text-text-primary mb-2">Play-in Paris</h3>
+						<p class="text-text-secondary text-xs leading-relaxed mb-4">
+							Une immense boutique spécialisée dans les jeux de société, jeux de rôle, et cartes à collectionner (Magic, Pokémon). Un lieu incontournable avec des espaces de jeu géants.
+						</p>
+					</div>
+					<div class="border-t border-custom pt-4 mt-2 flex items-center justify-between text-[11px] text-text-secondary">
+						<span>Métro Bibliothèque F. Mitterrand</span>
+						<a href="https://www.play-in.com" target="_blank" rel="noopener noreferrer" class="text-custom-orange hover:underline font-bold">Site web</a>
+					</div>
+				</div>
+
+				<!-- Boutique 2 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg flex flex-col justify-between hover:border-custom-orange/45 transition-all">
+					<div>
+						<div class="flex justify-between items-center mb-4">
+							<span class="text-xs font-bold text-custom-orange uppercase tracking-wider">Réduction -10%</span>
+							<span class="text-xs text-text-secondary">Paris 5e</span>
+						</div>
+						<h3 class="text-lg font-bold text-text-primary mb-2">Jeux Descartes</h3>
+						<p class="text-text-secondary text-xs leading-relaxed mb-4">
+							La boutique historique du Quartier Latin. Vous y trouverez un choix colossal de jeux de société modernes, d'accessoires de jeux et de livres de règles de jeux de rôle francophones et anglophones.
+						</p>
+					</div>
+					<div class="border-t border-custom pt-4 mt-2 flex items-center justify-between text-[11px] text-text-secondary">
+						<span>Métro Maubert-Mutualité</span>
+						<a href="https://www.jeuxdescartes.fr" target="_blank" rel="noopener noreferrer" class="text-custom-orange hover:underline font-bold">Site web</a>
+					</div>
+				</div>
+
+				<!-- Boutique 3 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg flex flex-col justify-between hover:border-custom-orange/45 transition-all">
+					<div>
+						<div class="flex justify-between items-center mb-4">
+							<span class="text-xs font-bold text-custom-orange uppercase tracking-wider">Réduction -10%</span>
+							<span class="text-xs text-text-secondary">Créteil</span>
+						</div>
+						<h3 class="text-lg font-bold text-text-primary mb-2">Le Troll Savant</h3>
+						<p class="text-text-secondary text-xs leading-relaxed mb-4">
+							Une charmante boutique de quartier animée par des passionnés qui conseillent avec amour. Un catalogue pointu de nouveautés ludiques et de grands classiques.
+						</p>
+					</div>
+					<div class="border-t border-custom pt-4 mt-2 flex items-center justify-between text-[11px] text-text-secondary">
+						<span>Métro Créteil - Université</span>
+						<a href="https://www.letrollsavant.fr" target="_blank" rel="noopener noreferrer" class="text-custom-orange hover:underline font-bold">Site web</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Éditeurs de Jeux -->
+		<section class="space-y-6">
+			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Éditeurs & Soutiens Ludiques
+			</h2>
+			<div class="grid md:grid-cols-2 gap-6">
+				<!-- Éditeur 1 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg flex items-start gap-4 hover:border-custom-orange/30 transition-all">
+					<div class="h-12 w-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 text-2xl shrink-0">🎲</div>
+					<div>
+						<h3 class="text-lg font-bold text-text-primary mb-1">Black Book Éditions</h3>
+						<p class="text-text-secondary text-xs leading-relaxed mb-2">
+							Leader français de l'édition de jeux de rôle (Pathfinder, Chroniques Oubliées, Shadowrun). Ils soutiennent régulièrement nos événements avec des lots de livres de règles et des scénarios de démonstration.
+						</p>
+						<span class="inline-block text-[10px] text-text-secondary font-bold uppercase">Soutien JDR d'Initiation</span>
+					</div>
+				</div>
+
+				<!-- Éditeur 2 -->
+				<div class="rounded-2xl border border-custom glass-card p-6 shadow-lg flex items-start gap-4 hover:border-custom-orange/30 transition-all">
+					<div class="h-12 w-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl shrink-0">🎭</div>
+					<div>
+						<h3 class="text-lg font-bold text-text-primary mb-1">Iello</h3>
+						<p class="text-text-secondary text-xs leading-relaxed mb-2">
+							Éditeur majeur de jeux de société modernes (King of Tokyo, Code Names, Schotten Totten). Iello fournit des boîtes de démonstration à notre ludothèque associative pour nos soirées hebdomadaires.
+						</p>
+						<span class="inline-block text-[10px] text-text-secondary font-bold uppercase">Fournisseur de Ludothèque</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Lieux Co-op & Partenaires Culturels -->
 		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
-			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-6">Sociétés</h2>
-			<p class="text-text-secondary leading-relaxed">Contenu à venir.</p>
+			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-6 flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Tiers-Lieux & Partenaires Locaux
+			</h2>
+			<div class="grid md:grid-cols-2 gap-8 text-text-secondary text-sm leading-relaxed">
+				<div class="space-y-4">
+					<h3 class="text-lg font-bold text-text-primary">Espaces d'Accueil Associatifs</h3>
+					<p>
+						Nous travaillons main dans la main avec des espaces collaboratifs parisiens soucieux de créer du lien social de proximité. Nos réunions administratives et soirées thématiques se déroulent dans des tiers-lieux engagés et éco-responsables.
+					</p>
+					<p>
+						Nos partenaires logistiques nous permettent d'accueillir des dizaines de participants simultanément dans des conditions de confort et de sécurité optimales.
+					</p>
+				</div>
+				<div class="space-y-4">
+					<h3 class="text-lg font-bold text-text-primary">Nos Tiers-Lieux Partenaires</h3>
+					<ul class="space-y-3">
+						<li class="p-3 rounded-lg bg-custom-secondary/40 border border-custom flex items-center justify-between text-xs">
+							<div>
+								<strong class="text-text-primary block">Auberge de Jeunesse Yves Robert (FUAJ)</strong>
+								<span class="text-text-secondary">Espace éco-conçu et hébergement citoyen</span>
+							</div>
+							<span class="text-emerald-400 font-bold uppercase text-[9px] bg-emerald-500/10 px-2 py-1 rounded">Actif</span>
+						</li>
+						<li class="p-3 rounded-lg bg-custom-secondary/40 border border-custom flex items-center justify-between text-xs">
+							<div>
+								<strong class="text-text-primary block">Le Café Coopératif Natema</strong>
+								<span class="text-text-secondary">Café associatif et culturel de quartier</span>
+							</div>
+							<span class="text-emerald-400 font-bold uppercase text-[9px] bg-emerald-500/10 px-2 py-1 rounded">Actif</span>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</section>
 	</div>
 {% endblock %}

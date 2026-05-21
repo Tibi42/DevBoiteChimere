@@ -1,17 +1,121 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% block title %}Événements - La Boîte à Chimère{% endblock %}
+{% from 'components/_activity_badge.html.twig' import badge as activity_badge %}
 
-{% block meta_description %}<meta name="description" content="Retrouvez tous les événements de La Boîte à Chimère : soirées JDR, soirées jeux de société et après-midi GN à Paris.">{% endblock %}
+{% block title %}Calendrier des Événements, Jeux de Rôle & Société — La Boîte à Chimère{% endblock %}
 
-{% block page_title %}Événements{% endblock %}
-{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Nos événements passés et à venir</p>{% endblock %}
+{% block description %}Retrouvez le calendrier de nos événements et soirées jeux à Paris. Réservez votre place pour nos prochaines sessions de jeu de rôle (JDR) et soirées jeux de société (JDS).{% endblock %}
+
+{% block page_title %}Nos Événements{% endblock %}
+{% block page_subtitle %}<p class="text-lg text-text-secondary max-w-2xl mx-auto">Consultez l'agenda de nos prochaines soirées et réservez votre place en ligne</p>{% endblock %}
 
 {% block content %}
-	<div class="space-y-8">
-		<section class="rounded-2xl border border-custom glass-card p-8 shadow-xl">
-			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary mb-6">Événements</h2>
-			<p class="text-text-secondary leading-relaxed">Contenu à venir.</p>
+	<div class="space-y-12">
+		<!-- Section Explicative des formats -->
+		<section class="grid md:grid-cols-3 gap-6">
+			<div class="rounded-2xl border border-custom glass-card p-6 shadow-md">
+				<span class="inline-block rounded-md bg-rose-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-400 mb-3">Mardi JDR</span>
+				<h3 class="text-lg font-bold text-text-primary mb-2">Soirées Jeu de Rôle</h3>
+				<p class="text-text-secondary text-xs leading-relaxed">
+					Chaque mardi à partir de 19h30, rejoignez-nous pour des sessions de jeu de rôle à l'Auberge de Jeunesse Yves Robert. Initiation ou campagne, nos MJ vous guident.
+				</p>
+			</div>
+			<div class="rounded-2xl border border-custom glass-card p-6 shadow-md">
+				<span class="inline-block rounded-md bg-sky-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-sky-400 mb-3">Vendredi JDS</span>
+				<h3 class="text-lg font-bold text-text-primary mb-2">Soirées Jeux de Société</h3>
+				<p class="text-text-secondary text-xs leading-relaxed">
+					Le vendredi soir est dédié aux jeux de société et de plateau. Venez tester des nouveautés ou des classiques de notre ludothèque, du jeu familial au jeu expert.
+				</p>
+			</div>
+			<div class="rounded-2xl border border-custom glass-card p-6 shadow-md">
+				<span class="inline-block rounded-md bg-purple-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-400 mb-3">GN & Autres</span>
+				<h3 class="text-lg font-bold text-text-primary mb-2">Grandeur Nature & Événements</h3>
+				<p class="text-text-secondary text-xs leading-relaxed">
+					Murder parties, sessions d'enquête grandeur nature et après-midis thématiques un dimanche sur deux au Natema ou en extérieur selon la saison.
+				</p>
+			</div>
+		</section>
+
+		<!-- Liste des événements futurs -->
+		<section class="space-y-6">
+			<h2 class="text-2xl font-bold uppercase tracking-wider text-text-primary flex items-center gap-3">
+				<span class="h-2 w-2 rounded-full bg-custom-orange"></span>
+				Prochains Événements Programmés
+			</h2>
+
+			{% if activities is empty %}
+				<div class="rounded-2xl border border-custom glass-card p-12 text-center max-w-2xl mx-auto space-y-4">
+					<span class="text-4xl">📅</span>
+					<h3 class="text-xl font-bold text-text-primary">Aucun événement officiel planifié pour le moment</h3>
+					<p class="text-text-secondary text-sm leading-relaxed">
+						Nos organisateurs préparent actuellement les prochaines sessions. En attendant, n'hésitez pas à vous connecter sur notre serveur Discord pour rejoindre des parties informelles organisées par les membres de la communauté !
+					</p>
+					<div class="pt-4">
+						<a href="{{ path('app_home') }}" class="inline-flex rounded-lg bg-custom-orange px-5 py-3 text-xs font-bold text-gray-900 hover:bg-orange-600 transition-all">
+							Retour au calendrier général
+						</a>
+					</div>
+				</div>
+			{% else %}
+				<div class="grid md:grid-cols-2 gap-6">
+					{% for activity in activities %}
+						<article class="rounded-2xl border border-custom glass-card p-6 shadow-lg flex flex-col justify-between hover:border-custom-orange/30 transition-colors">
+							<div>
+								<div class="flex justify-between items-start gap-4 mb-3">
+									{% set actType = activity.type|default('Play Test') %}
+									{{ activity_badge(actType) }}
+									<span class="text-sm font-bold text-custom-orange bg-custom-orange/10 px-2.5 py-1 rounded-md shrink-0">
+										{{ activity.startAt|date('d M Y') }}
+									</span>
+								</div>
+
+								<h3 class="text-lg font-bold text-text-primary mb-2 line-clamp-1" title="{{ activity.title }}">{{ activity.title }}</h3>
+								
+								{% if activity.description %}
+									<p class="text-text-secondary text-xs leading-relaxed mb-4 line-clamp-3">{{ activity.description }}</p>
+								{% else %}
+									<p class="text-text-secondary/50 text-xs italic leading-relaxed mb-4">Aucune description fournie pour cet événement.</p>
+								{% endif %}
+
+								<div class="space-y-2 border-t border-custom/50 pt-4 mt-2 text-xs text-text-secondary">
+									<div class="flex items-center gap-2">
+										<span class="text-sm">📍</span>
+										<span><strong>Lieu :</strong> {{ activity.location|default('Non spécifié') }}</span>
+									</div>
+									<div class="flex items-center gap-2">
+										<span class="text-sm">🕒</span>
+										<span><strong>Horaire :</strong> {{ activity.startAt|date('H\\hi') }} {% if activity.endAt %}à {{ activity.endAt|date('H\\hi') }}{% endif %}</span>
+									</div>
+									{% if activity.maxParticipants %}
+										<div class="flex items-center gap-2">
+											<span class="text-sm">👥</span>
+											<span><strong>Places max :</strong> {{ activity.maxParticipants }} participants</span>
+										</div>
+									{% endif %}
+									{% if activity.proposedBy %}
+										<div class="flex items-center gap-2">
+											<span class="text-sm">👤</span>
+											<span><strong>Organisé par :</strong> {{ activity.proposedBy.username|default(activity.proposedBy.email) }}</span>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+
+							<div class="pt-6">
+								{% if activity.startAt > date() %}
+									<button type="button" data-modal-url="{{ path('app_activity_register', { id: activity.id }) }}" class="inline-flex w-full justify-center rounded-lg bg-custom-orange py-3 text-xs font-bold uppercase tracking-wider text-gray-900 transition-all hover:bg-orange-600 cursor-pointer shadow-md">
+										S'inscrire à l'activité
+									</button>
+								{% else %}
+									<span class="inline-flex w-full justify-center rounded-lg bg-custom-tertiary py-3 text-xs font-bold uppercase tracking-wider text-text-secondary cursor-not-allowed text-center border border-custom">
+										Événement Terminé
+									</span>
+								{% endif %}
+							</div>
+						</article>
+					{% endfor %}
+				</div>
+			{% endif %}
 		</section>
 	</div>
 {% endblock %}
